@@ -19,3 +19,10 @@ def bienvenida(request):
     context = {'Articulos': Articulos.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'bienvenida.html', context)
+
+def tabla(request):
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
+    context = {'Articulos': Articulos.objects.all()}
+    #template, el render manda el contexto al template||
+    return render(request, 'tabla.html', context)
+    

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>Bienvenidos al sistema Rie Victoria</h2>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur </p>
+                              <!-- longitud de la tabla, el lenth -->
+    <p>Articulos: {{Articulos|length}}</p>
+
+    <!-- <ul>porque lo va a poner en una lista -->
+        <table class="table table-striped">
+            <!-- fila de una tabla -->
+            {% for p in Articulos %}
+        
+                <tr>
+                    <!-- columna dentro de la fila -->
+                    <td>{{p.id}}</td>
+                    <!-- a href para hacerlo link -->
+                    <td><a href="#">{{p.descripcion}}</a></td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+            
+{% endblock %}
