@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    
+    <div class="subtituloInicio">
+        <p>Descripción de Articulos</p>
+        
+    </div>
+<div>
+    <h5>{{ art.descripcion }}</h5>
+    <table class="table table-striped">
+        <!-- fila de una tabla -->
+        
+    
+            <tr>
+                <tr>
+                    <td><a>Descripción</a></td>
+                    <td class="col-11"><a>{{art.descripcion}}</a></td>
+
+                </tr>
+                <tr>
+                    <td><a>Costo</a></td>
+                    <td><a>{{art.costo}}</a></td>
+
+                </tr>
+                <tr>
+                    <td><a>Precio venta</a></td>
+                    <td><a>{{art.venta}}</a></td>
+
+                </tr>
+                <tr>
+                    <td><a>Cantidad</a></td>
+                    <td><a>{{art.cantidad}}</a></td>
+
+                </tr>
+                <tr>
+                    <td><a>Talle</a></td>
+                    <td><a>{{art.talle}}</a></td>
+
+                </tr>
+                <tr>
+                    <td><a>Tipo de prenda</a></td>
+                    <td><a>{{art.tipoPrenda}}</a></td>
+
+                </tr>
+            
+            </tr>
+            
+        </table>
+
+</div>
+{% endblock %}

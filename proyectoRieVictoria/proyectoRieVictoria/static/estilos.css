@@ -1,0 +1,33 @@
+body {
+    background-color: pink;
+}
+
+.pie {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.tituloInicio{
+    font-family: 'Ysabeau Office', sans-serif;
+    text-align: center;
+    font-size: 60px;
+    line-height:70% ;
+    margin-top: 40px;
+    
+}
+.subtituloInicio {
+    font-family: 'Staatliches', cursive;
+    text-align: left ;
+    font-size: 100px;
+}
+
+
+.flor {
+    height: 100px;
+    width: 100px;
+    background-image: "img/flor.png";
+}
+

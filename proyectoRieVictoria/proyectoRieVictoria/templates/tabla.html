@@ -1,10 +1,15 @@
+
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>Bienvenidos al sistema Rie Victoria</h2>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur </p>
-                              <!-- longitud de la tabla, el lenth -->
-    <p>Articulos: {{Articulos|length}}</p>
+<div class="subtituloInicio">
+    <p >Articulos</p>
+</div>
+
+
+    <!-- longitud de la tabla, el lenth -->
+    <h5>Cantidad total de articulos: {{Articulos|length}}</h5>
+
 
     <!-- <ul>porque lo va a poner en una lista -->
         <table class="table table-striped">
@@ -15,7 +20,7 @@
                     <!-- columna dentro de la fila -->
                     <td>{{p.id}}</td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="#">{{p.descripcion}}</a></td>
+                    <td><a href="/articulos/{{ p.id }}/">{{p.descripcion}}</a></td>
                     
                 </tr>
                 {% endfor %}
