@@ -75,7 +75,9 @@ body {
     margin-left: 40px;
 }
 
-.centrado {
+.centrado { /*para el id y articulo de la tabla*/
     text-align: center;
   }
+
+  
 
