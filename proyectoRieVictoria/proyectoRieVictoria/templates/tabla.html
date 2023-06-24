@@ -8,22 +8,45 @@
 
 
     <!-- longitud de la tabla, el lenth -->
-    <h5>Cantidad total de articulos: {{Articulos|length}}</h5>
+    <div class="descripcionArt">
+        <h4>Total de articulos: {{Articulos|length}}</h4>
+    </div>
+    
 
-
-    <!-- <ul>porque lo va a poner en una lista -->
-        <table class="table table-striped">
-            <!-- fila de una tabla -->
-            {% for p in Articulos %}
+    <div class="contenedorTabla">
+        <div class="col-6">
+    <div>
         
+        <table class="table tablaBorde1 table-condensed table-striped">
+            <!-- fila de una tabla -->
+            <tr>
+                <!-- columna dentro de la fila -->
+            
+                <th class="centrado">Código</th>
+                <th >Descripción</th>
+            
+            </tr>
+            {% for p in Articulos %}
+                
                 <tr>
                     <!-- columna dentro de la fila -->
-                    <td>{{p.id}}</td>
+                    <td class="centrado" >{{p.id}}</td>
                     <!-- a href para hacerlo link -->
                     <td><a href="/articulos/{{ p.id }}/">{{p.descripcion}}</a></td>
                     
                 </tr>
                 {% endfor %}
-            </table>
+        </table>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+   
             
 {% endblock %}

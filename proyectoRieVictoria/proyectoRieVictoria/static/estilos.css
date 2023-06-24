@@ -19,15 +19,63 @@ body {
     
 }
 .subtituloInicio {
-    font-family: 'Staatliches', cursive;
-    text-align: left ;
-    font-size: 100px;
+    font-family: 'Ysabeau Office', sans-serif;
+    text-align: center;
+    font-size: 50px;
+    
 }
 
 
-.flor {
+/* .flor {
     height: 100px;
     width: 100px;
     background-image: "img/flor.png";
+
+  
+} */
+.bienvenida {
+    margin-left: 50;
+    
+    height: 100px;
+    width: 100px;
+  }
+.tablaBorde {
+    border: 1px solid black; /* color de los bordes */
 }
+
+.tablaBorde td:first-child {
+    font-weight: bold; /* Pone en negrita el texto de la primer columna */
+}
+
+.tablaBorde td:nth-child(2) {
+    width: 50%; /*ancho de la segunda columna */
+}
+
+.tablaBorde1 {
+    border: 1px solid black; /* color de los bordes */
+}
+
+.tablaBorde1 td:first-child {
+    font-weight: bold; /* Pone en negrita el texto de la primer columna */
+}
+
+.tablaBorde1 td:nth-child(2) {
+    width: 50%; /*ancho de la segunda columna */
+}
+
+.contenedorTabla {
+    display: flex;
+    
+    justify-content: center;
+    
+}
+
+.descripcionArt{
+    font-family: 'Ysabeau Office', sans-serif;
+    margin-left: 40px;
+}
+
+.centrado {
+    text-align: center;
+  }
 
