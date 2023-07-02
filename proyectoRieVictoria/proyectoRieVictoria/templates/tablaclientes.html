@@ -1,20 +1,18 @@
-
 {% extends "base.html" %}
 {% block content %}
 
 <div class="subtituloInicio">
-    <p >Articulos</p>
+    <p >Clientes</p>
 </div>
 
 
     <!-- longitud de la tabla, el lenth -->
-    <div class="descripcionArt">
-        <h4>Total de articulos: {{Articulos|length}}</h4>
+    <div class="descripcionClie">
+        <h4>Total de clientes: {{Clientes|length}}</h4>
     </div>
 
-
     <div class="contenedorTabla">
-        <div class="col-6">
+        <div class="col-5">
     <div>
 
         <table class="table tablaBorde1 table-condensed table-striped">
@@ -26,13 +24,13 @@
                 <th >Descripción</th>
 
             </tr>
-            {% for p in Articulos %}
+            {% for p in Clientes %}
 
                 <tr>
                     <!-- columna dentro de la fila -->
                     <td class="centrado" >{{p.id}}</td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="/articulos/{{ p.id }}/">{{p.descripcion}}</a></td>
+                    <td><a href="/clientes/{{ p.id }}/">{{p.nombre}}</a></td>
 
                 </tr>
                 {% endfor %}
@@ -41,11 +39,5 @@
     </div>
     </div>
     </div>
-
-
-
-
-
-
 
 {% endblock %}

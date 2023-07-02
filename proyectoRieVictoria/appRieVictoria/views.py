@@ -9,13 +9,15 @@ def index(request):
 def contador(request):
     mensaje = f"<html><h2> Bienvenidos al sistema Rie Victoria</h2>"\
     f"<p> Este es un sistema de control de stock</p></html>"\
-    f"<p>En el sistema hay {Articulos.objects.count()}articulos cargados</p></html>"
+    f"<p>En el sistema hay {Articulos.objects.count()}articulos cargados</p></html>"\
+    f"<p>En el sistema hay {Clientes.objects.count ()}clientes cargados.</p><html>"
     return HttpResponse(mensaje)
 
 #DE PRUEBA
 def bienvenida(request):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'Articulos': Articulos.objects.all()}
+    {'Clientes': Clientes.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'bienvenida.html', context)
 
@@ -23,7 +25,7 @@ def bienvenida(request):
 def tabla(request):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'Articulos': Articulos.objects.all()}
-    #template, el render manda el contexto al template||
+     #template, el render manda el contexto al template||
     return render(request, 'tabla.html', context)
 
 #pk es la referencia al id del articulo
@@ -34,10 +36,14 @@ def articulos(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'articulos.html', context)
 
-def clientes(request, pk):
+def tablaclientes (request):
+    context= {'Clientes': Clientes.objects.all()}
+    return render (request, 'tablaclientes.html', context)
+
+def clientes(request,pk):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-    client= Clientes.objects.get (id,pk)
-    context =  {'client' : client}
+    cli =Clientes.objects.get(id=pk)
+    context =  {'cli' : cli}
     #{'Clientes': Clientes.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'clientes.html', context)
