@@ -24,7 +24,6 @@ class Compras(models.Model):
     articulos = models.ManyToManyField("Articulos" ,related_name='articulos_comprados', through="compraProd")
     def __str__(self) -> str:
         return str(self.idProveedor)
-    
 
 class Clientes (models.Model):
     nombre = models.CharField(max_length=100, help_text= 'Nombre del cliente')
@@ -38,16 +37,16 @@ class Clientes (models.Model):
 class Ventas(models.Model):
     idEmpleado = models.ForeignKey(Empleados, on_delete=models.CASCADE,verbose_name="Empleado")
     idClientes = models.ForeignKey(Clientes, on_delete=models.CASCADE,verbose_name="Cliente")
-    fecha = models.DateField(help_text="Fecha de venta",verbose_name="Fecha") 
+    fecha = models.DateField(help_text="Fecha de venta",verbose_name="Fecha")
     articulos = models.ManyToManyField("Articulos" ,related_name='ventas_productos', through="ventaProd")
     tipoFactura =models.ForeignKey("tipoFactura", on_delete=models.CASCADE, default=1, verbose_name="Tipo de Factura")
-   
-    
+
+
 class tipoFactura(models.Model):
     descripcion =models.CharField( max_length= 2,help_text= 'Tipo de factura')
     def __str__(self) -> str:
         return str(self.descripcion)
-    
+
 class Articulos (models.Model):
     descripcion = models.CharField( max_length= 100,help_text= 'Descripcion del articulo')
     costo = models.DecimalField(max_digits=10, decimal_places=2)
@@ -60,12 +59,12 @@ class Articulos (models.Model):
 
     def __str__(self) -> str:
         return str(self.descripcion)
-    
+
 class TipoPrenda (models.Model):
     descripcion =models.CharField( max_length= 60,help_text= 'Tipo de articulo')
     def __str__(self) -> str:
         return str(self.descripcion)
-    
+
 
 class compraProd(models.Model):
     idCompra = models.ForeignKey(Compras,on_delete=models.CASCADE)
@@ -75,7 +74,7 @@ class compraProd(models.Model):
 
     def __str__(self) -> str:
         return str(self.idCompra)
-    
+
 
 class ventaProd(models.Model):
     idVenta = models.ForeignKey(Ventas, on_delete= models.CASCADE)

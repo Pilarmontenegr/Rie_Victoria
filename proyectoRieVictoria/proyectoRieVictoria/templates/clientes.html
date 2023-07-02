@@ -5,11 +5,44 @@
 
 <div class="subtituloInicio">
     <p >Clientes</p>
-   
-    
+
+
 </div>
 
-    
-    
-            
+<div class="contenedorTabla">
+    <div class="col-5">
+<div>
+    <div class="descripcionClien">
+        <h4>{{ client.descripcion }}</h4>
+    </div>
+    <table class="table tablaBorde table-condensed table-striped">
+        <!-- fila de una tabla -->
+        <tr>
+            <td>Nombre: </td>
+            <td>{{client.nombre}}</td>
+        </tr>
+        <tr>
+            <td>Dirección: </td>
+            <td> {{client.direccion}}</td>
+        </tr>
+        <tr>
+            <td>DNI: </td>
+            <td>{{client.DNI}}</td>
+        </tr>
+        <tr>
+            <td>Teléfono: </td>
+            <td>{{client.telefono}}</td>
+        </tr>
+        <tr>
+            <td>Empleados: </td>
+            <td>{{client.empleados}}</td>
+        </tr>
+        </tr>
+    </table>
+</div>
+</div>
+</div>
+
+
+
 {% endblock %}

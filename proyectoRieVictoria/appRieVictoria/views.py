@@ -14,14 +14,14 @@ def contador(request):
 
 #DE PRUEBA
 def bienvenida(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'Articulos': Articulos.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'bienvenida.html', context)
 
 
 def tabla(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'Articulos': Articulos.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'tabla.html', context)
@@ -29,25 +29,27 @@ def tabla(request):
 #pk es la referencia al id del articulo
 def articulos(request, pk):
     art = Articulos.objects.get(id=pk)
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'art': art}
     #template, el render manda el contexto al template||
-    return render(request, 'articulos.html', context)  
+    return render(request, 'articulos.html', context)
 
-def clientes(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
-    context = {'Clientes': Clientes.objects.all()}
+def clientes(request, pk):
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
+    client= Clientes.objects.get (id,pk)
+    context =  {'client' : client}
+    #{'Clientes': Clientes.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'clientes.html', context)
 
 def empleados(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'Empleados': Empleados.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'empleados.html', context)
 
 def proveedores(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar                                 
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'proveedores': Empleados.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'proveedores.html', context)
