@@ -13,4 +13,5 @@ urlpatterns = [path ('',views.index, name='index'),
                path ('tablaCompras/',views.tablaCompras, name='tablaCompras'),
                path ('compras/<int:pk>/',views.compras, name='compras'),
                path ('tablaVentas/',views.tablaVentas, name='tablaVentas'),
+               path ('ventas/<int:pk>/',views.ventas, name='ventas'),
                ]

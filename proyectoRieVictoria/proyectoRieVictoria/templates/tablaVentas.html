@@ -25,13 +25,13 @@
                 <th >Descripción</th>
 
             </tr>
-            {% for p in Compras %}
+            {% for p in Ventas %}
 
                 <tr>
                     <!-- columna dentro de la fila -->
                     <td class="centrado" >{{p.id}}</td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="/compras/{{ p.id }}/">{{p.idProveedor}}</a></td>
+                    <td><a href="/ventas/{{ p.id }}/">{{p.fecha}}</a></td>
 
                 </tr>
                 {% endfor %}
