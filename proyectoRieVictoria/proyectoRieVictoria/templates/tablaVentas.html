@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="subtituloInicio">
+    <p >Ventas</p>
+</div>
+
+
+    <!-- longitud de la tabla, el lenth -->
+    <div class="descripcionArt">
+        <h4>Total de ventas: {{Ventas|length}}</h4>
+    </div>
+
+
+    <div class="contenedorTabla">
+        <div class="col-6">
+    <div>
+
+        <table class="table tablaBorde1 table-condensed table-striped">
+            <!-- fila de una tabla -->
+            <tr>
+                <!-- columna dentro de la fila -->
+
+                <th class="centrado">Código</th>
+                <th >Descripción</th>
+
+            </tr>
+            {% for p in Compras %}
+
+                <tr>
+                    <!-- columna dentro de la fila -->
+                    <td class="centrado" >{{p.id}}</td>
+                    <!-- a href para hacerlo link -->
+                    <td><a href="/compras/{{ p.id }}/">{{p.idProveedor}}</a></td>
+
+                </tr>
+                {% endfor %}
+        </table>
+
+    </div>
+    </div>
+    </div>
+{% endblock %}
