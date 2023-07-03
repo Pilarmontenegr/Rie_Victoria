@@ -70,7 +70,7 @@ class compraProd(models.Model):
     idCompra = models.ForeignKey(Compras,on_delete=models.CASCADE)
     idArticulos = models.ForeignKey(Articulos, on_delete=models.CASCADE)
     cantidad = models.BigIntegerField(help_text='cantidad de articulos')
-    precio=models.DecimalField(max_digits=50, decimal_places=50)
+    precio=models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self) -> str:
         return str(self.idCompra)
@@ -80,7 +80,7 @@ class ventaProd(models.Model):
     idVenta = models.ForeignKey(Ventas, on_delete= models.CASCADE)
     idArticulos = models.ForeignKey(Articulos,on_delete=models.CASCADE)
     cantidad = models.BigIntegerField(help_text='Cantidad de ventas')
-    precio = models.DecimalField(max_digits=50, decimal_places=50)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self) -> str:
         return str(self.idVenta)

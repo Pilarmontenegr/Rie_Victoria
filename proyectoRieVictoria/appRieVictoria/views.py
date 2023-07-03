@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Articulos, Empleados, Proveedores, Clientes
+from .models import Articulos, Empleados, Proveedores, Clientes, Compras , compraProd
 
 def index(request):
     return render(request, 'index.html')
@@ -59,3 +59,18 @@ def proveedores(request):
     context = {'proveedores': Empleados.objects.all()}
     #template, el render manda el contexto al template||
     return render(request, 'proveedores.html', context)
+
+def tablaCompras(request):
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
+    context = {'Compras': Compras.objects.all()}
+     #template, el render manda el contexto al template||
+    return render(request, 'tablaCompras.html', context)
+
+#pk es la referencia al id del articulo
+def compras(request, pk):
+    com = Compras.objects.get(id=pk)
+    arts = compraProd.objects.filter(idCompra_id=pk)
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
+    context = {'com': com, 'arts':arts}
+    #template, el render manda el contexto al template||
+    return render(request, 'compras.html', context)

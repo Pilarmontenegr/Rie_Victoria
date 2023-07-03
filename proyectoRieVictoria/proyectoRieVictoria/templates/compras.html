@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="subtituloInicio">
+    <p >Compras</p>
+</div>
+<div class="contenedorTabla">
+    <div class="col-5">
+<div>
+    <div class="descripcionClie">
+        <h4>{{ com.idProveedor }}</h4>
+    </div>
+    <table class="table tablaBorde table-condensed table-striped">
+        <!-- fila de una tabla -->
+        <tr>
+            <td>Proveedor: </td>
+            <td>{{com.idProveedor}}</td>
+        </tr>
+        <tr>
+            <td>Empleada: </td>
+            <td> {{com.idEmpleado}}</td>
+        </tr>
+        <tr>
+            <td>Fecha: </td>
+            <td>{{com.fecha}}</td>
+        </tr>
+        <tr>
+            <td>Articulos Comprados: </td>
+            <td><ul>
+                {% for art in arts %}
+                <li>{{ art.idArticulos }}</li>
+                {% endfor %}
+            </ul></td>
+        </tr>
+        <tr>
+    </table>
+</div>
+</div>
+</div>
+
+
+
+{% endblock %}
+

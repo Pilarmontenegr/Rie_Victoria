@@ -10,4 +10,6 @@ urlpatterns = [path ('',views.index, name='index'),
                path ('clientes/<int:pk>/',views.clientes, name='clientes'),
                path ('empleados/',views.empleados, name='empleados'),
                path ('proveedores/',views.proveedores, name='proveedores'),
+               path ('tablaCompras/',views.tablaCompras, name='tablaCompras'),
+               path ('compras/<int:pk>/',views.compras, name='compras'),
                ]
