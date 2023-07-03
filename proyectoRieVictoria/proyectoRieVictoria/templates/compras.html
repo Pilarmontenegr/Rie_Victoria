@@ -28,7 +28,7 @@
             <td>Articulos Comprados: </td>
             <td><ul>
                 {% for art in arts %}
-                <li>{{ art.idArticulos }}</li>
+                <li>{{ art.idArticulos }} Cantidad: {{art.cantidad}}</li>
                 {% endfor %}
             </ul></td>
         </tr>

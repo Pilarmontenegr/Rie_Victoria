@@ -12,4 +12,5 @@ urlpatterns = [path ('',views.index, name='index'),
                path ('proveedores/',views.proveedores, name='proveedores'),
                path ('tablaCompras/',views.tablaCompras, name='tablaCompras'),
                path ('compras/<int:pk>/',views.compras, name='compras'),
+               path ('tablaVentas/',views.tablaVentas, name='tablaVentas'),
                ]
