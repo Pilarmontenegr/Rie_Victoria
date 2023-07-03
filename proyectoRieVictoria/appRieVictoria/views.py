@@ -59,11 +59,16 @@ def empleados(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'empleados.html', context)
 
-def proveedores(request):
+def proveedores(request, pk):
+    prov = Proveedores.objects.get(id=pk)
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-    context = {'proveedores': Empleados.objects.all()}
+    context = {'prov': prov}
     #template, el render manda el contexto al template||
     return render(request, 'proveedores.html', context)
+
+def tablaproveedores (request):
+    context= {'Proveedores': Proveedores.objects.all()}
+    return render (request, 'tablaproveedores.html', context)
 
 def tablaCompras(request):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
