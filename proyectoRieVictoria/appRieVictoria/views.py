@@ -48,9 +48,14 @@ def clientes(request,pk):
     #template, el render manda el contexto al template||
     return render(request, 'clientes.html', context)
 
-def empleados(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
+def tablaempleados(request):
     context = {'Empleados': Empleados.objects.all()}
+    return render (request, 'tablaempleados.html', context)
+
+def empleados(request, pk):
+    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar}
+    empl = Empleados.objects.get(id=pk)
+    context = {'empl': empl}
     #template, el render manda el contexto al template||
     return render(request, 'empleados.html', context)
 
