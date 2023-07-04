@@ -35,9 +35,12 @@ body {
 } */
 .bienvenida {
     margin-left: 50;
-
+    background-image: url(img/RV3.png); 
     height: 100px;
     width: 100px;
+    float: left;
+    text-indent: 0em;
+    margin-top: -25%;
   }
 .tablaBorde {
     border: 1px solid black; /* color de los bordes */
