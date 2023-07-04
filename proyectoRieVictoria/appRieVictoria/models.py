@@ -12,6 +12,9 @@ class Proveedores(models.Model):
 
 class Empleados(models.Model):
     nombre = models.CharField(max_length=50, help_text="Nombre del empleado",verbose_name="Nombre")
+    direccion = models.CharField(max_length=100, help_text='Direccion del empleado')
+    Email = models.EmailField(help_text="Email del empleado")
+    telefono = models.PositiveBigIntegerField(help_text='Telefono del empleado')
     proveedores = models.ManyToManyField("Proveedores" ,related_name='venden_a_empleados', through="Compras")
     clientes = models.ManyToManyField("Clientes" ,related_name='empleados_relacionados', through="Ventas")
     def __str__(self) -> str:

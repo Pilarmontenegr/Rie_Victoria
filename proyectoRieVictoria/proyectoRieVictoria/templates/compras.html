@@ -24,15 +24,19 @@
             <td>Fecha: </td>
             <td>{{com.fecha}}</td>
         </tr>
+        
+    </table>
+    <table class="table tablaBorde table-condensed table-striped">
         <tr>
             <td>Articulos Comprados: </td>
             <td><ul>
                 {% for art in arts %}
-                <li>{{ art.idArticulos }} Cantidad: {{art.cantidad}}</li>
+                <li>{{ art.idArticulos }} </li>
+                 Cantidad: {{art.cantidad}} </br>
+                 Costo por unidad: ${{art.precio}}
                 {% endfor %}
             </ul></td>
         </tr>
-        <tr>
     </table>
 </div>
 </div>

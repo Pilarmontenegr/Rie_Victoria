@@ -29,21 +29,22 @@
             <td>{{ven.tipoFactura}}</td>
         </tr>
         <tr>
-            <td>Articulos Comprados: </td>
+    </table>
+    <table class="table tablaBorde table-condensed table-striped">
+        <tr>
+            <td>Articulos Vendidos: </td>
             <td><ul>
-                {% for art in arts %}
-                <li>{{ ventProd.idArticulos }} Cantidad: {{ventProd.cantidad}} Precio: {{ventProd.precio}}</li>
+                {% for art in ventProd %}
+                <li>{{art.idArticulos}} </li>
+                  Cantidad: {{art.cantidad}} </br>
+                 Precio: {{art.precio}}
                 {% endfor %}
             </ul></td>
         </tr>
-        <tr>
     </table>
 </div>
 </div>
 </div>
-
-
-
 {% endblock %}
 
 
