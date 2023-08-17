@@ -36,6 +36,54 @@ def articulos(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'articulos.html', context)
 
+
+def articulosLista(request):
+    articulos = Articulos.objects.all()
+    context = {"articulos": articulos}
+    return render(request, "articulosLista.html", context)
+def ArticulosModif(request, pk):
+    Articulos = Articulos.objects.get(descripcion=pk)
+    if request.method == 'POST':
+        descripcion = request.POST.get('descripcion')
+        costo = request.POST.get('costo')
+        venta = request.POST.get('venta')
+        cantidad = request.POST.get('cantidad')
+        talle = request.POST.get('talle')
+        tipoPrenda= request.POST.get('tipoPrenda')
+        articulos.descripcion = descripcion
+        articulos.costo = costo
+        articulos.venta = venta
+        articulos.cantidad= cantidad
+        articulos.talle = talle
+        articulos.tipoPrenda = tipoPrenda
+       
+        return HttpResponseRedirect(reverse('articulosLista'))
+    return render(request, "articulosForm.html", {'articulos': articulos})
+
+
+def ArticulosNuevo(request):
+    if request.method == 'POST':
+        descripcion = request.POST.get('descripcion')
+        costo = request.POST.get('costo')
+        venta = request.POST.get('venta')
+        cantidad = request.POST.get('cantidad')
+        talle = request.POST.get('talle')
+        tipoPrenda = request.POST.get('tipoPrenda')
+        Articulos.objects.create(descripcion=descripcion, costo=costo, cantidad=cantidad, venta=venta, \
+                                 talle = talle, tipoPrenda=tipoPrenda)
+        return HttpResponseRedirect(reverse('articulosLista'))
+    return render(request, "articulos.html")
+
+
+def ArticulosBorrar(request, pk):
+    Articulos = Articulos.objects.get(descripcion=pk)
+    if request.method == 'POST':
+        articulos.delete()
+        return HttpResponseRedirect(reverse('articulosLista'))
+    return render(request, 'articulosConfBorrar.html', {'articulos': articulos})
+
+
+
 def tablaclientes (request):
     context= {'Clientes': Clientes.objects.all()}
     return render (request, 'tablaclientes.html', context)
