@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row">
+        <h3 class="col display-4 my-3">Articulos</h3>
+        <div class="col d-flex justify-content-end align-items-end mb-3">
+            <a class="btn btn-outline-primary" href="/articulos/ArticulosNuevo/">Nuevo Articulo</a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="bg-dark text-light">
+            <th>descripcion</th>
+            <th>costo</th>
+            <th class="d-none d-sm-table-cell">salario</th>
+            <th></th>
+        </thead>
+        <tbody>
+        {% for p in camioneros %}
+            <tr>
+                <td><a href="/camioneros/camioneroModif/{{ p.dni }}">{{ p.dni }}</a></td>
+                <td>{{ p.apeynom }}</td>
+                <td class="d-none d-sm-table-cell">{{ p.salario }}</td>
+                <td class="d-flex justify-content-end align-items-end"><a class="btn btn-outline-danger" href="/camioneros/camioneroBorrar/{{ p.dni }}">Borrar</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
