@@ -29,5 +29,7 @@ admin.site.register(TipoPrenda)
 admin.site.register(tipoFactura)
 
 
-
+admin.site.site_header = 'Rie Victoria'
+admin.site.site_title = 'Rie Victoria'
+admin.site.index_title = 'Rie Victoria'
 
