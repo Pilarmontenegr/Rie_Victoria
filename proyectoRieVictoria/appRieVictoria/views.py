@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import Articulos, Empleados, Proveedores, Clientes, Compras , compraProd, Ventas, ventaProd
-
+from .forms import ProveedoresForm
 def index(request):
     return render(request, 'index.html')
 
@@ -108,12 +108,51 @@ def empleados(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'empleados.html', context)
 
+
+
+
+
 def proveedores(request, pk):
     prov = Proveedores.objects.get(id=pk)
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'prov': prov}
     #template, el render manda el contexto al template||
     return render(request, 'proveedores.html', context)
+
+def ProveedoresModif(request, pk):
+    proveedores = Proveedores.objects.get(nombre=pk)
+    if request.method == 'POST':
+        form = ProveedoresForm(request.POST, instance=proveedores)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaproveedores'))
+    else:
+        form = ProveedoresForm(instance=proveedores)
+    return render(request, 'ProveedoresForm.html', {'form': form, 'proveedores': proveedores})
+
+
+def ProveedoresNuevo(request):
+    if request.method == 'POST':
+        form = ProveedoresForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaproveedores'))
+    else:
+        form = ProveedoresForm()
+    return render(request, 'ProveedoresForm.html', {'form': form})
+
+
+def ProveedoresBorrar(request, pk):
+    proveedores = Proveedores.objects.get(matricula=pk)
+    if request.method == 'POST':
+        proveedores.delete()
+        return HttpResponseRedirect(reverse('tablaproveedores'))
+    return render(request, 'camionConfBorrar.html', {'proveedores': proveedores})
+
+
+
+
+
 
 def tablaproveedores (request):
     context= {'Proveedores': Proveedores.objects.all()}
