@@ -38,7 +38,7 @@ def articulos(request, pk):
     return render(request, 'articulos.html', context)
 
 
-def articulosLista(request):
+def ArticulosLista(request):
     articulos = Articulos.objects.all()
     context = {"articulos": articulos}
     return render(request, "articulosLista.html", context)

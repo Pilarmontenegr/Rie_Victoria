@@ -16,8 +16,13 @@ urlpatterns = [path ('',views.index, name='index'),
                path ('compras/<int:pk>/',views.compras, name='compras'),
                path ('tablaVentas/',views.tablaVentas, name='tablaVentas'),
                path ('ventas/<int:pk>/',views.ventas, name='ventas'),
+<<<<<<< HEAD
                
                path('proveedores/ProveedoresNuevo/', views.ProveedoresNuevo, name='ProveedoresNuevo'),
                path('proveedores/ProveedoresModif/<str:pk>/', views.ProveedoresModif, name='ProveedoresModif'),
                path('proveedores/ProveedoresBorrar/<str:pk>/', views.ProveedoresBorrar, name='ProveedoresBorrar'),
                ]
+=======
+               ] 
+
+>>>>>>> 8351b7fc631f7d728f7c05ea79902569f91eb6b1
