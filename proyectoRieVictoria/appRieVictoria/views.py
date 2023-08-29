@@ -120,7 +120,7 @@ def proveedores(request, pk):
     return render(request, 'proveedores.html', context)
 
 def ProveedoresModif(request, pk):
-    proveedores = Proveedores.objects.get(nombre=pk)
+    proveedores = Proveedores.objects.get(pk=pk)
     if request.method == 'POST':
         form = ProveedoresForm(request.POST, instance=proveedores)
         if form.is_valid():
@@ -143,7 +143,7 @@ def ProveedoresNuevo(request):
 
 
 def ProveedoresBorrar(request, pk):
-    proveedores = Proveedores.objects.get(matricula=pk)
+    proveedores = Proveedores.objects.get(pk=pk)
     if request.method == 'POST':
         proveedores.delete()
         return HttpResponseRedirect(reverse('tablaproveedores'))
