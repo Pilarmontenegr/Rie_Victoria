@@ -147,7 +147,7 @@ def ProveedoresBorrar(request, pk):
     if request.method == 'POST':
         proveedores.delete()
         return HttpResponseRedirect(reverse('tablaproveedores'))
-    return render(request, 'camionConfBorrar.html', {'proveedores': proveedores})
+    return render(request, 'proveedoresConfBorrar.html', {'proveedores': proveedores})
 
 
 

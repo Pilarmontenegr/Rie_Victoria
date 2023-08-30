@@ -1,7 +1,7 @@
 from django.db import models
 
 class Proveedores(models.Model):
-    nombre = models.CharField(max_length=50, help_text="Nombre del proveedor",verbose_name="Nombre")
+    nombre = models.CharField(max_length=25, help_text="Nombre del proveedor",verbose_name="Nombre")
     direccion = models.CharField(max_length=100, help_text="Direccion del proveedor",verbose_name="Dirección")
     Email = models.EmailField(help_text="Email del proveedor")
     cuit = models.PositiveBigIntegerField(help_text="Cuit del proveedor",verbose_name="Cuit")

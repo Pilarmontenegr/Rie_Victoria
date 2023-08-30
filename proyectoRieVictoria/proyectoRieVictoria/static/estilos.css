@@ -77,9 +77,11 @@ body {
 .contenedorTabla {
     display: flex;
 
-    justify-content: center;
+    justify-content:flex-end;
 
 }
+
+
 
 .descripcionArt{
     font-family: 'Red Hat Display', sans-serif;
