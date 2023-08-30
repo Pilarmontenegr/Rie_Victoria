@@ -36,6 +36,7 @@ class Clientes (models.Model):
     empleados = models.ManyToManyField("Empleados" ,related_name='clientes_relacionados', through="Ventas")
     def __str__(self) -> str:
         return str(self.nombre)
+        
 
 class Ventas(models.Model):
     idEmpleado = models.ForeignKey(Empleados, on_delete=models.CASCADE,verbose_name="Empleado")
