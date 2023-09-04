@@ -5,14 +5,14 @@
     <p >Empleados</p>
 </div>
 
-
-    <!-- longitud de la tabla, el lenth -->
-    <div class="descripcionEmpl">
-        <h4>Total de empleados: {{Empleados|length}}</h4>
+<div class="row">
+    <div class="col d-flex justify-content-end aling-items-end mb-3 col-10">
+    <a class="btn btn-outline-primary" href="/empleados/EmpleadosNuevo{{ p.id}}">Nuevo Empleado</a></td>
     </div>
+</div>
 
     <div class="contenedorTabla">
-        <div class="col-3">
+        <div class="col-8">
     <div>
 
         <table class="table tablaBorde1 table-condensed table-striped">
@@ -20,17 +20,28 @@
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th class="centrado">Código</th>
-                <th >Descripción</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th></th>
 
             </tr>
             {% for p in Empleados %}
 
                 <tr>
-                    <!-- columna dentro de la fila -->
-                    <td class="centrado" >{{p.id}}</td>
+                    <td class="centrado"><a href="/empleados/EmpleadosModif/{{ p.id }}/">{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="/empleados/{{ p.id }}/">{{p.nombre}}</a></td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.direccion }}</td>
+                    <td>{{ p.Email }}</td>
+                    <td>{{ p.telefono }}</td>
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-danger" href="/empleados/EmpleadosBorrar/{{ p.id}}">Borrar</a>
+                        </div>
+                    </td>
 
                 </tr>
                 {% endfor %}

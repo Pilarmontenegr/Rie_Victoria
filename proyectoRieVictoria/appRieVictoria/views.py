@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import Articulos, Empleados, Proveedores, Clientes, Compras , compraProd, Ventas, ventaProd
-from .forms import ProveedoresForm
+from .forms import ProveedoresForm , EmpleadosForm , ClientesForm
 def index(request):
     return render(request, 'index.html')
 
@@ -89,6 +89,8 @@ def tablaclientes (request):
     context= {'Clientes': Clientes.objects.all()}
     return render (request, 'tablaclientes.html', context)
 
+
+
 def clientes(request,pk):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     cli =Clientes.objects.get(id=pk)
@@ -97,9 +99,53 @@ def clientes(request,pk):
     #template, el render manda el contexto al template||
     return render(request, 'clientes.html', context)
 
+def ClientesModif(request, pk):
+    clientes = Clientes.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = ClientesForm(request.POST, instance=clientes)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaclientes'))
+    else:
+        form = ClientesForm(instance=clientes)
+    return render(request, 'ClientesForm.html', {'form': form, 'clientes': clientes})
+
+
+def ClientesNuevo(request):
+    if request.method == 'POST':
+        form = ClientesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaclientes'))
+    else:
+        form = ClientesForm()
+    return render(request, 'ClientesForm.html', {'form': form})
+
+
+def ClientesBorrar(request, pk):
+    clientes = Clientes.objects.get(pk=pk)
+    if request.method == 'POST':
+        clientes.delete()
+        return HttpResponseRedirect(reverse('tablaclientes'))
+    return render(request, 'ClientesConfBorrar.html', {'clientes': clientes})
+
+
+
+
+
+
+
+
+
+
+
+
 def tablaempleados(request):
     context = {'Empleados': Empleados.objects.all()}
     return render (request, 'tablaempleados.html', context)
+
+
+
 
 def empleados(request, pk):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar}
@@ -107,6 +153,45 @@ def empleados(request, pk):
     context = {'empl': empl}
     #template, el render manda el contexto al template||
     return render(request, 'empleados.html', context)
+
+def EmpleadosModif(request, pk):
+    empleados = Empleados.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = EmpleadosForm(request.POST, instance=empleados)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaempleados'))
+    else:
+        form = EmpleadosForm(instance=empleados)
+    return render(request, 'EmpleadosForm.html', {'form': form, 'empleados': empleados})
+
+
+def EmpleadosNuevo(request):
+    if request.method == 'POST':
+        form = EmpleadosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaempleados'))
+    else:
+        form = EmpleadosForm()
+    return render(request, 'EmpleadosForm.html', {'form': form})
+
+
+def EmpleadosBorrar(request, pk):
+    empleados = Empleados.objects.get(pk=pk)
+    if request.method == 'POST':
+        empleados.delete()
+        return HttpResponseRedirect(reverse('tablaempleados'))
+    return render(request, 'empleadosConfBorrar.html', {'empleados': empleados})
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,14 +4,6 @@
 <div class="nombreTablas">
     <p >Ventas</p>
 </div>
-
-
-    <!-- longitud de la tabla, el lenth -->
-    <div class="descripcionArt">
-        <h4>Total de ventas: {{Ventas|length}}</h4>
-    </div>
-
-
     <div class="contenedorTabla">
         <div class="col-6">
     <div>
@@ -29,9 +21,9 @@
 
                 <tr>
                     <!-- columna dentro de la fila -->
-                    <td class="centrado" >{{p.id}}</td>
+                    <td class="centrado"><a href="/ventas/{{ p.id }}/">{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="/ventas/{{ p.id }}/">{{p.fecha}}</a></td>
+                    <td>{{p.fecha}}</td>
 
                 </tr>
                 {% endfor %}

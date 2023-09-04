@@ -20,5 +20,13 @@ urlpatterns = [path ('',views.index, name='index'),
                path('proveedores/ProveedoresNuevo/', views.ProveedoresNuevo, name='ProveedoresNuevo'),
                path('proveedores/ProveedoresModif/<str:pk>/', views.ProveedoresModif, name='ProveedoresModif'),
                path('proveedores/ProveedoresBorrar/<str:pk>/', views.ProveedoresBorrar, name='ProveedoresBorrar'),
+               
+               path('empleados/EmpleadosNuevo/', views.EmpleadosNuevo, name='EmpleadosNuevo'),
+               path('empleados/EmpleadosModif/<str:pk>/', views.EmpleadosModif, name='EmpleadosModif'),
+               path('empleados/EmpleadosBorrar/<str:pk>/', views.EmpleadosBorrar, name='EmpleadosBorrar'),
+               
+               path('clientes/ClientesNuevo/', views.ClientesNuevo, name='ClientesNuevo'),
+               path('clientes/ClientesModif/<str:pk>/', views.ClientesModif, name='ClientesModif'),
+               path('clientes/ClientesBorrar/<str:pk>/', views.ClientesBorrar, name='ClientesBorrar'),
                ]
 

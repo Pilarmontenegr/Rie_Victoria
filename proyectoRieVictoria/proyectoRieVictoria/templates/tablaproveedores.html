@@ -4,14 +4,8 @@
 <div class="nombreTablas">
     <p >Proveedores</p>
 </div>
-
-    <!-- longitud de la tabla, el lenth -->
-    <div class="descripcionProv">
-        <h4>Total de proveedores: {{Proveedores|length}}</h4>
-    </div>
-
     <div class="row">
-        <div class="col d-flex justify-content-end aling-items-end mb-3">
+        <div class="col d-flex justify-content-end aling-items-end mb-3 col-10">
         <a class="btn btn-outline-primary" href="/proveedores/ProveedoresNuevo{{ p.id}}">Nuevo Proveedor</a></td>
         </div>
     </div>
@@ -30,6 +24,7 @@
                 <th>Dirección</th>
                 <th>Email</th>
                 <th>Telefono</th>
+                <th>Cuit</th>
                 <th></th>
 
             </tr>
@@ -44,6 +39,7 @@
                     <td>{{ p.direccion }}</td>
                     <td>{{ p.Email }}</td>
                     <td>{{ p.telefono }}</td>
+                    <td>{{ p.cuit}}</td>
                     <td>
                         <div class="d-flex justify-content-end ">
                             <a class="btn btn-outline-danger" href="/proveedores/ProveedoresBorrar/{{ p.id}}">Borrar</a>
