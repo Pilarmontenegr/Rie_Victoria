@@ -35,11 +35,6 @@ body {
 
 }
 
-/* .flor {
-    height: 100px;
-    width: 100px;
-    background-image: "img/flor.png";
-} */
 
 .bienvenida {
     margin-left: 50;
@@ -50,35 +45,29 @@ body {
     text-indent: 0em;
     margin-top: -33%;
 }
-.tablaBorde {
-    border: 2px solid rgb(221, 8, 125); /* color de los bordes */
-}
+/* .tablaBorde {
+    border: 2px solid rgb(221, 8, 125); 
+} */
 
-.tablaBorde td:first-child {
-    font-weight: bold; /* Pone en negrita el texto de la primer columna */
+/* .tablaBorde td:first-child {
+    font-weight: bold; 
 }
 
 .tablaBorde td:nth-child(2) {
-    width: 50%; /*ancho de la segunda columna */
+    width: 50%; 
 }
 
 .tablaBorde1 {
-    border: 2px solid rgb(221, 8, 125); /* color de los bordes */
+    border: 2px solid rgb(221, 8, 125);
 }
 
 .tablaBorde1 td:first-child {
-    font-weight: bold; /* Pone en negrita el texto de la primer columna */
-}
-
-.tablaBorde1 td:nth-child(2) {
-    width: 50%; /*ancho de la segunda columna */
-}
+    font-weight: bold;
+} */
 
 .contenedorTabla {
-    display: flex;
-
+    display: flex-end;
     justify-content:flex-end;
-
 }
 
 

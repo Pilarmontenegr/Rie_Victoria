@@ -1,25 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="row">
     <h3 class="display-4 my-3">Articulos</h3>
-
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <label for="descripcion" class="form-label">Descripcion:</label>
-        <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ articulos.descripcion }}" required><br>
-        <label for="costo" class="form-label">Precio de costo:</label>
-        <input type="number" class="form-control" id="costo" name="costo" value="{{ articulos.costo }}" required><br>
-        <label for="venta" class="form-label">Precio de venta:</label>
-        <input type="number" class="form-control" id="venta" name="venta" value="{{ articulos.venta }}" required><br>
-        <label for="cantidad" class="form-label">Cantidad:</label>
-        <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ articulos.cantidad }}" required><br>
-        <label for="talle" class="form-label">Talle:</label>
-        <input type="number" class="form-control" id="talle" name="talle" value="{{ articulos.talle }}" required><br>
-        <label for="tipoPrenda" class="form-label">Tipo de prenda:</label>
-        <input type="text" class="form-control" id="tipoPrenda" name="tipoPrenda" value="{{ articulos.tipoPrenda }}" required><br>
-        <button type="submit" class="btn btn-primary mb-3">Guardar</button>
-
+        {{ form.as_p }}
+        <button class="btn btn-primary mb-3" type="submit">Guardar</button>
+        <a class="btn btn-outline-primary mb-3" href="{% url 'tabla' %}">Cancelar</a>
     </form>
+</div>
 
 {% endblock %}

@@ -5,34 +5,43 @@
 <div class="nombreTablas">
     <p >Articulos</p>
 </div>
-
-
-    <!-- longitud de la tabla, el lenth -->
-    <div class="descripcionArt">
-        <h4>Total de articulos: {{Articulos|length}}</h4>
+<div class="row">
+    <div class="col d-flex justify-content-end aling-items-end mb-3 col-10">
+    <a class="btn btn-outline-primary" href="/articulo/ArticulosNuevo{{ p.id}}">Nuevo Articulo</a></td>
     </div>
+</div>
 
-
-    <div class="contenedorTabla">
-        <div class="col-6">
-    <div>
-
-        <table class="table tablaBorde1 table-condensed table-striped">
+        <table style="border-style: solid; border-color: palevioletred;" class="table table-striped">
             <!-- fila de una tabla -->
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th class="centrado">Código</th>
+                <th>Código</th>
                 <th >Descripción</th>
+                <th >Precio costo</th>
+                <th >Precio venta</th>
+                <th >Cantidad</th>
+                <th >Talle</th>
+                <th></th>
 
             </tr>
             {% for p in Articulos %}
 
                 <tr>
                     <!-- columna dentro de la fila -->
-                    <td class="centrado" >{{p.id}}</td>
+                    <td class="centrado"><a href="/articulos/ArticulosModif/{{ p.id }}/">{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="/articulos/{{ p.id }}/">{{p.descripcion}}</a></td>
+                    <td>{{p.descripcion}}</td>
+                    <td>{{p.costo}}</td>
+                    <td>{{p.venta}}</td>
+                    <td>{{p.cantidad}}</td>
+                    <td>{{p.talle}}</td>
+                    
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-danger" href="/articulos/ArticulosBorrar/{{ p.id}}">Borrar</a>
+                        </div>
+                    </td>
 
                 </tr>
                 {% endfor %}
@@ -41,11 +50,6 @@
     </div>
     </div>
     </div>
-
-
-
-
-
 
 
 {% endblock %}
