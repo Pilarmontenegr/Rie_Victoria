@@ -2,9 +2,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse ,reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.db.models import Sum
 
-from .models import Articulos, Empleados, Proveedores, Clientes, Compras , compraProd, Ventas, ventaProd
-from .forms import ProveedoresForm , EmpleadosForm , ClientesForm , ArticulosForm ,ventaProdForm , VentasForm, ventasFormset
+from .models import Articulos, Empleados, Proveedores, Clientes, Compras , compraProd, Ventas, VentaProd
+from .forms import ProveedoresForm , EmpleadosForm , ClientesForm , ArticulosForm , VentasForm , ComprasForm
 def index(request):
     return render(request, 'index.html')
 
@@ -147,41 +148,6 @@ def ArticulosBorrar(request, pk):
 #     return render(request, 'articulosConfBorrar.html', {'articulos': articulos})
 
 
-
-
-
-
-
-
-# def ClientesModif(request, pk):
-#     clientes = Clientes.objects.get(pk=pk)
-#     if request.method == 'POST':
-#         form = ClientesForm(request.POST, instance=clientes)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('tablaclientes'))
-#     else:
-#         form = ClientesForm(instance=clientes)
-#     return render(request, 'ClientesForm.html', {'form': form, 'clientes': clientes})
-
-
-# def ClientesNuevo(request):
-#     if request.method == 'POST':
-#         form = ClientesForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('tablaclientes'))
-#     else:
-#         form = ClientesForm()
-#     return render(request, 'ClientesForm.html', {'form': form})
-
-
-# def ClientesBorrar(request, pk):
-#     clientes = Clientes.objects.get(pk=pk)
-#     if request.method == 'POST':
-#         clientes.delete()
-#         return HttpResponseRedirect(reverse('tablaclientes'))
-#     return render(request, 'ClientesConfBorrar.html', {'clientes': clientes})
 def clientes(request,pk):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     cli =Clientes.objects.get(id=pk)
@@ -191,34 +157,41 @@ def clientes(request,pk):
     return render(request, 'clientes.html', context)
 
 
-# def tablaclientes (request):
-#     context= {'Clientes': Clientes.objects.all()}
-#     return render (request, 'tablaclientes.html', context)
+def tablaclientes (request):
+    context= {'Clientes': Clientes.objects.all()}
+    return render (request, 'tablaclientes.html', context)
 
-class TablaClientes(ListView):
-    model = Clientes
-    template_name = 'tablaclientes.html'
-    context_object_name = 'Clientes'
-
-
-class ClientesNuevo(CreateView):
-    model = Clientes
-    form_class = ClientesForm
-    template_name = 'clientesForm.html'
-    success_url = reverse_lazy('tablaclientes')
-
-
-class ClientesModif(UpdateView):
-    model = Clientes
-    form_class = ClientesForm
-    template_name = 'clientesForm.html'
-    success_url = reverse_lazy('tablaclientes')
+def ClientesModif(request, pk):
+    clientes = Clientes.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = ClientesForm(request.POST, instance=clientes)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaclientes'))
+    else:
+        form = ClientesForm(instance=clientes)
+    return render(request, 'ClientesForm.html', {'form': form, 'clientes': clientes})
 
 
-class ClientesBorrar(DeleteView):
-    model = Clientes
-    template_name = 'ClientesConfBorrar.html'
-    success_url = reverse_lazy('tablaclientes')
+def ClientesNuevo(request):
+    if request.method == 'POST':
+        form = ClientesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('tablaclientes'))
+    else:
+        form = ClientesForm()
+    return render(request, 'ClientesForm.html', {'form': form})
+
+
+def ClientesBorrar(request, pk):
+    clientes = Clientes.objects.get(pk=pk)
+    if request.method == 'POST':
+        clientes.delete()
+        return HttpResponseRedirect(reverse('tablaclientes'))
+    return render(request, 'ClientesConfBorrar.html', {'clientes': clientes})
+
+
 
 
 
@@ -308,11 +281,18 @@ def tablaproveedores (request):
     context= {'Proveedores': Proveedores.objects.all()}
     return render (request, 'tablaproveedores.html', context)
 
-def tablaCompras(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-    context = {'Compras': Compras.objects.all()}
-     #template, el render manda el contexto al template||
-    return render(request, 'tablaCompras.html', context)
+
+
+
+
+
+
+
+# def tablaCompras(request):
+#     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
+#     context = {'Compras': Compras.objects.all()}
+#      #template, el render manda el contexto al template||
+#     return render(request, 'tablaCompras.html', context)
 
 #pk es la referencia al id del articulo
 def compras(request, pk):
@@ -322,6 +302,77 @@ def compras(request, pk):
     context = {'com': com, 'arts':arts}
     #template, el render manda el contexto al template||
     return render(request, 'compras.html', context)
+
+class TablaCompras(ListView):
+    model = Compras
+    template_name = 'tablaCompras.html'
+    context_object_name = 'Compras'
+
+class ComprasNuevo(CreateView):
+    model = Compras
+    form_class = ComprasForm
+    template_name = 'ComprasForm.html'
+    success_url = reverse_lazy('Compras')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = ComprasForm.comprasFormset(self.request.POST)
+        else:
+            context['formset'] = ComprasForm.comprasFormset()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid() and form.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+
+class ComprasModif(UpdateView):
+    model = Compras
+    form_class = ComprasForm
+    template_name = 'ComprasForm.html'
+    success_url = reverse_lazy('Compras')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = ComprasForm.comprasFormset(self.request.POST, instance=self.object)
+        else:
+            context['formset'] = ComprasForm.comprasFormset(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid() and form.is_valid():
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+        
+class ComprasBorrar(DeleteView):
+    model = Compras
+    template_name = 'ComprasConfBorrar.html'
+    success_url = reverse_lazy('Compras')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -338,9 +389,9 @@ def compras(request, pk):
 #pk es la referencia al id del articulo
 def ventas(request, pk):
     ven = Ventas.objects.get(id=pk)
-    ventProd = ventaProd.objects.filter(idVenta_id=pk)
+    ventaProd = VentaProd.objects.filter(idVenta_id=pk)
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-    context = {'ven': ven, 'ventProd':ventProd}
+    context = {'ven': ven, 'ventProd':VentaProd}
     #template, el render manda el contexto al template||
     return render(request, 'ventas.html', context)
 
@@ -350,11 +401,12 @@ class TablaVentas(ListView):
     model = Ventas
     template_name = 'tablaVentas.html'
     context_object_name = 'Ventas'
+
 class VentasNuevo(CreateView):
     model = Ventas
     form_class = VentasForm
     template_name = 'VentasForm.html'
-    success_url = reverse_lazy('tablaVentas')
+    success_url = reverse_lazy('Ventas')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -380,10 +432,16 @@ class VentasModif(UpdateView):
     model = Ventas
     form_class = VentasForm
     template_name = 'VentasForm.html'
-    success_url = reverse_lazy('tablaVentas')
+    success_url = reverse_lazy('Ventas')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        ventas = self.object
+        total = ventas.ventaprod_set.aggregate(Sum('precio'))['precio__sum'] or 0
+        context['total'] = total
+
+
         if self.request.POST:
             context['formset'] = VentasForm.ventasFormset(self.request.POST, instance=self.object)
         else:
@@ -401,5 +459,5 @@ class VentasModif(UpdateView):
         
 class VentasBorrar(DeleteView):
     model = Ventas
-    template_name = 'ViajesConfBorrar.html'
-    success_url = reverse_lazy('tablaVentas')
+    template_name = 'VentasConfBorrar.html'
+    success_url = reverse_lazy('Ventas')

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , ventaProd
+from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , compraProd, Compras
 
 class ProveedoresForm(forms.ModelForm):
     class Meta:
@@ -53,7 +53,7 @@ class ArticulosForm(forms.ModelForm):
 
 class ventaProdForm(forms.ModelForm):
     class Meta:
-        model = ventaProd
+        model = VentaProd
         fields = '__all__'
         widgets = {
             'idVenta': forms.Select(attrs={'class': 'form-select'}),
@@ -66,12 +66,39 @@ class VentasForm(forms.ModelForm):
     class Meta:
         model = Ventas
         fields= '__all__'
+        exclude = ['articulos']
         widgets= {
             'idEmpleado': forms.Select(attrs={'class': 'form-select'}),
             'idClientes': forms.Select(attrs={'class': 'form-select'}),
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'articulos': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'tipoFactura': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'tipoFactura': forms.Select(attrs={'class': 'form-select'}),
         }
-ventasFormset = forms.inlineformset_factory(Ventas, ventaProd, form=ventaProdForm, extra=1)
+    
+    ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1)
+
+
+class compraProdForm(forms.ModelForm):
+    class Meta:
+        model = compraProd
+        fields = '__all__'
+        widgets = {
+            'idCompra': forms.Select(attrs={'class': 'form-select'}),
+            'idArticulos': forms.Select(attrs={'class': 'form-select'}),
+            'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+class ComprasForm(forms.ModelForm):
+    class Meta:
+        model = Compras
+        fields= '__all__'
+        exclude = ['articulos']
+        widgets= {
+            'idProveedor': forms.Select(attrs={'class': 'form-select'}),
+            'idEmpleado': forms.Select(attrs={'class': 'form-select'}),
+            'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            
+        }
+    
+    comprasFormset = forms.inlineformset_factory(Compras, compraProd, form=compraProdForm, extra=1)
 

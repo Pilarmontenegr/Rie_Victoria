@@ -4,6 +4,11 @@
 <div class="nombreTablas">
     <p >Compras</p>
 </div>
+<div class="row">
+    <div class="col d-flex justify-content-end aling-items-end mb-3 col-10">
+    <a class="btn btn-outline-primary" href="/compras/ComprasNuevo{{ p.id}}">Nueva compra</a></td>
+    </div>
+</div>
 
 
 <table style="border-style: solid; border-color: palevioletred;" class="table table-striped">
@@ -12,17 +17,25 @@
                 <!-- columna dentro de la fila -->
 
                 <th class="centrado">Código</th>
-                <th >Descripción</th>
-
+                <th>Fecha</th>
+                <th >Proveedor</th>
+                
+                <th> </th>
             </tr>
             {% for p in Compras %}
 
                 <tr>
                     <!-- columna dentro de la fila -->
-                    <td class="centrado"><a href="/compras/{{ p.id }}/">{{ p.id }}</a></td>
-                    
+                    <td class="centrado"><a href="/compras/ComprasModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    <td>{{p.fecha}}</td>
                     <!-- a href para hacerlo link -->
                     <td>{{p.idProveedor}}</td>
+
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-danger" href="/compras/ComprasBorrar/{{ p.id }}">Borrar</a>
+                        </div>
+                    </td>
 
                 </tr>
                 {% endfor %}

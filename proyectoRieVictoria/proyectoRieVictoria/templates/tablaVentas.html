@@ -15,16 +15,25 @@
                 <!-- columna dentro de la fila -->
 
                 <th class="centrado">Código</th>
-                <th >Descripción</th>
+                <th >Fecha</th>
+                <th>Cliente</th>
+                <th></th>
 
             </tr>
             {% for p in Ventas %}
 
                 <tr>
                     <!-- columna dentro de la fila -->
-                    <td class="centrado"><a href="/ventas/{{ p.id }}/">{{ p.id }}</a></td>
+                    <td class="centrado"><a href="/ventas/VentasModif/{{ p.id }}">{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
                     <td>{{p.fecha}}</td>
+                    <td>{{p.idClientes}}</td>
+
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-danger" href="/ventas/VentasBorrar/{{ p.id }}">Borrar</a>
+                        </div>
+                    </td>
 
                 </tr>
                 {% endfor %}

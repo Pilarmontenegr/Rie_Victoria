@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="display-4 my-3">Borrar Venta</h3>
+    <h3 class="display-4 my-3">Borrar Compra</h3>
 
-    <p>¿Está seguro de borrar la venta <b>{{Venta.id }}</b>?</p>
+    <p>¿Está seguro de borrar la compra <b>{{Compra.id }}</b>?</p>
     <form method="post">
         {% csrf_token %}
         <button class="btn btn-primary" type="submit">Aceptar</button>
-        <a class="btn btn-primary" href="{% url 'Ventas' %}">Cancelar</a>
+        <a class="btn btn-primary" href="{% url 'Compras' %}">Cancelar</a>
     </form>
 
 {% endblock %}
