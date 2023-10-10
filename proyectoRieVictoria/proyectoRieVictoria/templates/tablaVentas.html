@@ -5,14 +5,15 @@
     <p >Ventas</p>
 </div>
 <div class="row">
-    <div class="col d-flex justify-content-end aling-items-end mb-3 col-10">
+    <div class="col d-flex justify-content-end  mb-3">
         <form method="GET">
             <div class="input-group">
-                <input type="date" class="form-control" name="q" value="{{ query }}" placeholder="Fecha...">
-                <button class="btn btn-transparent text-light" type="submit"><img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
+                <input type="date" class="form-control inputApagado" name="q" value="{{ query }}" placeholder="Fecha...">
+                <button class="btn btn-outline-primary" type="submit"><img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
             </div>
         </form>
-    <a class="btn btn-outline-primary" href="/ventas/VentasNuevo{{ p.id}}">Nueva venta</a></td>
+        &nbsp;
+    <a class="btn btn-outline-primary " href="/ventas/VentasNuevo{{ p.id}}">Nueva venta</a></td>
     </div>
 </div>
 <table style="border-style: solid; border-color: palevioletred;" class="table table-striped">

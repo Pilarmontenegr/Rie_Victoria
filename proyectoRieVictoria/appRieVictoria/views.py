@@ -35,11 +35,18 @@ def articulos(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'articulos.html', context)
 
-def tabla(request):
-    #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-    context = {'Articulos': Articulos.objects.all()}
-     #template, el render manda el contexto al template||
-    return render(request, 'tabla.html', context)
+class tabla(ListView):
+    model = Articulos
+    template_name = 'tabla.html'
+
+    def get(self, request):
+        query = request.GET.get('q', '')
+        articulos = Articulos.objects.filter(descripcion__icontains=query)
+        context = {
+            'Articulos': articulos,
+            'query': query,
+        }
+        return render(request, self.template_name, context)
 
 # #ARTICULOS ESTÁ HECHO EN VISTA BASADA EN CLASES -----------------------------------------------
 # class Tabla(ListView):
@@ -95,11 +102,6 @@ def ArticulosBorrar(request, pk):
         articulos.delete()
         return HttpResponseRedirect(reverse('tabla'))
     return render(request, 'ArticulosConfBorrar.html', {'articulos': articulos})
-
-
-
-
-
 
 
 #este es de las chicas
@@ -159,9 +161,18 @@ def clientes(request,pk):
     return render(request, 'clientes.html', context)
 
 
-def tablaclientes (request):
-    context= {'Clientes': Clientes.objects.all()}
-    return render (request, 'tablaclientes.html', context)
+class tablaClientes(ListView):
+    model = Clientes
+    template_name = 'tablaClientes.html'
+
+    def get(self, request):
+        query = request.GET.get('q', '')
+        clientes = Clientes.objects.filter(nombre__icontains=query)
+        context = {
+            'Clientes': clientes,
+            'query': query,
+        }
+        return render(request, self.template_name, context)
 
 def ClientesModif(request, pk):
     clientes = Clientes.objects.get(pk=pk)
@@ -194,12 +205,18 @@ def ClientesBorrar(request, pk):
     return render(request, 'ClientesConfBorrar.html', {'clientes': clientes})
 
 
+class tablaempleados(ListView):
+    model = Empleados
+    template_name = 'tablaempleados.html'
 
-
-
-def tablaempleados(request):
-    context = {'Empleados': Empleados.objects.all()}
-    return render (request, 'tablaempleados.html', context)
+    def get(self, request):
+        query = request.GET.get('q', '')
+        empleados = Empleados.objects.filter(nombre__icontains=query)
+        context = {
+            'Empleados': empleados,
+            'query': query,
+        }
+        return render(request, self.template_name, context)
 
 
 def empleados(request, pk):
@@ -278,23 +295,21 @@ def ProveedoresBorrar(request, pk):
         return HttpResponseRedirect(reverse('tablaproveedores'))
     return render(request, 'proveedoresConfBorrar.html', {'proveedores': proveedores})
 
+class tablaproveedores(ListView):
+    model = Proveedores
+    template_name = 'tablaproveedores.html'
 
-def tablaproveedores (request):
-    context= {'Proveedores': Proveedores.objects.all()}
-    return render (request, 'tablaproveedores.html', context)
+    def get(self, request):
+        query = request.GET.get('q', '')
+        proveedores = Proveedores.objects.filter(nombre__icontains=query)
+        context = {
+            'Proveedores': proveedores,
+            'query': query,
+        }
+        return render(request, self.template_name, context)
 
 
 
-
-
-
-
-
-# def tablaCompras(request):
-#     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-#     context = {'Compras': Compras.objects.all()}
-#      #template, el render manda el contexto al template||
-#     return render(request, 'tablaCompras.html', context)
 
 #pk es la referencia al id del articulo
 def compras(request, pk):
@@ -380,29 +395,6 @@ class ComprasBorrar(DeleteView):
     model = Compras
     template_name = 'ComprasConfBorrar.html'
     success_url = reverse_lazy('Compras')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def tablaVentas(request):
-#     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
-#     context = {'Ventas': Ventas.objects.all()}
-#      #template, el render manda el contexto al template||
-#     return render(request, 'tablaVentas.html', context)
 
 
 #pk es la referencia al id del articulo

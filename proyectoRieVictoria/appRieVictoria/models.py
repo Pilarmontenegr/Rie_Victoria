@@ -84,8 +84,9 @@ class VentaProd(models.Model):
     idVenta = models.ForeignKey(Ventas, on_delete= models.CASCADE)
     idArticulos = models.ForeignKey(Articulos,on_delete=models.CASCADE)
     cantidad = models.BigIntegerField(help_text='Cantidad de ventas')
+    #borrar precio
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    #precioTotal =  multiplicar cantidad por precio
+    
 
     def __str__(self) -> str:
         return str(self.idVenta)

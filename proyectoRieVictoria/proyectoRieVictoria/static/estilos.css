@@ -45,25 +45,6 @@ body {
     text-indent: 0em;
     margin-top: -33%;
 }
-/* .tablaBorde {
-    border: 2px solid rgb(221, 8, 125); 
-} */
-
-/* .tablaBorde td:first-child {
-    font-weight: bold; 
-}
-
-.tablaBorde td:nth-child(2) {
-    width: 50%; 
-}
-
-.tablaBorde1 {
-    border: 2px solid rgb(221, 8, 125);
-}
-
-.tablaBorde1 td:first-child {
-    font-weight: bold;
-} */
 
 .contenedorTabla {
     display: flex-end;
@@ -95,5 +76,13 @@ body {
     text-align: center;
 }
 
+/*para la búsqueda que quede bien con el fondo */
+.inputApagado {
+    background-color: RGBA(255,255,255,0.7);
+  
+}
+.inputApagado:focus {
+    background-color: RGBA(255,255,255,0.7);
+}
 
 
