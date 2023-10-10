@@ -1,5 +1,5 @@
 from django import forms
-from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , compraProd, Compras
+from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , CompraProd, Compras
 
 class ProveedoresForm(forms.ModelForm):
     class Meta:
@@ -48,9 +48,6 @@ class ArticulosForm(forms.ModelForm):
             'tipoPrenda': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-
-
-
 class ventaProdForm(forms.ModelForm):
     class Meta:
         model = VentaProd
@@ -77,9 +74,9 @@ class VentasForm(forms.ModelForm):
     ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1)
 
 
-class compraProdForm(forms.ModelForm):
+class CompraProdForm(forms.ModelForm):
     class Meta:
-        model = compraProd
+        model = CompraProd
         fields = '__all__'
         widgets = {
             'idCompra': forms.Select(attrs={'class': 'form-select'}),
@@ -100,5 +97,5 @@ class ComprasForm(forms.ModelForm):
             
         }
     
-    comprasFormset = forms.inlineformset_factory(Compras, compraProd, form=compraProdForm, extra=1)
+    comprasFormset = forms.inlineformset_factory(Compras, CompraProd, form=CompraProdForm, extra=1)
 

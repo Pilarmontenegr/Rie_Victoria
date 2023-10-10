@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appRieVictoria.models import Articulos,Clientes,compraProd,Compras,Empleados,VentaProd,Ventas,Proveedores,TipoPrenda,tipoFactura
+from appRieVictoria.models import Articulos,Clientes,CompraProd,Compras,Empleados,VentaProd,Ventas,Proveedores,TipoPrenda,tipoFactura
 
 class detalleVenta(admin.TabularInline):
     model = VentaProd
@@ -11,7 +11,7 @@ class ventaAdmin(admin.ModelAdmin):
 
 
 class detalleCompra(admin.TabularInline):
-    model = compraProd
+    model = CompraProd
 
 class compraAdmin(admin.ModelAdmin):
     list_display= ("idEmpleado", "idProveedor", "fecha")
@@ -19,7 +19,7 @@ class compraAdmin(admin.ModelAdmin):
 
 admin.site.register(Articulos)
 admin.site.register(Clientes)
-admin.site.register(compraProd)
+admin.site.register(CompraProd)
 admin.site.register(Compras, compraAdmin)
 admin.site.register(Empleados)
 admin.site.register(VentaProd)

@@ -4,8 +4,15 @@
 <div class="nombreTablas">
     <p >Compras</p>
 </div>
+
 <div class="row">
     <div class="col d-flex justify-content-end aling-items-end mb-3 col-10">
+        <form method="GET">
+            <div class="input-group">
+                <input type="date" class="form-control" name="q" value="{{ query }}" placeholder="Fecha...">
+                <button class="btn btn-transparent text-light" type="submit"><img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
+            </div>
+        </form>
     <a class="btn btn-outline-primary" href="/compras/ComprasNuevo{{ p.id}}">Nueva compra</a></td>
     </div>
 </div>

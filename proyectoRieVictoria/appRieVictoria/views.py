@@ -3,8 +3,10 @@ from django.shortcuts import render
 from django.urls import reverse ,reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.db.models import Sum
+from django.views import View
+from datetime import datetime
 
-from .models import Articulos, Empleados, Proveedores, Clientes, Compras , compraProd, Ventas, VentaProd
+from .models import Articulos, Empleados, Proveedores, Clientes, Compras , CompraProd, Ventas, VentaProd
 from .forms import ProveedoresForm , EmpleadosForm , ClientesForm , ArticulosForm , VentasForm , ComprasForm
 def index(request):
     return render(request, 'index.html')
@@ -297,7 +299,7 @@ def tablaproveedores (request):
 #pk es la referencia al id del articulo
 def compras(request, pk):
     com = Compras.objects.get(id=pk)
-    arts = compraProd.objects.filter(idCompra_id=pk)
+    arts = CompraProd.objects.filter(idCompra_id=pk)
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'com': com, 'arts':arts}
     #template, el render manda el contexto al template||
@@ -307,6 +309,18 @@ class TablaCompras(ListView):
     model = Compras
     template_name = 'tablaCompras.html'
     context_object_name = 'Compras'
+
+    def get(self, request):
+        query = request.GET.get('q', datetime.today())
+        if not query:
+            query = datetime.today()
+        compras = Compras.objects.filter(fecha=query)
+        context = {
+            'Compras': compras,
+            'query': query,
+        }
+        return render(request, self.template_name, context)
+
 
 class ComprasNuevo(CreateView):
     model = Compras
@@ -342,6 +356,11 @@ class ComprasModif(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        ventas = self.object
+        total = ventas.compraprod_set.aggregate(Sum('precio'))['precio__sum'] or 0
+        context['total'] = total
+
         if self.request.POST:
             context['formset'] = ComprasForm.comprasFormset(self.request.POST, instance=self.object)
         else:
@@ -396,11 +415,21 @@ def ventas(request, pk):
     return render(request, 'ventas.html', context)
 
 
-
 class TablaVentas(ListView):
     model = Ventas
     template_name = 'tablaVentas.html'
-    context_object_name = 'Ventas'
+    
+    def get(self, request):
+        query = request.GET.get('q', datetime.today())
+        if not query:
+            query = datetime.today()
+        ventas = Ventas.objects.filter(fecha=query)
+        context = {
+            'Ventas': ventas,
+            'query': query,
+        }
+        return render(request, self.template_name, context)
+
 
 class VentasNuevo(CreateView):
     model = Ventas
