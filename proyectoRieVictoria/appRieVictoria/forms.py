@@ -1,6 +1,6 @@
 from django import forms
 from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , CompraProd, Compras
-
+from decimal import Decimal
 class ProveedoresForm(forms.ModelForm):
     class Meta:
         model = Proveedores
@@ -38,14 +38,15 @@ class ClientesForm(forms.ModelForm):
 class ArticulosForm(forms.ModelForm):
     class Meta:
         model = Articulos
-        fields = ('descripcion', 'costo', 'venta', 'cantidad', 'talle', 'tipoPrenda'  )
+        fields = ('descripcion', 'venta', 'cantidad', 'talle', 'tipoPrenda'  )
         widgets = {
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
-            'costo': forms.NumberInput(attrs={'class': 'form-control'}),
+            #'costo': forms.NumberInput(attrs={'class': 'form-control'}),
             'venta': forms.NumberInput(attrs={'class': 'form-control'}),
             'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
             'talle': forms.TextInput(attrs={'class': 'form-control'}),
-            'tipoPrenda': forms.TextInput(attrs={'class': 'form-control'}),
+            'tipoPrenda': forms.Select(attrs={'class': 'form form-select'}),
+            
         }
 
 class ventaProdForm(forms.ModelForm):
@@ -56,9 +57,11 @@ class ventaProdForm(forms.ModelForm):
             'idVenta': forms.Select(attrs={'class': 'form-select'}),
             'idArticulos': forms.Select(attrs={'class': 'form-select'}),
             'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
-            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+            'precioVenta': forms.NumberInput(attrs={'class': 'form-control'}),
+            'totalVenta': forms.NumberInput(attrs={'class': 'form-control'}),  
         }
-
+    
+    
 class VentasForm(forms.ModelForm):
     class Meta:
         model = Ventas
@@ -73,6 +76,19 @@ class VentasForm(forms.ModelForm):
     
     ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1)
 
+    class CustomVentasFormset(ventasFormset):
+        def clean(self):
+            super().clean()
+            for form in self.forms:
+                cantidad = form.cleaned_data.get('cantidad')
+                if cantidad is not None:
+                    precioVenta = form.instance.idArticulos.venta
+                    totalVenta =  precioVenta * cantidad
+                    form.instance.precioVenta = precioVenta
+                    form.instance.totalVenta = totalVenta
+
+                    
+
 
 class CompraProdForm(forms.ModelForm):
     class Meta:
@@ -83,6 +99,7 @@ class CompraProdForm(forms.ModelForm):
             'idArticulos': forms.Select(attrs={'class': 'form-select'}),
             'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+            'totalCompra': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
 class ComprasForm(forms.ModelForm):
@@ -99,3 +116,17 @@ class ComprasForm(forms.ModelForm):
     
     comprasFormset = forms.inlineformset_factory(Compras, CompraProd, form=CompraProdForm, extra=1)
 
+    class CustomComprasFormset(comprasFormset):
+        def clean(self):
+            super().clean()
+            for form in self.forms:
+                cantidad = form.cleaned_data.get('cantidad')
+                if cantidad is not None:
+                    precio = form.instance.idArticulos.costo
+                    totalCompra =  precio * cantidad
+                    form.instance.precio  = precio
+                    form.instance.totalCompra = totalCompra
+
+      
+   
+                   

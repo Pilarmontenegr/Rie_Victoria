@@ -346,9 +346,9 @@ class ComprasNuevo(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['formset'] = ComprasForm.comprasFormset(self.request.POST)
+            context['formset'] = ComprasForm.CustomComprasFormset(self.request.POST)
         else:
-            context['formset'] = ComprasForm.comprasFormset()
+            context['formset'] = ComprasForm.CustomComprasFormset()
         return context
 
     def form_valid(self, form):
@@ -372,14 +372,16 @@ class ComprasModif(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        ventas = self.object
-        total = ventas.compraprod_set.aggregate(Sum('precio'))['precio__sum'] or 0
+        compras = self.object
+        total = compras.compraprod_set.aggregate(Sum('totalCompra'))['totalCompra__sum'] or 0
         context['total'] = total
 
+        
+
         if self.request.POST:
-            context['formset'] = ComprasForm.comprasFormset(self.request.POST, instance=self.object)
+            context['formset'] = ComprasForm.CustomComprasFormset(self.request.POST, instance=self.object)
         else:
-            context['formset'] = ComprasForm.comprasFormset(instance=self.object)
+            context['formset'] = ComprasForm.CustomComprasFormset(instance=self.object)
         return context
 
     def form_valid(self, form):
@@ -401,6 +403,7 @@ class ComprasBorrar(DeleteView):
 def ventas(request, pk):
     ven = Ventas.objects.get(id=pk)
     ventaProd = VentaProd.objects.filter(idVenta_id=pk)
+
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
     context = {'ven': ven, 'ventProd':VentaProd}
     #template, el render manda el contexto al template||
@@ -423,6 +426,7 @@ class TablaVentas(ListView):
         return render(request, self.template_name, context)
 
 
+
 class VentasNuevo(CreateView):
     model = Ventas
     form_class = VentasForm
@@ -431,10 +435,17 @@ class VentasNuevo(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         if self.request.POST:
-            context['formset'] = VentasForm.ventasFormset(self.request.POST)
+            context['formset'] = VentasForm.CustomVentasFormset(self.request.POST)
         else:
-            context['formset'] = VentasForm.ventasFormset()
+            context['formset'] = VentasForm.CustomVentasFormset()
+
+        # Obtener información sobre los artículos y pasarla al contexto
+        articles = Articulos.objects.all()
+        articles_dict = {article.id: article for article in articles}
+        context['articles_dict'] = articles_dict
+
         return context
 
     def form_valid(self, form):
@@ -449,6 +460,7 @@ class VentasNuevo(CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
+
 class VentasModif(UpdateView):
     model = Ventas
     form_class = VentasForm
@@ -459,14 +471,14 @@ class VentasModif(UpdateView):
         context = super().get_context_data(**kwargs)
 
         ventas = self.object
-        total = ventas.ventaprod_set.aggregate(Sum('precio'))['precio__sum'] or 0
+        total = ventas.ventaprod_set.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+        print(total)
         context['total'] = total
 
-
         if self.request.POST:
-            context['formset'] = VentasForm.ventasFormset(self.request.POST, instance=self.object)
+            context['formset'] = VentasForm.CustomVentasFormset(self.request.POST, instance=self.object)
         else:
-            context['formset'] = VentasForm.ventasFormset(instance=self.object)
+            context['formset'] = VentasForm.CustomVentasFormset(instance=self.object)
         return context
 
     def form_valid(self, form):

@@ -53,13 +53,14 @@ class tipoFactura(models.Model):
 
 class Articulos (models.Model):
     descripcion = models.CharField( max_length= 100,help_text= 'Descripcion del articulo')
-    costo = models.DecimalField(max_digits=10, decimal_places=2)
+    #costo = models.DecimalField(max_digits=10, decimal_places=2)
     venta= models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.BigIntegerField(help_text='Cantidad de articulos')
     talle = models.CharField(max_length=3)
     compras = models.ManyToManyField("Compras",related_name='articulos_comprados' , through="CompraProd")
     ventas = models.ManyToManyField("Ventas" ,related_name='articulos_vendidos', through="ventaProd")
     tipoPrenda =models.ForeignKey("tipoPrenda", on_delete=models.CASCADE, default=1)
+    
 
     def __str__(self) -> str:
         return str(self.descripcion)
@@ -75,6 +76,7 @@ class CompraProd(models.Model):
     idArticulos = models.ForeignKey(Articulos, on_delete=models.CASCADE)
     cantidad = models.BigIntegerField(help_text='cantidad de articulos')
     precio=models.DecimalField(max_digits=10, decimal_places=2)
+    totalCompra = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self) -> str:
         return str(self.idCompra)
@@ -84,9 +86,8 @@ class VentaProd(models.Model):
     idVenta = models.ForeignKey(Ventas, on_delete= models.CASCADE)
     idArticulos = models.ForeignKey(Articulos,on_delete=models.CASCADE)
     cantidad = models.BigIntegerField(help_text='Cantidad de ventas')
-    #borrar precio
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    precioVenta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    totalVenta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
-
     def __str__(self) -> str:
         return str(self.idVenta)
