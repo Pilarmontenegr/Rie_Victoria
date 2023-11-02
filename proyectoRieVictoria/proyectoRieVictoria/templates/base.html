@@ -39,6 +39,7 @@
           </button>
           <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
+              {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/index/">Inicio</a>
                   </li>
@@ -60,7 +61,22 @@
               <li class="nav-item">
                 <a class="nav-link" href="/tablaVentas/">Ventas</a>
               </li>
+              {% endif %}
             </ul>
+
+            <ul class="nav navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}"> {{ request.user }} | Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/login"> Login</a>
+
+                </li>
+              {% endif %}
+            </ul>
+
           </div>
         </div>
       </nav>

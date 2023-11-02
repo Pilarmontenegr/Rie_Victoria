@@ -45,5 +45,10 @@ urlpatterns = [path ('',views.index, name='index'),
                path('articulos/ArticulosModif/<int:pk>/', views.ArticulosModif, name='ArticulosModif'),
                path('articulos/ArticulosBorrar/<int:pk>/', views.ArticulosBorrar, name='ArticulosBorrar'),
 
+               path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
+               
+               path('logout/', views.Logout, name='logout'),
+
                ]
+
 

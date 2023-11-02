@@ -1,10 +1,16 @@
 from django.http import HttpResponse, HttpResponseRedirect 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse ,reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.db.models import Sum
 from django.views import View
 from datetime import datetime
+
+from django.views.generic.list import ListView
+
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView,LogoutView
+from django.forms import inlineformset_factory
 
 from .models import Articulos, Empleados, Proveedores, Clientes, Compras , CompraProd, Ventas, VentaProd
 from .forms import ProveedoresForm , EmpleadosForm , ClientesForm , ArticulosForm , VentasForm , ComprasForm
@@ -164,6 +170,7 @@ def clientes(request,pk):
 class tablaClientes(ListView):
     model = Clientes
     template_name = 'tablaClientes.html'
+    
 
     def get(self, request):
         query = request.GET.get('q', '')
@@ -208,6 +215,8 @@ def ClientesBorrar(request, pk):
 class tablaempleados(ListView):
     model = Empleados
     template_name = 'tablaempleados.html'
+    
+    paginate_by = 5
 
     def get(self, request):
         query = request.GET.get('q', '')
@@ -414,6 +423,7 @@ class TablaVentas(ListView):
     model = Ventas
     template_name = 'tablaVentas.html'
     
+    
     def get(self, request):
         query = request.GET.get('q', datetime.today())
         if not query:
@@ -494,3 +504,8 @@ class VentasBorrar(DeleteView):
     model = Ventas
     template_name = 'VentasConfBorrar.html'
     success_url = reverse_lazy('Ventas')
+
+
+def Logout(request):
+    logout(request)
+    return redirect('/index')
