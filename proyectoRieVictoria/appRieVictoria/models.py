@@ -9,6 +9,12 @@ class Proveedores(models.Model):
     empleados = models.ManyToManyField("Empleados",related_name='empleados_compran_a_proveedores', through="Compras",verbose_name="Empleado")
     def __str__(self) -> str:
         return str(self.nombre)
+    
+    class Meta:
+        permissions = [
+            ("puede_aprobar", "Puede aprobar el modelo"),
+            ("puede_publicar", "Puede publicar el modelo"),
+        ]
 
 class Empleados(models.Model):
     nombre = models.CharField(max_length=50, help_text="Nombre del empleado",verbose_name="Nombre")
@@ -19,6 +25,11 @@ class Empleados(models.Model):
     clientes = models.ManyToManyField("Clientes" ,related_name='empleados_relacionados', through="Ventas")
     def __str__(self) -> str:
         return str(self.nombre)
+    class Meta:
+        permissions = [
+            ("puede_aprobar", "Puede aprobar el modelo"),
+            ("puede_publicar", "Puede publicar el modelo"),
+        ]
 
 class Compras(models.Model):
     idProveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
@@ -53,7 +64,7 @@ class tipoFactura(models.Model):
 
 class Articulos (models.Model):
     descripcion = models.CharField( max_length= 100,help_text= 'Descripcion del articulo')
-    #costo = models.DecimalField(max_digits=10, decimal_places=2)
+    
     venta= models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.BigIntegerField(help_text='Cantidad de articulos')
     talle = models.CharField(max_length=3)
@@ -61,7 +72,6 @@ class Articulos (models.Model):
     ventas = models.ManyToManyField("Ventas" ,related_name='articulos_vendidos', through="ventaProd")
     tipoPrenda =models.ForeignKey("tipoPrenda", on_delete=models.CASCADE, default=1)
     
-
     def __str__(self) -> str:
         return str(self.descripcion)
 

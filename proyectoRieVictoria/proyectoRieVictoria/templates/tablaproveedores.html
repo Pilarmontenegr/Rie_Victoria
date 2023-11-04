@@ -13,8 +13,12 @@
                      type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
                 </div>
             </form>
+        {% if perms.aplicacion.change_proveedores %}
         <a class="btn btn-outline-primary" href="/proveedores/ProveedoresNuevo{{ p.id}}">Nuevo Proveedor</a></td>
-        </div>
+        {% else %}
+        <td><a class="btn btn-outline-primary">Nuevo Proveedor</a></td></td>
+        {% endif %}
+    </div>
     </div>
 
     
@@ -38,7 +42,11 @@
                 <tr> 
 
                     <!-- columna dentro de la fila -->
+                    {% if perms.aplicacion.change_proveedores %}
                     <td class="centrado"><a href="/proveedores/ProveedoresModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    {% else %}
+                    <td>{{ p.id }}</td>
+                    {% endif %}
                     <!-- a href para hacerlo link -->
                     <td>{{ p.nombre }}</td>
                     <td>{{ p.direccion }}</td>
@@ -47,15 +55,37 @@
                     <td>{{ p.cuit}}</td>
                     <td>
                         <div class="d-flex justify-content-end ">
+                            {% if perms.aplicacion.change_proveedores %}
                             <a class="btn btn-outline-danger" href="/proveedores/ProveedoresBorrar/{{ p.id}}">Borrar</a>
+                            {% else %}
+                            <a class="btn btn-outline-danger">Borrar</a>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
                 {% endfor %}
         </table>
-
-    </div>
-    </div>
-    </div>
+        <div class="pagination justify-content-center">
+    
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary mb-3" href="?page=1">Primera</a>
+                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.previous_page_number }}">
+                    Anterior
+                </a>
+            {% endif %}
+        
+            <span class="current-page btn btn-outline-light disabled text-primary mb-3">
+                {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </span>
+        
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.next_page_number }}">
+                    Siguiente
+                </a>
+                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.paginator.num_pages }}">
+                    Última
+                </a>
+            {% endif %}
+        </div>
 
 {% endblock %}

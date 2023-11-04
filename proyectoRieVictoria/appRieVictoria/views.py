@@ -12,6 +12,9 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView,LogoutView
 from django.forms import inlineformset_factory
 
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render
+
 from .models import Articulos, Empleados, Proveedores, Clientes, Compras , CompraProd, Ventas, VentaProd
 from .forms import ProveedoresForm , EmpleadosForm , ClientesForm , ArticulosForm , VentasForm , ComprasForm
 def index(request):
@@ -44,16 +47,20 @@ def articulos(request, pk):
 class tabla(ListView):
     model = Articulos
     template_name = 'tabla.html'
-
-    def get(self, request):
-        query = request.GET.get('q', '')
+    context_object_name = 'Articulos'
+    paginate_by = 8
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
         articulos = Articulos.objects.filter(descripcion__icontains=query)
-        context = {
-            'Articulos': articulos,
-            'query': query,
-        }
-        return render(request, self.template_name, context)
-
+        return articulos
+    
+    #para que se quede lo que busquemos 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+        return context
 # #ARTICULOS ESTÁ HECHO EN VISTA BASADA EN CLASES -----------------------------------------------
 # class Tabla(ListView):
 #     model = Articulos
@@ -170,16 +177,20 @@ def clientes(request,pk):
 class tablaClientes(ListView):
     model = Clientes
     template_name = 'tablaClientes.html'
+    context_object_name = 'Clientes'
+    paginate_by = 8
     
-
-    def get(self, request):
-        query = request.GET.get('q', '')
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
         clientes = Clientes.objects.filter(nombre__icontains=query)
-        context = {
-            'Clientes': clientes,
-            'query': query,
-        }
-        return render(request, self.template_name, context)
+        return clientes
+    
+    #para que se quede lo que busquemos 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+        return context
 
 def ClientesModif(request, pk):
     clientes = Clientes.objects.get(pk=pk)
@@ -215,19 +226,20 @@ def ClientesBorrar(request, pk):
 class tablaempleados(ListView):
     model = Empleados
     template_name = 'tablaempleados.html'
-    
-    paginate_by = 5
+    context_object_name = 'Empleados'
+    paginate_by = 8
 
-    def get(self, request):
-        query = request.GET.get('q', '')
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
         empleados = Empleados.objects.filter(nombre__icontains=query)
-        context = {
-            'Empleados': empleados,
-            'query': query,
-        }
-        return render(request, self.template_name, context)
-
-
+        return empleados
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+        return context
+    
 def empleados(request, pk):
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar}
     empl = Empleados.objects.get(id=pk)
@@ -235,6 +247,7 @@ def empleados(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'empleados.html', context)
 
+@permission_required('app.change_empleados', login_url='/login/')
 def EmpleadosModif(request, pk):
     empleados = Empleados.objects.get(pk=pk)
     if request.method == 'POST':
@@ -267,6 +280,23 @@ def EmpleadosBorrar(request, pk):
 
 
 
+class tablaproveedores(ListView):
+    model = Proveedores
+    template_name = 'tablaproveedores.html'
+    context_object_name = 'Proveedores'
+    paginate_by = 8
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        proveedores = Proveedores.objects.filter(nombre__icontains=query)
+        return proveedores
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+        return context
+
 def proveedores(request, pk):
     prov = Proveedores.objects.get(id=pk)
     #un nombre con el que llamo a la variable : modelo objeto que voy a mandar
@@ -274,6 +304,9 @@ def proveedores(request, pk):
     #template, el render manda el contexto al template||
     return render(request, 'proveedores.html', context)
 
+
+
+@permission_required('app.change_proveedores', login_url='/login/')
 def ProveedoresModif(request, pk):
     proveedores = Proveedores.objects.get(pk=pk)
     if request.method == 'POST':
@@ -304,18 +337,7 @@ def ProveedoresBorrar(request, pk):
         return HttpResponseRedirect(reverse('tablaproveedores'))
     return render(request, 'proveedoresConfBorrar.html', {'proveedores': proveedores})
 
-class tablaproveedores(ListView):
-    model = Proveedores
-    template_name = 'tablaproveedores.html'
 
-    def get(self, request):
-        query = request.GET.get('q', '')
-        proveedores = Proveedores.objects.filter(nombre__icontains=query)
-        context = {
-            'Proveedores': proveedores,
-            'query': query,
-        }
-        return render(request, self.template_name, context)
 
 
 
@@ -333,18 +355,34 @@ class TablaCompras(ListView):
     model = Compras
     template_name = 'tablaCompras.html'
     context_object_name = 'Compras'
+    paginate_by = 2
 
-    def get(self, request):
-        query = request.GET.get('q', datetime.today())
+    # def get(self, request):
+    #     query = request.GET.get('q', datetime.today())
+    #     if not query:
+    #         query = datetime.today()
+    #     compras = Compras.objects.filter(fecha=query)
+    #     context = {
+    #         'Compras': compras,
+    #         'query': query,
+    #     }
+    #     return render(request, self.template_name, context)
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', datetime.today())
         if not query:
             query = datetime.today()
         compras = Compras.objects.filter(fecha=query)
-        context = {
-            'Compras': compras,
-            'query': query,
-        }
-        return render(request, self.template_name, context)
+        return compras
+    
+    #para que se quede lo que busquemos 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+        return context
 
+    
 
 class ComprasNuevo(CreateView):
     model = Compras
@@ -422,19 +460,34 @@ def ventas(request, pk):
 class TablaVentas(ListView):
     model = Ventas
     template_name = 'tablaVentas.html'
-    
-    
-    def get(self, request):
-        query = request.GET.get('q', datetime.today())
+    context_object_name = 'Ventas'
+    paginate_by = 5
+
+    # def get(self, request):
+    #     query = request.GET.get('q', datetime.today())
+    #     if not query:
+    #         query = datetime.today()
+    #     ventas = Ventas.objects.filter(fecha=query)
+    #     context = {
+    #         'Ventas': ventas,
+    #         'query': query,
+    #     }
+    #     return render(request, self.template_name, context)
+
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', datetime.today())
         if not query:
             query = datetime.today()
         ventas = Ventas.objects.filter(fecha=query)
-        context = {
-            'Ventas': ventas,
-            'query': query,
-        }
-        return render(request, self.template_name, context)
-
+        return ventas
+    
+    #para que se quede lo que busquemos 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '')
+        context['query'] = query
+        return context
 
 
 class VentasNuevo(CreateView):

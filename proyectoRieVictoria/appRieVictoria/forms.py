@@ -122,7 +122,7 @@ class ComprasForm(forms.ModelForm):
             for form in self.forms:
                 cantidad = form.cleaned_data.get('cantidad')
                 if cantidad is not None:
-                    precio = form.instance.idArticulos.costo
+                    precio = form.instance.precio
                     totalCompra =  precio * cantidad
                     form.instance.precio  = precio
                     form.instance.totalCompra = totalCompra

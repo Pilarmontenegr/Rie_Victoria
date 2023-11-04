@@ -14,8 +14,12 @@
                  type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
             </div>
         </form>
-    <a class="btn btn-outline-primary" href="/empleados/EmpleadosNuevo{{ p.id}}">Nuevo Empleado</a></td>
-    </div>
+    {% if perms.aplicacion.change_proveedores %}
+    <a class="btn btn-outline-primary" href="/empleados/EmpleadosNuevo{{ p.id}}">Nuevo Empleado</a>
+    {% else %}
+    <a class="btn btn-outline-primary" >Nuevo Empleado</a>
+    {% endif %}
+</div>
 </div>
 
     
@@ -35,7 +39,11 @@
             {% for p in Empleados %}
 
                 <tr>
+                    {% if perms.aplicacion.change_empleados %}
                     <td class="centrado"><a href="/empleados/EmpleadosModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    {% else %}
+                    <td>{{ p.id }}</td>
+                    {% endif %}
                     <!-- a href para hacerlo link -->
                     <td>{{ p.nombre }}</td>
                     <td>{{ p.direccion }}</td>
@@ -43,7 +51,11 @@
                     <td>{{ p.telefono }}</td>
                     <td>
                         <div class="d-flex justify-content-end ">
+                            {% if perms.aplicacion.change_empleados %}
                             <a class="btn btn-outline-danger" href="/empleados/EmpleadosBorrar/{{ p.id}}">Borrar</a>
+                            {% else %}
+                            <a class="btn btn-outline-danger">Borrar</a>
+                            {% endif %}
                         </div>
                     </td>
 
