@@ -355,7 +355,7 @@ class TablaCompras(ListView):
     model = Compras
     template_name = 'tablaCompras.html'
     context_object_name = 'Compras'
-    paginate_by = 2
+    paginate_by = 5
 
     # def get(self, request):
     #     query = request.GET.get('q', datetime.today())
@@ -369,10 +369,11 @@ class TablaCompras(ListView):
     #     return render(request, self.template_name, context)
 
     def get_queryset(self):
-        query = self.request.GET.get('q', datetime.today())
+        query = self.request.GET.get('q', '')
         if not query:
-            query = datetime.today()
-        compras = Compras.objects.filter(fecha=query)
+            compras = Compras.objects.all()
+        else:
+            compras = Compras.objects.filter(fecha=query)
         return compras
     
     #para que se quede lo que busquemos 
@@ -476,10 +477,11 @@ class TablaVentas(ListView):
 
 
     def get_queryset(self):
-        query = self.request.GET.get('q', datetime.today())
+        query = self.request.GET.get('q', '')
         if not query:
-            query = datetime.today()
-        ventas = Ventas.objects.filter(fecha=query)
+            ventas = Ventas.objects.all()
+        else:
+            ventas = Ventas.objects.filter(fecha=query)
         return ventas
     
     #para que se quede lo que busquemos 
