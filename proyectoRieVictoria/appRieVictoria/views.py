@@ -15,6 +15,15 @@ from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 
+
+from django.http import HttpResponse
+
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import A4
+
 from .models import Articulos, Empleados, Proveedores, Clientes, Compras , CompraProd, Ventas, VentaProd
 from .forms import ProveedoresForm , EmpleadosForm , ClientesForm , ArticulosForm , VentasForm , ComprasForm
 def index(request):
@@ -355,7 +364,7 @@ class TablaCompras(ListView):
     model = Compras
     template_name = 'tablaCompras.html'
     context_object_name = 'Compras'
-    paginate_by = 5
+    paginate_by = 8
 
     # def get(self, request):
     #     query = request.GET.get('q', datetime.today())
@@ -462,7 +471,7 @@ class TablaVentas(ListView):
     model = Ventas
     template_name = 'tablaVentas.html'
     context_object_name = 'Ventas'
-    paginate_by = 5
+    paginate_by = 8
 
     # def get(self, request):
     #     query = request.GET.get('q', datetime.today())
@@ -564,3 +573,81 @@ class VentasBorrar(DeleteView):
 def Logout(request):
     logout(request)
     return redirect('/index')
+
+
+
+# def VentasTexto(request ):
+#  response = HttpResponse(content_type='text/plain')
+#  response['Content-Disposition'] = 'attachment; filename=factura.txt'
+#  ventas = Ventas.objects.all()
+
+
+#  lines = []
+#  for ventas in ventas:
+#   lines.append(f'{ventas.fecha}\n{ventas.articulos}\n{ventas.tipoFactura}\n\n')
+
+#  response.writelines(lines)
+#  return response
+
+
+import io
+from datetime import datetime
+from reportlab.pdfgen import canvas
+from django.http import FileResponse
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import inch
+from .models import Ventas, VentaProd
+
+def VentasPDF(request, pk):
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf, pagesize=A4, bottomup=0)
+
+    # Encabezado - Cuadro
+    c.setStrokeColorRGB(0, 0, 0)  # Color del borde (negro)
+    c.setLineWidth(1)  # Ancho del borde
+    c.rect(inch, 10 * inch, A4[0] - 2 * inch, inch)  # Coordenadas y dimensiones del cuadro
+
+    # Texto dentro del cuadro
+    c.setFont("Helvetica", 12)
+    c.drawString(inch + 5, 10 * inch + 0.5 * inch, "¡Gracias por tu compra! Contacto: 3544-589756")
+
+    textobj = c.beginText()
+    textobj.setTextOrigin(inch, 8 * inch)  # Ajuste del origen del texto
+    textobj.setFont("Helvetica", 12)
+
+    ventas = Ventas.objects.filter(id=pk)
+    ventasProd = VentaProd.objects.filter(idVenta=pk)
+
+    lines = []
+    for ventas in ventas:
+        fecha_formateada = ventas.fecha.strftime("%d/%m/%Y %H:%M:%S")
+        lines.append(f"Fecha: {fecha_formateada}")
+        lines.append(f"Empleado: {ventas.idEmpleado}")
+        lines.append(f"Cliente: {ventas.idClientes}")
+        lines.append(f"Tipo de Factura: {ventas.tipoFactura}")
+
+    ventasProd_list = list(ventasProd)
+    for ventaProd in ventasProd_list:
+        lines.append(f"Cantidad: {ventaProd.cantidad}")
+        lines.append(f"Articulo:  {ventaProd.idArticulos}")
+        lines.append(f"Precio: {ventaProd.precioVenta}")
+
+    total = ventas.ventaprod_set.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+    lines.append(f"Total: {total}")
+
+    lines.append(" ")
+
+    for line in lines:
+        textobj.textLine(line)
+
+    # Pie de página
+    c.setFont("Helvetica-Bold", 16)
+    c.drawRightString(A4[0] - inch, inch, "Rie Victoria")  # Ajuste del punto de inicio del pie de página
+
+    c.drawText(textobj)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+
+    return FileResponse(buf, as_attachment=True, filename='factura-venta.pdf')
+

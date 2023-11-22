@@ -35,7 +35,7 @@ class Compras(models.Model):
     idProveedor = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
     idEmpleado = models.ForeignKey(Empleados, on_delete=models.CASCADE)
     fecha = models.DateField(help_text="Fecha de compra")
-    articulos = models.ManyToManyField("Articulos" ,related_name='articulos_comprados', through="CompraProd")
+    #articulos = models.ManyToManyField("Articulos" ,related_name='articulos_comprados', through="CompraProd")
     def __str__(self) -> str:
         return str(self.idProveedor)
 
@@ -68,12 +68,12 @@ class Articulos (models.Model):
     venta= models.DecimalField(max_digits=10, decimal_places=2)
     cantidad = models.BigIntegerField(help_text='Cantidad de articulos')
     talle = models.CharField(max_length=3)
-    compras = models.ManyToManyField("Compras",related_name='articulos_comprados' , through="CompraProd")
+    #compras = models.ManyToManyField("Compras",related_name='articulos_comprados' , through="CompraProd")
     ventas = models.ManyToManyField("Ventas" ,related_name='articulos_vendidos', through="ventaProd")
     tipoPrenda =models.ForeignKey("tipoPrenda", on_delete=models.CASCADE, default=1)
     
     def __str__(self) -> str:
-        return str(self.descripcion)
+        return str(self.id)+" | "+str(self.descripcion)
 
 class TipoPrenda (models.Model):
     descripcion =models.CharField( max_length= 60,help_text= 'Tipo de articulo')
@@ -83,7 +83,8 @@ class TipoPrenda (models.Model):
 
 class CompraProd(models.Model):
     idCompra = models.ForeignKey(Compras,on_delete=models.CASCADE)
-    idArticulos = models.ForeignKey(Articulos, on_delete=models.CASCADE)
+    #idArticulos = models.ForeignKey(Articulos, on_delete=models.CASCADE)
+    descripcionArticulo = models.CharField(max_length=30 ,help_text='Articulo comprado')
     cantidad = models.BigIntegerField(help_text='cantidad de articulos')
     precio=models.DecimalField(max_digits=10, decimal_places=2)
     totalCompra = models.DecimalField(max_digits=10, decimal_places=2, default=0)

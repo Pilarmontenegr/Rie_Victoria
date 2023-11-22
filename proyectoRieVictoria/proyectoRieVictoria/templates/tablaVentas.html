@@ -25,6 +25,9 @@
                 <th >Fecha</th>
                 <th>Cliente</th>
                 <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
 
             </tr>
             {% for p in Ventas %}
@@ -36,6 +39,12 @@
                     <td>{{p.fecha}}</td>
                     <td>{{p.idClientes}}</td>
 
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-primary" href="/ventas/VentasPDF/{{ p.id }}">Descargar PDF</a>
+                        </div>
+                    </td>
+                    
                     <td>
                         <div class="d-flex justify-content-end ">
                             <a class="btn btn-outline-danger" href="/ventas/VentasBorrar/{{ p.id }}">Borrar</a>

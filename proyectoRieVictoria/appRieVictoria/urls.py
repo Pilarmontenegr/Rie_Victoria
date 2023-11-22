@@ -16,7 +16,9 @@ urlpatterns = [path ('',views.index, name='index'),
                path('tablaVentas/', views.TablaVentas.as_view(), name='Ventas'),
                path('ventas/VentasNuevo/', views.VentasNuevo.as_view(), name='ventasNuevo'),
                path('ventas/VentasModif/<int:pk>/', views.VentasModif.as_view(), name='ventasModif'),
-               path('ventas/VentasBorrar/<int:pk>/', views.VentasBorrar.as_view(), name='ventasBorrar'),  
+               path('ventas/VentasBorrar/<int:pk>/', views.VentasBorrar.as_view(), name='ventasBorrar'), 
+               path('ventas/VentasPDF/<int:pk>/', views.VentasPDF, name='VentasPDF'),
+               
                # path ('tablaVentas/',views.tablaVentas, name='tablaVentas'),
                # path ('ventas/<int:pk>/',views.ventas, name='ventas'),
               
@@ -44,6 +46,7 @@ urlpatterns = [path ('',views.index, name='index'),
                path('articulo/ArticulosNuevo/', views.ArticulosNuevo, name='ArticulosNuevo'),
                path('articulos/ArticulosModif/<int:pk>/', views.ArticulosModif, name='ArticulosModif'),
                path('articulos/ArticulosBorrar/<int:pk>/', views.ArticulosBorrar, name='ArticulosBorrar'),
+               
 
                path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
                
