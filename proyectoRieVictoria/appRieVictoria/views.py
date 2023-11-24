@@ -589,50 +589,86 @@ def Logout(request):
 #  response.writelines(lines)
 #  return response
 
-
 import io
-from datetime import datetime
-from reportlab.pdfgen import canvas
 from django.http import FileResponse
+from django.db.models import Sum
+from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
 from .models import Ventas, VentaProd
+from reportlab.lib.pagesizes import letter
 
 def VentasPDF(request, pk):
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=A4, bottomup=0)
 
-    # Encabezado - Cuadro
+    textobj = c.beginText()
+    
+    w, h = A4
+
+    #RieVictoria
+    RieVictoria = c.beginText(w - 90, 50)
+    RieVictoria.setFont("Times-Roman", 15)
+    RieVictoria.textLine("Rie Victoria",)
+    c.drawText(RieVictoria)
+
+
+    # Cuadro
     c.setStrokeColorRGB(0, 0, 0)  # Color del borde (negro)
     c.setLineWidth(1)  # Ancho del borde
-    c.rect(inch, 10 * inch, A4[0] - 2 * inch, inch)  # Coordenadas y dimensiones del cuadro
+    c.rect(50, 10 * inch, A4[0] - 2 * inch, inch)  # Coordenadas y dimensiones del cuadro
 
     # Texto dentro del cuadro
-    c.setFont("Helvetica", 12)
-    c.drawString(inch + 5, 10 * inch + 0.5 * inch, "¡Gracias por tu compra! Contacto: 3544-589756")
+    c.setFont("Times-Roman", 15)
+    c.drawString(inch + 5, 10 * inch + 0.5 * inch, "¡Gracias por su compra! Contacto: 3544-589756")
 
-    textobj = c.beginText()
-    textobj.setTextOrigin(inch, 8 * inch)  # Ajuste del origen del texto
-    textobj.setFont("Helvetica", 12)
+    line_height = 40
+    left_margin = inch
+    top_margin = inch * 6
 
-    ventas = Ventas.objects.filter(id=pk)
+    ventas_queryset = Ventas.objects.filter(id=pk)
     ventasProd = VentaProd.objects.filter(idVenta=pk)
 
+    
     lines = []
-    for ventas in ventas:
-        fecha_formateada = ventas.fecha.strftime("%d/%m/%Y %H:%M:%S")
-        lines.append(f"Fecha: {fecha_formateada}")
-        lines.append(f"Empleado: {ventas.idEmpleado}")
-        lines.append(f"Cliente: {ventas.idClientes}")
-        lines.append(f"Tipo de Factura: {ventas.tipoFactura}")
-
     ventasProd_list = list(ventasProd)
-    for ventaProd in ventasProd_list:
-        lines.append(f"Cantidad: {ventaProd.cantidad}")
-        lines.append(f"Articulo:  {ventaProd.idArticulos}")
-        lines.append(f"Precio: {ventaProd.precioVenta}")
+    
 
-    total = ventas.ventaprod_set.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+    for ventaProd in ventasProd_list:
+        # Línea divisoria
+        c.line(left_margin, top_margin, inch + 500, top_margin)
+        top_margin -= line_height * 2
+        total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+        c.drawString(left_margin, top_margin, f"Total: {total}")
+        top_margin -= line_height
+        c.drawString(left_margin, top_margin, f"Precio: {ventaProd.precioVenta}")
+        top_margin -= line_height
+        c.drawString(left_margin, top_margin, f"Cantidad: {ventaProd.cantidad}")
+        top_margin -= line_height
+        c.drawString(left_margin, top_margin, f"Articulo: {ventaProd.idArticulos}")
+        top_margin -= line_height
+        # Línea divisoria
+    c.line(left_margin, top_margin, inch + 500, top_margin)
+    top_margin -= line_height * 1
+
+    
+
+    for ventas in ventas_queryset:
+        c.drawString(left_margin, top_margin, f"Empleado: {ventas.idEmpleado}")
+        top_margin -= line_height
+        c.drawString(left_margin, top_margin, f"Cliente: {ventas.idClientes}")
+        top_margin -= line_height
+        fecha_formateada = ventas.fecha.strftime("%d/%m/%Y")
+        c.drawString(left_margin, top_margin, f"Fecha: {fecha_formateada}")
+        top_margin -= line_height
+        c.drawString(left_margin, top_margin, f"Tipo de Factura: {ventas.tipoFactura}")
+        top_margin -= line_height
+        # Línea divisoria
+    c.line(left_margin, top_margin, inch + 500, top_margin)
+    top_margin -= line_height * 1
+        
+
+    total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
     lines.append(f"Total: {total}")
 
     lines.append(" ")
@@ -640,14 +676,27 @@ def VentasPDF(request, pk):
     for line in lines:
         textobj.textLine(line)
 
-    # Pie de página
-    c.setFont("Helvetica-Bold", 16)
-    c.drawRightString(A4[0] - inch, inch, "Rie Victoria")  # Ajuste del punto de inicio del pie de página
+    
+    #IMAGEN
+    # w, h = A4
+    # c.drawImage("proyectoRieVictoria/static/img/RV3.png", 50, h - 200)
+
 
     c.drawText(textobj)
     c.showPage()
     c.save()
     buf.seek(0)
 
-    return FileResponse(buf, as_attachment=True, filename='factura-venta.pdf')
+    return FileResponse(buf, as_attachment=True, filename=f'factura_venta_{pk}.pdf')
+
+
+
+
+
+
+
+
+
+
+
 
