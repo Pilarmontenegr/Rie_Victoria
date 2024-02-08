@@ -1,43 +1,79 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="subtituloInicio">
+<div class="nombreTablas">
     <p >Clientes</p>
+</div>
+<div class="row">
+    <div class="col d-flex justify-content-end  mb-3">
+        <form method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Buscar Cliente...">
+                <button class="btn btn-outline-primary" 
+                 type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
+            </div>
+        </form>
+    <a class="btn btn-outline-primary" href="/clientes/ClientesNuevo{{ p.id}}">Nuevo Cliente</a></td>
+    </div>
 </div>
 
 
-    <!-- longitud de la tabla, el lenth -->
-    <div class="descripcionClie">
-        <h4>Total de clientes: {{Clientes|length}}</h4>
-    </div>
-
-    <div class="contenedorTabla">
-        <div class="col-5">
-    <div>
-
-        <table class="table tablaBorde1 table-condensed table-striped">
+<table style="border-style: solid; border-color: palevioletred;" class="table table-striped"> 
             <!-- fila de una tabla -->
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th class="centrado">Código</th>
-                <th >Descripción</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>DNI</th>
+                <th>Telefono</th>
+                <th></th>
 
             </tr>
             {% for p in Clientes %}
 
                 <tr>
                     <!-- columna dentro de la fila -->
-                    <td class="centrado" >{{p.id}}</td>
+                    <td class="centrado"><a href="/clientes/ClientesModif/{{ p.id }}/">{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
-                    <td><a href="/clientes/{{ p.id }}/">{{p.nombre}}</a></td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.direccion }}</td>
+                    <td>{{ p.DNI}}</td>
+                    <td>{{ p.telefono }}</td>
+    
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-danger" href="/clientes/ClientesBorrar/{{ p.id}}">Borrar</a>
+                        </div>
+                    </td>
 
                 </tr>
                 {% endfor %}
-        </table>
-
+    </table>
+    <div class="pagination justify-content-center">
+    
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-primary mb-3" href="?page=1">Primera</a>
+            <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.previous_page_number }}">
+                Anterior
+            </a>
+        {% endif %}
+    
+        <span class="current-page btn btn-outline-light disabled text-primary mb-3">
+            {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+    
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.next_page_number }}">
+                Siguiente
+            </a>
+            <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.paginator.num_pages }}">
+                Última
+            </a>
+        {% endif %}
     </div>
-    </div>
-    </div>
-
+    
+    
+    
 {% endblock %}

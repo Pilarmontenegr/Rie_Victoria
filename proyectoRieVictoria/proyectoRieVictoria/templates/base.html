@@ -6,29 +6,40 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base</title>
+    <title>Rie Victoria</title>
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
     <link rel="stylesheet" href="{% static 'estilos.css' %}">
+    <link rel="icon" href="/static/img/RV3.png">
+
 
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <div class="flor"></div>
+            <div class="RV3"> 
+            </div>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
+              {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/index/">Inicio</a>
                   </li>
@@ -39,24 +50,45 @@
                 <a class="nav-link" href="/tablaclientes/">Clientes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/empleados/">Empleados</a>
+                <a class="nav-link" href="/tablaempleados/">Empleados</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/proveedores/">Proveedores</a>
+                <a class="nav-link" href="/tablaproveedores/">Proveedores</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tablaCompras/">Compras</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tablaVentas/">Ventas</a>
+              </li>
+              {% endif %}
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="text" placeholder="Search">
-              <button class="btn btn-primary" type="button">Search</button>
-            </form>
+
+            <ul class="nav navbar-nav ms-auto">
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}"> {{ request.user }} | Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/login"> Login</a>
+
+                </li>
+              {% endif %}
+            </ul>
+
           </div>
         </div>
       </nav>
 
+      <div class="container" >
+    
     {% block content %}
     {% endblock %}
+      </div>
+
 <footer>
-    <div class="container-fluid" >
+    <div class="container" >
         <div class="row">
             <div class="pie">Este programa esta realizado con el fin de aprobar</div>
         </div>

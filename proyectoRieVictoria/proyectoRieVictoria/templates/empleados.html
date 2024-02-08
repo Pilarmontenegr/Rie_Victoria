@@ -3,9 +3,38 @@
 
 
 <div class="subtituloInicio">
-    <p >empleados</p>
+    <p >Empleados</p>
    
-    
+</div>
+<div class="contenedorTabla">
+    <div class="col-3">
+<div>
+    <div class="descripcionArt">
+        <h4>{{ empl.descripcion }}</h4>
+    </div>
+
+    <table class="table tablaBorde table-condensed table-striped">
+        <!-- fila de una tabla -->
+        <tr>
+            <td>Nombre: </td>
+            <td>{{empl.nombre}}</td>
+        </tr>
+        <tr>
+            <td>Dirección: </td>
+            <td>{{empl.direccion}}</td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>{{empl.Email}}</td>
+        </tr>
+        <tr>
+            <td>Telefono: </td>
+            <td>{{empl.telefono}}</td>
+        </tr>
+        
+    </table>
+</div>
+</div>
 </div>
 
     

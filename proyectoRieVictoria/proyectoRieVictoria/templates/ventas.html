@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="subtituloInicio">
+    <p >Ventas</p>
+</div>
+<div class="contenedorTabla">
+    <div class="col-5">
+<div>
+    <div class="descripcionClie">
+        <h4>{{ ven.fecha }}</h4>
+    </div>
+    <table class="table tablaBorde table-condensed table-striped">
+        <!-- fila de una tabla -->
+        <tr>
+            <td>Fecha: </td>
+            <td>{{ven.fecha}}</td>
+        </tr>
+        <tr>
+            <td>Empleada: </td>
+            <td> {{ven.idEmpleado}}</td>
+        </tr>
+        <tr>
+            <td>Cliente: </td>
+            <td>{{ven.idClientes}}</td>
+        </tr>
+        <tr>
+            <td>Tipo de Factura: </td>
+            <td>{{ven.tipoFactura}}</td>
+        </tr>
+        <tr>
+    </table>
+    <table class="table tablaBorde table-condensed table-striped">
+        <tr>
+            <td>Articulos Vendidos: </td>
+            <td><ul>
+                {% for art in ventProd %}
+                <li>{{art.idArticulos}} </li>
+                  Cantidad: {{art.cantidad}} </br>
+                 Precio: {{art.precio}}
+                {% endfor %}
+            </ul></td>
+        </tr>
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}
+
+
+

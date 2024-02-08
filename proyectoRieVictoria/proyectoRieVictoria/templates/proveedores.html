@@ -1,14 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 <div class="subtituloInicio">
-    <p >proveedores</p>
-   
-    
+    <p >Proveedores</p>
 </div>
 
-    
-    
-            
+<div class="contenedorTabla">
+    <div class="col-4">
+<div>
+    <div class="descripcionProv">
+        <h4>{{ prov.descripcion }}</h4>
+    </div>
+    <table class="table tablaBorde table-condensed table-striped">
+        <!-- fila de una tabla -->
+        <tr>
+            <td>Nombre: </td>
+            <td>{{prov.nombre}}</td>
+        </tr>
+        <tr>
+            <td>Dirección: </td>
+            <td> {{prov.direccion}}</td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>{{prov.Email}}</td>
+        </tr>
+        <tr>
+            <td>CUIT: </td>
+            <td>{{prov.cuit}}</td>
+        </tr>
+        <tr>
+            <td>Teléfono: </td>
+            <td>{{prov.telefono}}</td>
+        </tr>
+        <tr>
+    </table>
+</div>
+</div>
+</div>
+
+
 {% endblock %}

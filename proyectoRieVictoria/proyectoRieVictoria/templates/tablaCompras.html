@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="nombreTablas">
+    <p >Compras</p>
+</div>
+
+</style>
+<div class="row">
+    <div class="col d-flex justify-content-end  mb-3 ">
+        <form method="GET">
+            <div class="input-group">
+                <input type="date" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Fecha...">
+                <button class="btn btn-outline-primary" 
+                 type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
+            </div>
+        </form>
+        &nbsp;
+    <a class="btn btn-outline-primary "  href="/compras/ComprasNuevo{{ p.id}}">Nueva compra</a></td>
+    </div>
+</div>
+
+
+<table style="border-style: solid; border-color: palevioletred;" class="table table-striped">
+            <!-- fila de una tabla -->
+            <tr>
+                <!-- columna dentro de la fila -->
+
+                <th class="centrado">Código</th>
+                <th>Fecha</th>
+                <th >Proveedor</th>
+                
+                <th> </th>
+            </tr>
+            {% for p in Compras %}
+
+                <tr>
+                    <!-- columna dentro de la fila -->
+                    <td class="centrado"><a href="/compras/ComprasModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    <td>{{p.fecha}}</td>
+                    <!-- a href para hacerlo link -->
+                    <td>{{p.idProveedor}}</td>
+
+                    <td>
+                        <div class="d-flex justify-content-end ">
+                            <a class="btn btn-outline-danger" href="/compras/ComprasBorrar/{{ p.id }}">Borrar</a>
+                        </div>
+                    </td>
+
+                </tr>
+                {% endfor %}
+        </table>
+        <div class="pagination justify-content-center">
+    
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary mb-3" href="?page=1">Primera</a>
+                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.previous_page_number }}">
+                    Anterior
+                </a>
+            {% endif %}
+        
+            <span class="current-page btn btn-outline-light disabled text-primary mb-3">
+                {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </span>
+        
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.next_page_number }}">
+                    Siguiente
+                </a>
+                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.paginator.num_pages }}">
+                    Última
+                </a>
+            {% endif %}
+        </div>
+{% endblock %}

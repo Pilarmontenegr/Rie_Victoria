@@ -7,82 +7,82 @@ body {
     background-color: black;
     color: white;
     font-size: 15px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Ysabeau Office', sans-serif;
 }
 
 .tituloInicio{
     font-family: 'Ysabeau Office', sans-serif;
     text-align: center;
-    font-size: 60px;
+    font-size: 65px;
     line-height:70% ;
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-block-end: 100px;
 
 }
 .subtituloInicio {
-    font-family: 'Ysabeau Office', sans-serif;
+    font-family: 'Red Hat Display', sans-serif;
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
+    margin-top: 40px;
+
+}
+
+.nombreTablas {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 40px;
 
 }
 
 
-/* .flor {
-    height: 100px;
-    width: 100px;
-    background-image: "img/flor.png";
-
-
-} */
 .bienvenida {
     margin-left: 50;
-
+    background-image: url(img/RV3.png);
     height: 100px;
     width: 100px;
-  }
-.tablaBorde {
-    border: 1px solid black; /* color de los bordes */
-}
-
-.tablaBorde td:first-child {
-    font-weight: bold; /* Pone en negrita el texto de la primer columna */
-}
-
-.tablaBorde td:nth-child(2) {
-    width: 50%; /*ancho de la segunda columna */
-}
-
-.tablaBorde1 {
-    border: 1px solid black; /* color de los bordes */
-}
-
-.tablaBorde1 td:first-child {
-    font-weight: bold; /* Pone en negrita el texto de la primer columna */
-}
-
-.tablaBorde1 td:nth-child(2) {
-    width: 50%; /*ancho de la segunda columna */
+    float: left;
+    text-indent: 0em;
+    margin-top: -33%;
 }
 
 .contenedorTabla {
-    display: flex;
-
-    justify-content: center;
-
+    display: flex-end;
+    justify-content:flex-end;
 }
 
+
+
 .descripcionArt{
-    font-family: 'Ysabeau Office', sans-serif;
+    font-family: 'Red Hat Display', sans-serif;
     margin-left: 40px;
 }
 
 .descripcionClie{
-    font-family: 'Ysabeau Office,' sans-serif ;
+    font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
 }
 
+.descripcionProv{
+    font-family: 'Red Hat Display', sans-serif;
+    margin-left:  40px;
+}
+
+.descripcionEmpl{
+    font-family: 'Red Hat Display', sans-serif;
+    margin-left:  40px;
+}
 .centrado { /*para el id y articulo de la tabla*/
     text-align: center;
-  }
+}
 
+/*para la búsqueda que quede bien con el fondo */
+.inputApagado {
+    background-color: RGBA(255,255,255,0.7);
+  
+}
+.inputApagado:focus {
+    background-color: RGBA(255,255,255,0.7);
+}
 
 

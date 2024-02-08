@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-
 <div class="subtituloInicio">
     <p>Descripción de Articulos</p>
 </div>
@@ -14,14 +12,10 @@
     </div>
 
     <table class="table tablaBorde table-condensed table-striped">
-        <!-- fila de una tabla -->
+         
         <tr>
             <td>Descripción: </td>
             <td>{{art.descripcion}}</td>
-        </tr>
-        <tr>
-            <td>Precio de costo: </td>
-            <td> ${{art.costo}}</td>
         </tr>
         <tr>
             <td>Precio de venta: </td>
@@ -44,5 +38,6 @@
 </div>
 </div>
 
-
 {% endblock %}
+
+

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row">
+        <h3 class="col display-4 my-3">Articulos</h3>
+        <div class="col d-flex justify-content-end align-items-end mb-3">
+            <a class="btn btn-outline-primary" href="/articulos/ArticulosModif/">Nuevo Articulo</a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="bg-dark text-light">
+            <th>descripcion</th>
+            <th class="d-none d-sm-table-cell">tipoPrenda</th>
+            <th></th>
+        </thead>
+        <tbody>
+        {% for p in articulos %}
+            <tr>
+                <td><a href="/articulos/ArticulosNuevo/{{ p.descripcion }}">{{ p.descripcion }}</a></td>
+                <td class="d-none d-sm-table-cell">{{ p.tipoPrenda }}</td>
+                <td class="d-flex justify-content-end align-items-end"><a class="btn btn-outline-danger" href="/articulos/articulosBorrar/{{ p.descripcion }}">Borrar</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
