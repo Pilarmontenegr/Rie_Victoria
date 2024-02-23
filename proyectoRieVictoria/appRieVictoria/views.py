@@ -598,88 +598,254 @@ from reportlab.lib.units import inch
 from .models import Ventas, VentaProd
 from reportlab.lib.pagesizes import letter
 
+
+
+# def VentasPDF(request, pk):
+#     buf = io.BytesIO()
+#     c = canvas.Canvas(buf, pagesize=A4, bottomup=0)
+
+#     textobj = c.beginText()
+    
+#     w, h = A4
+
+#     #RieVictoria
+#     RieVictoria = c.beginText(w - 90, 50)
+#     RieVictoria.setFont("Times-Roman", 15)
+#     RieVictoria.textLine("Rie Victoria",)
+#     c.drawText(RieVictoria)
+
+
+#     # Cuadro
+#     c.setStrokeColorRGB(0, 0, 0)  # Color del borde (negro)
+#     c.setLineWidth(1)  # Ancho del borde
+#     c.rect(50, 10 * inch, A4[0] - 2 * inch, inch)  # Coordenadas y dimensiones del cuadro
+
+#     # Texto dentro del cuadro
+#     c.setFont("Times-Roman", 15)
+#     c.drawString(inch + 5, 10 * inch + 0.5 * inch, "¡Gracias por su compra! Contacto: 3544-589756")
+
+#     line_height = 40
+#     left_margin = inch
+#     top_margin = inch * 6
+
+#     ventas_queryset = Ventas.objects.filter(id=pk)
+#     ventasProd = VentaProd.objects.filter(idVenta=pk)
+
+    
+#     lines = []
+#     ventasProd_list = list(ventasProd)
+    
+
+#     for ventaProd in ventasProd_list:
+#         # Línea divisoria
+#         c.line(left_margin, top_margin, inch + 500, top_margin)
+#         top_margin -= line_height * 2
+#         total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+#         c.drawString(left_margin, top_margin, f"Total: {total}")
+#         top_margin -= line_height
+#         c.drawString(left_margin, top_margin, f"Precio: {ventaProd.precioVenta}")
+#         top_margin -= line_height
+#         c.drawString(left_margin, top_margin, f"Cantidad: {ventaProd.cantidad}")
+#         top_margin -= line_height
+#         c.drawString(left_margin, top_margin, f"Articulo: {ventaProd.idArticulos}")
+#         top_margin -= line_height
+#         # Línea divisoria
+#     c.line(left_margin, top_margin, inch + 500, top_margin)
+#     top_margin -= line_height * 1
+
+    
+
+#     for ventas in ventas_queryset:
+#         c.drawString(left_margin, top_margin, f"Empleado: {ventas.idEmpleado}")
+#         top_margin -= line_height
+#         c.drawString(left_margin, top_margin, f"Cliente: {ventas.idClientes}")
+#         top_margin -= line_height
+#         fecha_formateada = ventas.fecha.strftime("%d/%m/%Y")
+#         c.drawString(left_margin, top_margin, f"Fecha: {fecha_formateada}")
+#         top_margin -= line_height
+#         c.drawString(left_margin, top_margin, f"Tipo de Factura: {ventas.tipoFactura}")
+#         top_margin -= line_height
+#         # Línea divisoria
+#     c.line(left_margin, top_margin, inch + 500, top_margin)
+#     top_margin -= line_height * 1
+        
+
+#     total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+#     lines.append(f"Total: {total}")
+
+#     lines.append(" ")
+
+#     for line in lines:
+#         textobj.textLine(line)
+
+    
+#     # #IMAGEN
+#     # w, h = A4
+#     # c.drawImage("proyectoRieVictoria/static/img/RV3.png", 50, h - 200)
+
+
+#     c.drawText(textobj)
+#     c.showPage()
+#     c.save()
+#     buf.seek(0)
+
+#     return FileResponse(buf, as_attachment=True, filename=f'factura_venta_{pk}.pdf')
+
+
 def VentasPDF(request, pk):
     buf = io.BytesIO()
-    c = canvas.Canvas(buf, pagesize=A4, bottomup=0)
+    c = canvas.Canvas(buf, pagesize=A4)
 
     textobj = c.beginText()
     
     w, h = A4
+    
 
-    #RieVictoria
-    RieVictoria = c.beginText(w - 90, 50)
-    RieVictoria.setFont("Times-Roman", 15)
-    RieVictoria.textLine("Rie Victoria",)
-    c.drawText(RieVictoria)
+    c.setFont("Times-Roman", 40)  
+    c.drawString(50, h- 50, "FACTURA")
+    c.drawImage('C:\miEntorno\proyectoRieVictoria\proyectoRieVictoria\static\img\RV2.png', 350, h-130, 220, 110)
 
+    c.setFont("Times-Bold", 12)  
+    c.drawString(50, h - 90, "Dirección") 
+    c.drawString(50, h - 130, "Télefono")  
+    c.drawString(250, h - 130, "Gmail") 
+    
 
-    # Cuadro
-    c.setStrokeColorRGB(0, 0, 0)  # Color del borde (negro)
-    c.setLineWidth(1)  # Ancho del borde
-    c.rect(50, 10 * inch, A4[0] - 2 * inch, inch)  # Coordenadas y dimensiones del cuadro
-
-    # Texto dentro del cuadro
-    c.setFont("Times-Roman", 15)
-    c.drawString(inch + 5, 10 * inch + 0.5 * inch, "¡Gracias por su compra! Contacto: 3544-589756")
-
-    line_height = 40
-    left_margin = inch
-    top_margin = inch * 6
+    c.setFont("Times-Roman", 12)  
+    c.drawString(50, h - 110, "Belgrano 259,Villa Dolores") 
+    c.drawString(50, h - 144, "3544-543815")  
+    c.drawString(250, h - 145, "Rievictoria@gmail.com") 
+    
 
     ventas_queryset = Ventas.objects.filter(id=pk)
     ventasProd = VentaProd.objects.filter(idVenta=pk)
 
-    
-    lines = []
-    ventasProd_list = list(ventasProd)
-    
-
-    for ventaProd in ventasProd_list:
-        # Línea divisoria
-        c.line(left_margin, top_margin, inch + 500, top_margin)
-        top_margin -= line_height * 2
-        total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
-        c.drawString(left_margin, top_margin, f"Total: {total}")
-        top_margin -= line_height
-        c.drawString(left_margin, top_margin, f"Precio: {ventaProd.precioVenta}")
-        top_margin -= line_height
-        c.drawString(left_margin, top_margin, f"Cantidad: {ventaProd.cantidad}")
-        top_margin -= line_height
-        c.drawString(left_margin, top_margin, f"Articulo: {ventaProd.idArticulos}")
-        top_margin -= line_height
-        # Línea divisoria
-    c.line(left_margin, top_margin, inch + 500, top_margin)
-    top_margin -= line_height * 1
-
-    
 
     for ventas in ventas_queryset:
-        c.drawString(left_margin, top_margin, f"Empleado: {ventas.idEmpleado}")
-        top_margin -= line_height
-        c.drawString(left_margin, top_margin, f"Cliente: {ventas.idClientes}")
-        top_margin -= line_height
+        c.setFont("Times-Roman", 12)
+
         fecha_formateada = ventas.fecha.strftime("%d/%m/%Y")
-        c.drawString(left_margin, top_margin, f"Fecha: {fecha_formateada}")
-        top_margin -= line_height
-        c.drawString(left_margin, top_margin, f"Tipo de Factura: {ventas.tipoFactura}")
-        top_margin -= line_height
-        # Línea divisoria
-    c.line(left_margin, top_margin, inch + 500, top_margin)
-    top_margin -= line_height * 1
+        c.drawString(50, h-200, f"Fecha de venta:{fecha_formateada}")
+
+        c.drawString(250, h-200, f"Tipo de Factura: {ventas.tipoFactura}")
+
+        c.drawString(50, h-220, f"Empleado: {ventas.idEmpleado}")
         
+        c.drawString(250, h-220, f"Cliente: {ventas.idClientes}")
+    
+    c.setFont("Helvetica-Bold", 12)  
+    c.drawString(50, h - 270, "Cód")
+    c.drawString(80, h - 270, "Descripción")
+    c.drawString(370, h - 270, "Precio")
+    c.drawString(430, h - 270, "Cantidad")
+    c.drawString(490, h - 270, "Importe")
+    c.line(50, h -280, 549, h -280)
 
-    total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
-    lines.append(f"Total: {total}")
-
-    lines.append(" ")
-
-    for line in lines:
-        textobj.textLine(line)
 
     
-    #IMAGEN
-    # w, h = A4
-    # c.drawImage("proyectoRieVictoria/static/img/RV3.png", 50, h - 200)
+    ventasProd_list = list(ventasProd) 
+    y_posicion = h - 300
+
+    for indice, ventaProd in enumerate(ventasProd_list[:15]):
+        c.setFont("Helvetica", 12) 
+
+        c.drawString(50, y_posicion ,f"{ventaProd.idArticulos}")
+        c.drawString( 370, y_posicion,f"${ventaProd.precioVenta}")
+        c.drawString( 450, y_posicion,f"{ventaProd.cantidad}")
+
+        subtotal_producto = ventaProd.precioVenta * ventaProd.cantidad
+        c.drawString(490, y_posicion, f"${subtotal_producto}")
+
+        y_posicion -= 25
+    
+    c.line(50, h -670, 549, h -670)
+    c.setFont("Helvetica-Bold", 12)
+    total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+    c.drawString( 480, h-690,f"Total ${total}")
+
+
+    
+        
+        
+        
+        
+    
+
+
+    # #RieVictoria
+    # RieVictoria = c.beginText(w - 90, 50)
+    # RieVictoria.setFont("Times-Roman", 15)
+    # RieVictoria.textLine("Rie Victoria",)
+    # c.drawText(RieVictoria)
+
+
+    # # Cuadro
+    # c.setStrokeColorRGB(0, 0, 0)  # Color del borde (negro)
+    # c.setLineWidth(1)  # Ancho del borde
+    # c.rect(50, 10 * inch, A4[0] - 2 * inch, inch)  # Coordenadas y dimensiones del cuadro
+
+    # # Texto dentro del cuadro
+    # c.setFont("Times-Roman", 15)
+    # c.drawString(inch + 5, 10 * inch + 0.5 * inch, "¡Gracias por su compra! Contacto: 3544-589756")
+
+    # line_height = 40
+    # left_margin = inch
+    # top_margin = inch * 6
+
+    # ventas_queryset = Ventas.objects.filter(id=pk)
+    # ventasProd = VentaProd.objects.filter(idVenta=pk)
+
+    
+    # lines = []
+    # ventasProd_list = list(ventasProd)
+    
+
+    # for ventaProd in ventasProd_list:
+    #     # Línea divisoria
+    #     c.line(left_margin, top_margin, inch + 500, top_margin)
+    #     top_margin -= line_height * 2
+    #     total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+    #     c.drawString(left_margin, top_margin, f"Total: {total}")
+    #     top_margin -= line_height
+    #     c.drawString(left_margin, top_margin, f"Precio: {ventaProd.precioVenta}")
+    #     top_margin -= line_height
+    #     c.drawString(left_margin, top_margin, f"Cantidad: {ventaProd.cantidad}")
+    #     top_margin -= line_height
+    #     c.drawString(left_margin, top_margin, f"Articulo: {ventaProd.idArticulos}")
+    #     top_margin -= line_height
+    #     # Línea divisoria
+    # c.line(left_margin, top_margin, inch + 500, top_margin)
+    # top_margin -= line_height * 1
+
+    
+
+    # for ventas in ventas_queryset:
+    #     c.drawString(left_margin, top_margin, f"Empleado: {ventas.idEmpleado}")
+    #     top_margin -= line_height
+    #     c.drawString(left_margin, top_margin, f"Cliente: {ventas.idClientes}")
+    #     top_margin -= line_height
+    #     fecha_formateada = ventas.fecha.strftime("%d/%m/%Y")
+    #     c.drawString(left_margin, top_margin, f"Fecha: {fecha_formateada}")
+    #     top_margin -= line_height
+    #     c.drawString(left_margin, top_margin, f"Tipo de Factura: {ventas.tipoFactura}")
+    #     top_margin -= line_height
+    #     # Línea divisoria
+    # c.line(left_margin, top_margin, inch + 500, top_margin)
+    # top_margin -= line_height * 1
+        
+
+    # total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+    # lines.append(f"Total: {total}")
+
+    # lines.append(" ")
+
+    # for line in lines:
+    #     textobj.textLine(line)
+
+    
+    # # #IMAGEN
+    # # w, h = A4
+    # # c.drawImage("proyectoRieVictoria/static/img/RV3.png", 50, h - 200)
 
 
     c.drawText(textobj)
@@ -688,9 +854,6 @@ def VentasPDF(request, pk):
     buf.seek(0)
 
     return FileResponse(buf, as_attachment=True, filename=f'factura_venta_{pk}.pdf')
-
-
-
 
 
 
