@@ -719,19 +719,18 @@ def VentasPDF(request, pk):
 
     ventas_queryset = Ventas.objects.filter(id=pk)
     ventasProd = VentaProd.objects.filter(idVenta=pk)
-
+    
 
     for ventas in ventas_queryset:
         c.setFont("Times-Roman", 12)
 
         fecha_formateada = ventas.fecha.strftime("%d/%m/%Y")
         c.drawString(50, h-200, f"Fecha de venta:{fecha_formateada}")
-
-        c.drawString(250, h-200, f"Tipo de Factura: {ventas.tipoFactura}")
-
         c.drawString(50, h-220, f"Empleado: {ventas.idEmpleado}")
-        
         c.drawString(250, h-220, f"Cliente: {ventas.idClientes}")
+        c.setFont("Times-Roman", 20)  
+        c.rect(250, h-90,35,35)
+        c.drawString(260, h-75, f"{ventas.tipoFactura}")
     
     c.setFont("Helvetica-Bold", 12)  
     c.drawString(50, h - 270, "Cód")
@@ -746,8 +745,8 @@ def VentasPDF(request, pk):
     ventasProd_list = list(ventasProd) 
     y_posicion = h - 300
 
-    for indice, ventaProd in enumerate(ventasProd_list[:15]):
-        c.setFont("Helvetica", 12) 
+    for indice, ventaProd in enumerate(ventasProd_list[:19]):
+        c.setFont("Helvetica", 13) 
 
         c.drawString(50, y_posicion ,f"{ventaProd.idArticulos}")
         c.drawString( 370, y_posicion,f"${ventaProd.precioVenta}")
@@ -758,10 +757,10 @@ def VentasPDF(request, pk):
 
         y_posicion -= 25
     
-    c.line(50, h -670, 549, h -670)
-    c.setFont("Helvetica-Bold", 12)
+    c.line(50, h -760, 549, h -760)
+    c.setFont("Helvetica-Bold", 15)
     total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
-    c.drawString( 480, h-690,f"Total ${total}")
+    c.drawString( 450, h-790,f"Total ${total}")
 
 
     
