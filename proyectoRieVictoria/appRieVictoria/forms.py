@@ -74,7 +74,7 @@ class VentasForm(forms.ModelForm):
             'tipoFactura': forms.Select(attrs={'class': 'form-select'}),
         }
     
-    ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1)
+    ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1, max_num=20)
 
     class CustomVentasFormset(ventasFormset):
         def clean(self):
