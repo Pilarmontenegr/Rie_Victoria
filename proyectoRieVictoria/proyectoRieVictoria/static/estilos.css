@@ -35,7 +35,6 @@ body {
 
 }
 
-
 .bienvenida {
     margin-left: -110px;
     background-image: url(img/RV3.png);
@@ -50,7 +49,6 @@ body {
     display: flex-end;
     justify-content:flex-end;
 }
-
 
 
 .descripcionArt{
