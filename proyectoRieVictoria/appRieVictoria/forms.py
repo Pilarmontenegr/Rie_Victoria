@@ -90,6 +90,7 @@ class VentasForm(forms.ModelForm):
  
 
     class CustomVentasFormset(ventasFormset):
+        
         def clean(self):
             super().clean()
             for form in self.forms:
