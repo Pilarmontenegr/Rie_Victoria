@@ -108,6 +108,7 @@ class VentasForm(forms.ModelForm):
                     articulo.save()
 
 
+
     # class CustomVentasFormset(forms.BaseInlineFormSet):
     #     def clean(self):
     #     super().clean()
