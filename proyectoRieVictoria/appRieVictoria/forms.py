@@ -90,7 +90,7 @@ class VentasForm(forms.ModelForm):
  
 
     class CustomVentasFormset(ventasFormset):
-        
+
         def clean(self):
             super().clean()
             for form in self.forms:
@@ -107,6 +107,28 @@ class VentasForm(forms.ModelForm):
                     articulo.cantidad -= cantidad
                     articulo.save()
 
+
+    # class CustomVentasFormset(forms.BaseInlineFormSet):
+    #     def clean(self):
+    #     super().clean()
+    #     total_venta_por_articulo = {}
+
+    #     # Calcular la cantidad total vendida por cada artículo
+    #     for form in self.forms:
+    #         cantidad = form.cleaned_data.get('cantidad')
+    #         id_articulo = form.cleaned_data.get('idArticulos').id
+
+    #         if cantidad is not None:
+    #             if id_articulo in total_venta_por_articulo:
+    #                 total_venta_por_articulo[id_articulo] += cantidad
+    #             else:
+    #                 total_venta_por_articulo[id_articulo] = cantidad
+
+    #     # Actualizar el stock de cada artículo
+    #     for id_articulo, cantidad_vendida in total_venta_por_articulo.items():
+    #         articulo = Articulos.objects.get(id=id_articulo)
+    #         articulo.cantidad -= cantidad_vendida
+    #         articulo.save()
 
 
 
