@@ -76,6 +76,19 @@ class VentasForm(forms.ModelForm):
     
     ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1, max_num=20)
 
+    # class CustomVentasFormset(ventasFormset):
+    #     def clean(self):
+    #         super().clean()
+    #         for form in self.forms:
+    #             cantidad = form.cleaned_data.get('cantidad')
+    #             if cantidad is not None:
+    #                 precioVenta = form.instance.idArticulos.venta
+    #                 totalVenta =  precioVenta * cantidad
+    #                 form.instance.precioVenta = precioVenta
+    #                 form.instance.totalVenta = totalVenta
+    
+ 
+
     class CustomVentasFormset(ventasFormset):
         def clean(self):
             super().clean()
@@ -86,6 +99,21 @@ class VentasForm(forms.ModelForm):
                     totalVenta =  precioVenta * cantidad
                     form.instance.precioVenta = precioVenta
                     form.instance.totalVenta = totalVenta
+
+                    id_articulo = form.cleaned_data.get('idArticulos').id
+                    articulo = Articulos.objects.get(id=id_articulo)
+
+                    articulo.cantidad -= cantidad
+                    articulo.save()
+
+
+
+
+
+
+
+
+
 
                     
 
