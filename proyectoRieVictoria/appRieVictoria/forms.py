@@ -141,7 +141,7 @@ class VentasForm(forms.ModelForm):
 
                     
 
-
+#prueba
 class CompraProdForm(forms.ModelForm):
     class Meta:
         model = CompraProd
