@@ -1,6 +1,7 @@
 from django import forms
 from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , CompraProd, Compras
 from decimal import Decimal
+
 class ProveedoresForm(forms.ModelForm):
     class Meta:
         model = Proveedores
@@ -74,74 +75,159 @@ class VentasForm(forms.ModelForm):
             'tipoFactura': forms.Select(attrs={'class': 'form-select'}),
         }
     
-    ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1, max_num=20)
+    ventasFormset = forms.inlineformset_factory(Ventas, VentaProd, form=ventaProdForm, extra=1, max_num=20,can_delete=True, can_delete_extra=True)
+    
+
+
+##ultimo anda bien
+    # from django.forms import formset_factory
 
     # class CustomVentasFormset(ventasFormset):
+    #     def __init__(self, *args, **kwargs):
+    #         super().__init__(*args, **kwargs)
+    #         self.articulos_vendidos = set()
+
     #     def clean(self):
     #         super().clean()
     #         for form in self.forms:
+    #             if form.cleaned_data.get('idArticulos') is not None and form.instance.pk is None:
+    #                 cantidad = form.cleaned_data.get('cantidad')
+    #                 if cantidad is not None:
+    #                     precioVenta = form.instance.idArticulos.venta
+    #                     totalVenta = precioVenta * cantidad
+    #                     form.instance.precioVenta = precioVenta
+    #                     form.instance.totalVenta = totalVenta
+
+    #                     id_articulo = form.cleaned_data.get('idArticulos').id
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+    #                     # Restar del stock la cantidad vendida
+    #                     articulo.cantidad -= cantidad
+    #                     articulo.save()
+    #                     self.articulos_vendidos.add((id_articulo, cantidad))
+
+    #             elif form.instance.pk and form.cleaned_data.get('cantidad') is not None:
+    #                 cantidad = form.cleaned_data.get('cantidad')
+    #                 initial_cantidad = form.initial['cantidad']
+
+    #                 if cantidad != initial_cantidad:  # ver si se modifico la cantidad
+    #                     id_articulo = form.cleaned_data.get('idArticulos').id
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+    #                     diferencia = initial_cantidad - cantidad
+
+    #                     # Ajustar el stock con la diferencia
+    #                     articulo.cantidad += diferencia
+    #                     articulo.save()
+    #                     self.articulos_vendidos.discard((id_articulo, initial_cantidad))  # Eliminar la venta anterior del conjunto
+
+        
+#ultimo anduco bien 1/3:
+    # from django import forms
+
+    # class CustomVentasFormset(ventasFormset):
+    #     def __init__(self, *args, **kwargs):
+    #         super().__init__(*args, **kwargs)
+    #         self.articulos_vendidos = set()
+
+    #     def clean(self):
+    #         cleaned_data = super().clean()
+    #         for form in self.forms:
     #             cantidad = form.cleaned_data.get('cantidad')
-    #             if cantidad is not None:
-    #                 precioVenta = form.instance.idArticulos.venta
-    #                 totalVenta =  precioVenta * cantidad
-    #                 form.instance.precioVenta = precioVenta
-    #                 form.instance.totalVenta = totalVenta
-    
- 
+    #             id_articulo = form.cleaned_data.get('idArticulos').id if form.cleaned_data.get('idArticulos') else None
+
+
+    #             if form.cleaned_data.get('DELETE') and cantidad is not None and id_articulo is not None:
+    #                 articulo = Articulos.objects.get(id=id_articulo)
+    #                 articulo.cantidad += cantidad
+    #                 articulo.save()
+    #                 self.articulos_vendidos.discard((id_articulo, cantidad))  # Eliminar la venta del conjunto
+
+    #             if id_articulo and form.instance.pk is None:
+    #                 cantidad = form.cleaned_data.get('cantidad')
+    #                 if cantidad is not None:
+    #                     precioVenta = form.instance.idArticulos.venta
+    #                     totalVenta = precioVenta * cantidad
+    #                     form.instance.precioVenta = precioVenta
+    #                     form.instance.totalVenta = totalVenta
+
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+    #                     # Restar del stock la cantidad vendida
+    #                     articulo.cantidad -= cantidad
+    #                     articulo.save()
+    #                     self.articulos_vendidos.add((id_articulo, cantidad))
+
+    #             elif form.instance.pk and cantidad is not None:
+    #                 initial_cantidad = form.initial.get('cantidad')
+    #                 if initial_cantidad is not None and cantidad != initial_cantidad:  # ver si se modifico la cantidad
+    #                     diferencia = initial_cantidad - cantidad
+
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+    #                     # Ajustar el stock con la diferencia
+    #                     articulo.cantidad += diferencia
+    #                     articulo.save()
+    #                     self.articulos_vendidos.discard((id_articulo, initial_cantidad))  # Eliminar la venta anterior del conjunto
+
+    #         return cleaned_data
+
+
+    from django import forms
 
     class CustomVentasFormset(ventasFormset):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.articulos_vendidos = set()
 
         def clean(self):
-            super().clean()
+            cleaned_data = super().clean()
+            
             for form in self.forms:
                 cantidad = form.cleaned_data.get('cantidad')
-                if cantidad is not None:
-                    precioVenta = form.instance.idArticulos.venta
-                    totalVenta =  precioVenta * cantidad
-                    form.instance.precioVenta = precioVenta
-                    form.instance.totalVenta = totalVenta
+                id_articulo = form.cleaned_data.get('idArticulos').id if form.cleaned_data.get('idArticulos') else None
 
-                    id_articulo = form.cleaned_data.get('idArticulos').id
+
+                if form.cleaned_data.get('DELETE') and cantidad is not None and id_articulo is not None:
                     articulo = Articulos.objects.get(id=id_articulo)
-
-                    articulo.cantidad -= cantidad
+                    articulo.cantidad += cantidad
                     articulo.save()
+                    self.articulos_vendidos.discard((id_articulo, cantidad))  # Eliminar la venta del conjunto
+
+                if id_articulo and form.instance.pk is None:
+                    cantidad = form.cleaned_data.get('cantidad')
+                    if cantidad is not None:
+                        precioVenta = form.instance.idArticulos.venta
+                        totalVenta = precioVenta * cantidad
+                        form.instance.precioVenta = precioVenta
+                        form.instance.totalVenta = totalVenta
+
+                        articulo = Articulos.objects.get(id=id_articulo)
+
+                        # Restar del stock la cantidad vendida
+                        articulo.cantidad -= cantidad
+                        articulo.save()
+                        self.articulos_vendidos.add((id_articulo, cantidad))
+
+                elif form.instance.pk and cantidad is not None:
+                    initial_cantidad = form.initial.get('cantidad')
+                    if initial_cantidad is not None and cantidad != initial_cantidad:  # ver si se modifico la cantidad
+                        diferencia = initial_cantidad - cantidad
+
+                        articulo = Articulos.objects.get(id=id_articulo)
+
+                        # Ajustar el stock con la diferencia
+                        articulo.cantidad += diferencia
+                        articulo.save()
+                        self.articulos_vendidos.discard((id_articulo, initial_cantidad))  # Eliminar la venta anterior del conjunto
+
+            return cleaned_data
 
 
 
-    # class CustomVentasFormset(forms.BaseInlineFormSet):
-    #     def clean(self):
-    #     super().clean()
-    #     total_venta_por_articulo = {}
-
-    #     # Calcular la cantidad total vendida por cada artículo
-    #     for form in self.forms:
-    #         cantidad = form.cleaned_data.get('cantidad')
-    #         id_articulo = form.cleaned_data.get('idArticulos').id
-
-    #         if cantidad is not None:
-    #             if id_articulo in total_venta_por_articulo:
-    #                 total_venta_por_articulo[id_articulo] += cantidad
-    #             else:
-    #                 total_venta_por_articulo[id_articulo] = cantidad
-
-    #     # Actualizar el stock de cada artículo
-    #     for id_articulo, cantidad_vendida in total_venta_por_articulo.items():
-    #         articulo = Articulos.objects.get(id=id_articulo)
-    #         articulo.cantidad -= cantidad_vendida
-    #         articulo.save()
+    
 
 
 
-
-
-
-
-
-
-                    
-
-#prueba
 class CompraProdForm(forms.ModelForm):
     class Meta:
         model = CompraProd
@@ -166,7 +252,7 @@ class ComprasForm(forms.ModelForm):
             
         }
     
-    comprasFormset = forms.inlineformset_factory(Compras, CompraProd, form=CompraProdForm, extra=1)
+    comprasFormset = forms.inlineformset_factory(Compras, CompraProd, form=CompraProdForm, extra=10)
 
     class CustomComprasFormset(comprasFormset):
         def clean(self):

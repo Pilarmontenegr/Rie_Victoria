@@ -517,6 +517,7 @@ class VentasNuevo(CreateView):
 
         # Obtener información sobre los artículos y pasarla al contexto
         articles = Articulos.objects.all()
+        
         articles_dict = {article.id: article for article in articles}
         context['articles_dict'] = articles_dict
 
