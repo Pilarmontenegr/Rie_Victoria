@@ -1,13 +1,23 @@
 body {
     background-color: pink;
+    position: relative;
 }
 
-.pie {
+.pie{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Opcional: ancho completo */
+    height: 20px;
     text-align: center;
     background-color: black;
     color: white;
-    font-size: 15px;
+    font-size: 13px;
     font-family: 'Ysabeau Office', sans-serif;
+    padding-bottom: 5px 10px; /* Añade algo de espacio interno para que el contenido no esté demasiado pegado al borde */
+    box-sizing: border-box; /* Asegura que el padding no afecte al ancho total */
+    line-height: 1.5; /* Ajustar el espaciado entre líneas */
+    margin-block-end: 0%;
 }
 
 .tituloInicio{
@@ -82,4 +92,16 @@ body {
     background-color: RGBA(255,255,255,0.7);
 }
 
+.login-container {
+    top: 50%;
+    left: 50%;
+    text-align: center; /* Centrar horizontalmente el contenido */
+}
 
+.login-form {
+    width: 300px; /* Ancho del formulario */
+    padding: 20px; /* Añadir espacio interno */
+    border: 3px solid white; /* Agregar borde */
+    text-align: left; /* Ajustar el texto del formulario a la izquierda */
+    display: inline-block; /* Para que el formulario ocupe solo el ancho necesario */
+}

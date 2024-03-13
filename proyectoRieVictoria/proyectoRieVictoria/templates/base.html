@@ -94,5 +94,12 @@
         </div>
     </div>
 </footer>
+
+<script>
+  window.addEventListener('load', function() {
+      var pieAltura = document.querySelector('.pie').offsetHeight;
+      document.querySelector('.contenedorTabla').estilos.marginBottom = pieAltura + 'px';
+  });
+</script>
 </body>
 </html>
