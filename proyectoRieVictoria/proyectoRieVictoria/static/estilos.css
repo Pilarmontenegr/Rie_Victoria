@@ -1,5 +1,5 @@
 body {
-    background-color: pink;
+    background-color: rgb(0, 0, 0);
     position: relative;
 }
 
@@ -27,6 +27,7 @@ body {
     line-height:70% ;
     margin-top: 50px;
     margin-block-end: 100px;
+    color: whitesmoke;
 
 }
 .subtituloInicio {
@@ -34,7 +35,7 @@ body {
     text-align: center;
     font-size: 40px;
     margin-top: 40px;
-
+    color:whitesmoke;
 }
 
 .nombreTablas {
@@ -42,6 +43,7 @@ body {
     text-align: center;
     font-size: 40px;
     margin-top: 40px;
+    color:whitesmoke;
 
 }
 
@@ -53,6 +55,7 @@ body {
     float: left;
     text-indent: 0em;
     margin-top: -33%;
+    color:whitesmoke;   
 }
 
 .contenedorTabla {
@@ -63,24 +66,29 @@ body {
 .descripcionArt{
     font-family: 'Red Hat Display', sans-serif;
     margin-left: 40px;
+    color:whitesmoke;
 }
 
 .descripcionClie{
     font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
+    color:whitesmoke;
 }
 
 .descripcionProv{
     font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
+    color:whitesmoke;
 }
 
 .descripcionEmpl{
     font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
+    color:whitesmoke;
 }
 .centrado { /*para el id y articulo de la tabla*/
     text-align: center;
+    color:whitesmoke;
 }
 
 /*para la búsqueda que quede bien con el fondo */
@@ -104,4 +112,8 @@ body {
     border: 3px solid white; /* Agregar borde */
     text-align: left; /* Ajustar el texto del formulario a la izquierda */
     display: inline-block; /* Para que el formulario ocupe solo el ancho necesario */
+    color:whitesmoke;
+}
+.nombreTablas{
+    color:whitesmoke;
 }
