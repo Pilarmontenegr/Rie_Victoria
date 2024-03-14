@@ -49,13 +49,13 @@ body {
 
 .bienvenida {
     margin-left: -110px;
-    background-image: url(img/RV3.png);
+    background-image: url(img/RV4.png);
     height: 100px;
     width: 100px;
     float: left;
     text-indent: 0em;
     margin-top: -33%;
-    color:whitesmoke;   
+    color:whitesmoke;
 }
 
 .contenedorTabla {
@@ -114,6 +114,5 @@ body {
     display: inline-block; /* Para que el formulario ocupe solo el ancho necesario */
     color:whitesmoke;
 }
-.nombreTablas{
-    color:whitesmoke;
-}
+
+
