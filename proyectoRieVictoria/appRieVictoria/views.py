@@ -604,9 +604,9 @@ def VentasPDF(request, pk):
     
 
     c.setFont("Times-Roman", 12)  
-    c.drawString(50, h - 110, "Belgrano 259,Villa Dolores") 
+    c.drawString(50, h - 110, "Belgrano 259, Villa Dolores, Córdoba") 
     c.drawString(50, h - 144, "3544-543815")  
-    c.drawString(250, h - 145, "Rievictoria@gmail.com") 
+    c.drawString(250, h - 145, "rievictoria@gmail.com") 
     
 
     ventas_queryset = Ventas.objects.filter(id=pk)

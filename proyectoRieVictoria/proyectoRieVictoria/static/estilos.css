@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(10, 10, 10);
+    background-color: rgb(236, 236, 236);
     position: relative;
 }
 
@@ -10,8 +10,8 @@ body {
     width: 100%; /* Opcional: ancho completo */
     height: 20px;
     text-align: center;
-    background-color: black;
-    color: white;
+    background-color: rgb(26, 25, 25);
+    color: rgb(236, 236, 236);;
     font-size: 13px;
     font-family: 'Ysabeau Office', sans-serif;
     padding-bottom: 5px 10px; /* Añade algo de espacio interno para que el contenido no esté demasiado pegado al borde */
@@ -27,7 +27,7 @@ body {
     line-height:70% ;
     margin-top: 50px;
     margin-block-end: 100px;
-    color: whitesmoke;
+    color: rgb(15, 14, 14);
 
 }
 .subtituloInicio {
@@ -35,7 +35,7 @@ body {
     text-align: center;
     font-size: 40px;
     margin-top: 40px;
-    color:whitesmoke;
+    color: rgb(15, 14, 14);
 }
 
 .nombreTablas {
@@ -43,18 +43,18 @@ body {
     text-align: center;
     font-size: 40px;
     margin-top: 40px;
-    color:whitesmoke;
+    color: rgb(15, 14, 14);
 
 }
 .bienvenida {
     margin-left: -109px;
-    background-image: url(img/RV4.png);
+    background-image: url(img/RV3.png);
     height: 100px;
     width: 100px;
     float: left;
     text-indent: 0em;
     margin-top: -33%;
-    color:whitesmoke;
+    color: rgb(15, 14, 14);
 }
 
 .contenedorTabla {
@@ -65,29 +65,29 @@ body {
 .descripcionArt{
     font-family: 'Red Hat Display', sans-serif;
     margin-left: 40px;
-    color:whitesmoke;
+    color: rgb(10, 10, 10);
 }
 
 .descripcionClie{
     font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
-    color:whitesmoke;
+    color: rgb(10, 10, 10);
 }
 
 .descripcionProv{
     font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
-    color:whitesmoke;
+    color: rgb(10, 10, 10);
 }
 
 .descripcionEmpl{
     font-family: 'Red Hat Display', sans-serif;
     margin-left:  40px;
-    color:whitesmoke;
+    color: rgb(10, 10, 10);
 }
 .centrado { /*para el id y articulo de la tabla*/
     text-align: center;
-    color:whitesmoke;
+    color: rgb(10, 10, 10);
 }
 
 /*para la búsqueda que quede bien con el fondo */
@@ -108,17 +108,18 @@ body {
 .login-form {
     width: 300px; /* Ancho del formulario */
     padding: 20px; /* Añadir espacio interno */
-    border: 3px solid white; /* Agregar borde */
+    border: 3px solid rgb(43, 40, 40); /* Agregar borde */
     text-align: left; /* Ajustar el texto del formulario a la izquierda */
     display: inline-block; /* Para que el formulario ocupe solo el ancho necesario */
-    color:whitesmoke;
+    color: rgb(10, 10, 10);
+    background-color:rgb(238, 235, 235);; /* Cambiar el color del padding a rojo */
 }
 
 .table {
-    color: whitesmoke !important; /* Reemplaza "tu_color_aquí" con el color deseado */
+    color: rgb(10, 10, 10) !important; /* Reemplaza "tu_color_aquí" con el color deseado */
 }
 
 /* Estilos para las celdas de la tabla (opcional) */
 .table td {
-    color: whitesmoke !important; /* Reemplaza "tu_color_aquí" con el color deseado */
+    color: rgb(10, 10, 10) !important; /* Reemplaza "tu_color_aquí" con el color deseado */
 }
