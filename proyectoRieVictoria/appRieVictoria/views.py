@@ -596,7 +596,6 @@ def VentasPDF(request, pk):
     c.setFont("Times-Roman", 40)  
     c.drawString(50, h- 50, "FACTURA")
     c.drawImage('C:\miEntorno\proyectoRieVictoria\proyectoRieVictoria\static\img\RV2.png', 350, h-130, 220, 110)
-
     c.setFont("Times-Bold", 12)  
     c.drawString(50, h - 90, "Dirección") 
     c.drawString(50, h - 130, "Télefono")  
