@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="nombreTablas">
-    <p >Empleados</p>
+    <p >EMPLEADOS</p>
 </div>
 
 <div class="row">
@@ -10,8 +10,8 @@
         <form method="GET">
             <div class="input-group">
                 <input type="text" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Buscar Empleado...">
-                <button class="btn btn-outline-primary" 
-                 type="submit"><img src="/static/img/search1.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
+                <button class="btn btn-outline-info"
+                 type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
             </div>
         </form>
     {% if perms.aplicacion.change_proveedores %}
@@ -28,19 +28,19 @@
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th class="centrado">Código</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Email</th>
-                <th>Telefono</th>
+                <th class="centrado">CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>DIRECCIÓN</th>
+                <th>EMAIL</th>
+                <th>TELÉFONO</th>
                 <th></th>
 
             </tr>
             {% for p in Empleados %}
 
-                <tr>
+                <tr onclick="window.location='/empleados/EmpleadosModif/{{ p.id }}/'">
                     {% if perms.aplicacion.change_empleados %}
-                    <td class="centrado"><a href="/empleados/EmpleadosModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    <td class="centrado"><a>{{ p.id }}</a></td>
                     {% else %}
                     <td>{{ p.id }}</td>
                     {% endif %}

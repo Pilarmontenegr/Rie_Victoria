@@ -2,14 +2,14 @@
 {% block content %}
 
 <div class="nombreTablas">
-    <p >Ventas</p>
+    <p >VENTAS</p>
 </div>
 <div class="row">
     <div class="col d-flex justify-content-end  mb-3">
         <form method="GET">
             <div class="input-group">
                 <input type="date" class="form-control inputApagado" name="q" value="{{ query }}" placeholder="Fecha...">
-                <button class="btn btn-outline-primary" type="submit"><img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
+                <button class="btn btn-outline-info" type="submit"><img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
             </div>
         </form>
         &nbsp;
@@ -21,18 +21,18 @@
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th class="centrado">Código</th>
-                <th >Fecha</th>
-                <th>Cliente</th>
+                <th class="centrado">CÓDIGO</th>
+                <th >FECHA</th>
+                <th>CLIENTE</th>
                 <th></th>
                 <th></th>
 
             </tr>
             {% for p in Ventas %}
 
-                <tr>
+            <tr onclick="window.location='/ventas/VentasModif/{{ p.id }}/'">
                     <!-- columna dentro de la fila -->
-                    <td class="centrado"><a href="/ventas/VentasModif/{{ p.id }}">{{ p.id }}</a></td>
+                    <td class="centrado"><a>{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
                     <td>{{p.fecha}}</td>
                     <td>{{p.idClientes}}</td>

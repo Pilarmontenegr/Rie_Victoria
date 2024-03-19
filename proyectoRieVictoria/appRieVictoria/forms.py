@@ -2,6 +2,11 @@ from django import forms
 from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , CompraProd, Compras
 from decimal import Decimal
 
+from django.core.exceptions import ValidationError
+
+from django.shortcuts import get_object_or_404
+
+
 class ProveedoresForm(forms.ModelForm):
     class Meta:
         model = Proveedores
@@ -172,7 +177,60 @@ class VentasForm(forms.ModelForm):
     #         return cleaned_data
 
 
+    # from django import forms
+
+    # class CustomVentasFormset(ventasFormset):
+    #     def __init__(self, *args, **kwargs):
+    #         super().__init__(*args, **kwargs)
+    #         self.articulos_vendidos = set()
+
+    #     def clean(self):
+    #         cleaned_data = super().clean()
+            
+    #         for form in self.forms:
+    #             cantidad = form.cleaned_data.get('cantidad')
+    #             id_articulo = form.cleaned_data.get('idArticulos').id if form.cleaned_data.get('idArticulos') else None
+
+
+    #             if form.cleaned_data.get('DELETE') and cantidad is not None and id_articulo is not None:
+    #                 articulo = Articulos.objects.get(id=id_articulo)
+    #                 articulo.cantidad += cantidad
+    #                 articulo.save()
+    #                 self.articulos_vendidos.discard((id_articulo, cantidad))  # Eliminar la venta del conjunto
+
+    #             if id_articulo and form.instance.pk is None:
+    #                 cantidad = form.cleaned_data.get('cantidad')
+    #                 if cantidad is not None:
+    #                     precioVenta = form.instance.idArticulos.venta
+    #                     totalVenta = precioVenta * cantidad
+    #                     form.instance.precioVenta = precioVenta
+    #                     form.instance.totalVenta = totalVenta
+
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+    #                     # Restar del stock la cantidad vendida
+    #                     articulo.cantidad -= cantidad
+    #                     articulo.save()
+    #                     self.articulos_vendidos.add((id_articulo, cantidad))
+
+    #             elif form.instance.pk and cantidad is not None:
+    #                 initial_cantidad = form.initial.get('cantidad')
+    #                 if initial_cantidad is not None and cantidad != initial_cantidad:  # ver si se modifico la cantidad
+    #                     diferencia = initial_cantidad - cantidad
+
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+    #                     # Ajustar el stock con la diferencia
+    #                     articulo.cantidad += diferencia
+    #                     articulo.save()
+    #                     self.articulos_vendidos.discard((id_articulo, initial_cantidad))  # Eliminar la venta anterior del conjunto
+
+    #         return cleaned_data
+
+############ultimooo 17/3
     from django import forms
+    from django.core.exceptions import ValidationError
+    from .models import Articulos
 
     class CustomVentasFormset(ventasFormset):
         def __init__(self, *args, **kwargs):
@@ -186,12 +244,11 @@ class VentasForm(forms.ModelForm):
                 cantidad = form.cleaned_data.get('cantidad')
                 id_articulo = form.cleaned_data.get('idArticulos').id if form.cleaned_data.get('idArticulos') else None
 
-
                 if form.cleaned_data.get('DELETE') and cantidad is not None and id_articulo is not None:
                     articulo = Articulos.objects.get(id=id_articulo)
                     articulo.cantidad += cantidad
                     articulo.save()
-                    self.articulos_vendidos.discard((id_articulo, cantidad))  # Eliminar la venta del conjunto
+                    self.articulos_vendidos.discard((id_articulo, cantidad))  # Eliminar la venta 
 
                 if id_articulo and form.instance.pk is None:
                     cantidad = form.cleaned_data.get('cantidad')
@@ -203,10 +260,19 @@ class VentasForm(forms.ModelForm):
 
                         articulo = Articulos.objects.get(id=id_articulo)
 
-                        # Restar del stock la cantidad vendida
-                        articulo.cantidad -= cantidad
-                        articulo.save()
-                        self.articulos_vendidos.add((id_articulo, cantidad))
+                        
+                        if cantidad > articulo.cantidad:
+                            print(cantidad, articulo.cantidad)
+                            print(ValidationError)
+                            raise ValidationError(f"No hay stock ")
+                        
+                        else:  
+                            articulo.cantidad -= cantidad
+                            articulo.save()
+                            self.articulos_vendidos.add((id_articulo, cantidad))
+
+                                
+                        
 
                 elif form.instance.pk and cantidad is not None:
                     initial_cantidad = form.initial.get('cantidad')
@@ -215,7 +281,7 @@ class VentasForm(forms.ModelForm):
 
                         articulo = Articulos.objects.get(id=id_articulo)
 
-                        # Ajustar el stock con la diferencia
+                        
                         articulo.cantidad += diferencia
                         articulo.save()
                         self.articulos_vendidos.discard((id_articulo, initial_cantidad))  # Eliminar la venta anterior del conjunto
@@ -224,7 +290,62 @@ class VentasForm(forms.ModelForm):
 
 
 
-    
+    # from django import forms
+    # from django.core.exceptions import ValidationError
+    # from .models import Articulos
+
+    # class CustomVentasFormset(ventasFormset):
+    #     def __init__(self, *args, **kwargs):
+    #         super().__init__(*args, **kwargs)
+    #         self.articulos_vendidos = set()
+    #     def clean_cantidad(self, articulo, cantidad):
+    #         if cantidad > articulo.cantidad:
+    #             print(ValidationError)
+    #             raise ValidationError("No hay suficiente stock disponible para este artículo.")
+    #         else:
+    #             # Restar del stock la cantidad vendida
+    #             articulo.cantidad -= cantidad
+    #             articulo.save()
+    #             self.articulos_vendidos.add((articulo.id, cantidad))
+    #     def clean(self):
+    #         cleaned_data = super().clean()
+            
+    #         for form in self.forms:
+    #             cantidad = form.cleaned_data.get('cantidad')
+    #             id_articulo = form.cleaned_data.get('idArticulos').id if form.cleaned_data.get('idArticulos') else None
+
+    #             if form.cleaned_data.get('DELETE') and cantidad is not None and id_articulo is not None:
+    #                 articulo = Articulos.objects.get(id=id_articulo)
+    #                 articulo.cantidad += cantidad
+    #                 articulo.save()
+    #                 self.articulos_vendidos.discard((id_articulo, cantidad))  # Eliminar la venta 
+
+    #             if id_articulo and form.instance.pk is None:
+    #                 cantidad = form.cleaned_data.get('cantidad')
+    #                 if cantidad is not None:
+    #                     precioVenta = form.instance.idArticulos.venta
+    #                     totalVenta = precioVenta * cantidad
+    #                     form.instance.precioVenta = precioVenta
+    #                     form.instance.totalVenta = totalVenta
+
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+    #                     self.clean_cantidad(articulo, cantidad)
+                                
+    #             elif form.instance.pk and cantidad is not None:
+    #                 initial_cantidad = form.initial.get('cantidad')
+    #                 if initial_cantidad is not None and cantidad != initial_cantidad:  # ver si se modifico la cantidad
+    #                     diferencia = initial_cantidad - cantidad
+
+    #                     articulo = Articulos.objects.get(id=id_articulo)
+
+                        
+    #                     articulo.cantidad += diferencia
+    #                     articulo.save()
+    #                     self.articulos_vendidos.discard((id_articulo, initial_cantidad))  # Eliminar la venta anterior del conjunto
+            
+    #         return cleaned_data
+        
 
 
 

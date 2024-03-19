@@ -2,14 +2,14 @@
 {% block content %}
 
 <div class="nombreTablas">
-    <p >Clientes</p>
+    <p >CLIENTES</p>
 </div>
 <div class="row">
     <div class="col d-flex justify-content-end  mb-3">
         <form method="GET">
             <div class="input-group">
                 <input type="text" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Buscar Cliente...">
-                <button class="btn btn-outline-primary" 
+                <button class="btn btn-outline-info"
                  type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
             </div>
         </form>
@@ -23,33 +23,31 @@
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th class="centrado">Código</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
+                <th class="centrado">CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>DIRECCIÓN</th>
                 <th>DNI</th>
-                <th>Telefono</th>
+                <th>TELÉFONO</th>
                 <th></th>
 
             </tr>
             {% for p in Clientes %}
-
-                <tr>
-                    <!-- columna dentro de la fila -->
-                    <td class="centrado"><a href="/clientes/ClientesModif/{{ p.id }}/">{{ p.id }}</a></td>
-                    <!-- a href para hacerlo link -->
-                    <td>{{ p.nombre }}</td>
-                    <td>{{ p.direccion }}</td>
-                    <td>{{ p.DNI}}</td>
-                    <td>{{ p.telefono }}</td>
-    
-                    <td>
-                        <div class="d-flex justify-content-end ">
-                            <a class="btn btn-outline-danger" href="/clientes/ClientesBorrar/{{ p.id}}">Borrar</a>
-                        </div>
-                    </td>
-
-                </tr>
-                {% endfor %}
+            <tr onclick="window.location='/clientes/ClientesModif/{{ p.id }}/'">
+                <!-- columna dentro de la fila -->
+                <td class="centrado"><a>{{ p.id }}</a></td>
+                <!-- a href para hacerlo link -->
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.direccion }}</td>
+                <td>{{ p.DNI}}</td>
+                <td>{{ p.telefono }}</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-outline-danger" href="/clientes/ClientesBorrar/{{ p.id }}">Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            
     </table>
     <div class="pagination justify-content-center">
     
