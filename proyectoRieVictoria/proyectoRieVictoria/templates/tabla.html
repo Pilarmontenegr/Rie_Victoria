@@ -1,16 +1,15 @@
-
 {% extends "base.html" %}
 {% block content %}
 
 <div class="nombreTablas">
-    <p >Articulos</p>
+    <p >ARTICULOS</p>
 </div>
 <div class="row">
     <div class="col d-flex justify-content-end mb-3">
         <form method="GET">
             <div class="input-group">
                 <input type="text" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Buscar Articulo...">
-                <button class="btn btn-outline-primary" 
+                <button class="btn btn-outline-info"
                  type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
             </div>
         </form>
@@ -18,16 +17,16 @@
     </div>
 </div>
 
-        <table style="border-style: solid; border-color: palevioletred;" class="table table-striped">
+        <table style="border-style: solid; border-color: black;" class="table table-striped">
             <!-- fila de una tabla -->
             <tr>
                 <!-- columna dentro de la fila -->
 
-                <th>Código</th>
-                <th >Descripción</th>
-                <th >Precio venta</th>
-                <th >Cantidad</th>
-                <th >Talle</th>
+                <th class="centrado">CÓDIGO</th>
+                <th >DESCRIPCIÓN</th>
+                <th >PRECIO VENTA</th>
+                <th >CANTIDAD</th>
+                <th >TALLE</th>
                 <th></th>
 
             </tr>
@@ -41,7 +40,7 @@
                     <td>{{p.venta}}</td>
                     <td>{{p.cantidad}}</td>
                     <td>{{p.talle}}</td>
-                    
+
                     <td>
                         <div class="d-flex justify-content-end ">
                             <a class="btn btn-outline-danger" href="/articulos/ArticulosBorrar/{{ p.id}}">Borrar</a>
