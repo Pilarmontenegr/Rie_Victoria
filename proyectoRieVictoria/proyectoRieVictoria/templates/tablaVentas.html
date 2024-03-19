@@ -32,9 +32,9 @@
             </tr>
             {% for p in Ventas %}
 
-                <tr>
+            <tr onclick="window.location='/ventas/VentasModif/{{ p.id }}/'">
                     <!-- columna dentro de la fila -->
-                    <td class="centrado"><a href="/ventas/VentasModif/{{ p.id }}">{{ p.id }}</a></td>
+                    <td class="centrado"><a>{{ p.id }}</a></td>
                     <!-- a href para hacerlo link -->
                     <td>{{p.fecha}}</td>
                     <td>{{p.idClientes}}</td>

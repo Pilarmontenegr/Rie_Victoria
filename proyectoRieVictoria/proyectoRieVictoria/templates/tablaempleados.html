@@ -38,9 +38,9 @@
             </tr>
             {% for p in Empleados %}
 
-                <tr>
+                <tr onclick="window.location='/empleados/EmpleadosModif/{{ p.id }}/'">
                     {% if perms.aplicacion.change_empleados %}
-                    <td class="centrado"><a href="/empleados/EmpleadosModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    <td class="centrado"><a>{{ p.id }}</a></td>
                     {% else %}
                     <td>{{ p.id }}</td>
                     {% endif %}

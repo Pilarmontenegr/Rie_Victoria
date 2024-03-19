@@ -32,24 +32,22 @@
 
             </tr>
             {% for p in Clientes %}
-
-                <tr>
-                    <!-- columna dentro de la fila -->
-                    <td class="centrado"><a href="/clientes/ClientesModif/{{ p.id }}/">{{ p.id }}</a></td>
-                    <!-- a href para hacerlo link -->
-                    <td>{{ p.nombre }}</td>
-                    <td>{{ p.direccion }}</td>
-                    <td>{{ p.DNI}}</td>
-                    <td>{{ p.telefono }}</td>
-    
-                    <td>
-                        <div class="d-flex justify-content-end ">
-                            <a class="btn btn-outline-danger" href="/clientes/ClientesBorrar/{{ p.id}}">Borrar</a>
-                        </div>
-                    </td>
-
-                </tr>
-                {% endfor %}
+            <tr onclick="window.location='/clientes/ClientesModif/{{ p.id }}/'">
+                <!-- columna dentro de la fila -->
+                <td class="centrado"><a>{{ p.id }}</a></td>
+                <!-- a href para hacerlo link -->
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.direccion }}</td>
+                <td>{{ p.DNI}}</td>
+                <td>{{ p.telefono }}</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-outline-danger" href="/clientes/ClientesBorrar/{{ p.id }}">Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            
     </table>
     <div class="pagination justify-content-center">
     

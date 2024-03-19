@@ -39,11 +39,11 @@
             </tr>
             {% for p in Proveedores %}
 
-                <tr> 
+                <tr onclick="window.location='/proveedores/ProveedoresModif/{{ p.id }}/'">
 
                     <!-- columna dentro de la fila -->
                     {% if perms.aplicacion.change_proveedores %}
-                    <td class="centrado"><a href="/proveedores/ProveedoresModif/{{ p.id }}/">{{ p.id }}</a></td>
+                    <td class="centrado"><a>{{ p.id }}</a></td>
                     {% else %}
                     <td>{{ p.id }}</td>
                     {% endif %}
