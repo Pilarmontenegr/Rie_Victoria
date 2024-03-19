@@ -118,9 +118,6 @@ body {
     text-align: center; /* Centrar horizontalmente el contenido */
 }
 
-<<<<<<< HEAD
-
-=======
 .login-form {
     font-family: "Gotu", sans-serif;
     width: 300px; /* Ancho del formulario */
@@ -144,7 +141,6 @@ body {
 .table td {
     color: rgb(10, 10, 10) !important; /* Reemplaza "tu_color_aquí" con el color deseado */
 }
-
 
 .fondolog{
     display: flex;
@@ -222,4 +218,3 @@ body {
 .btn-custom1:hover {
     background-color: #ebb4a3; /* Cambia este color al que desees al pasar el ratón */
 }
->>>>>>> 3423d5d423149b1add6ff263b426c9ed4b5b9641
