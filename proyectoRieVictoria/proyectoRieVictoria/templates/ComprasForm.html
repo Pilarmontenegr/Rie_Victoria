@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row">
-    <h3 class="display-4 my-3">Compra{{ Compras.id }}</h3>
+    <h3 class="display-4 my-3">COMPRA{{ Compras.id }}</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

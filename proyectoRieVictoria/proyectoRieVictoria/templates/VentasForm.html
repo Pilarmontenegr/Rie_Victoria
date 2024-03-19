@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="row">
-    <h3 class="display-4 my-3">Venta{{ Ventas.id }}</h3>
+    <h3 class="display-4 my-3">VENTA{{ Ventas.id }}</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
@@ -41,7 +41,7 @@
                 
             </tfoot>
         </table>
-
+        
         <button class="btn btn-primary mb-3" type="submit">Guardar</button>
         <a class="btn btn-outline-primary mb-3" href="{% url 'Ventas' %}">Cancelar</a>
     </form>

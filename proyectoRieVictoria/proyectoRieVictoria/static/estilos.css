@@ -39,23 +39,35 @@ body {
 }
 
 .nombreTablas {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    font-size: 40px;
-    margin-top: 40px;
-    color: rgb(15, 14, 14);
+        font-family: "Gotu", sans-serif;
+        text-align: center;
+        font-size: 40px;
+        margin-top: 40px;
+        color: rgb(15, 14, 14);
 
 }
 .bienvenida {
-    margin-left: -109px;
+    margin-left: -95px;
     background-image: url(img/RV3.png);
     height: 100px;
     width: 100px;
     float: left;
     text-indent: 0em;
-    margin-top: -33%;
+    margin-top: -26%;
     color: rgb(15, 14, 14);
 }
+
+.IMG {
+    image-rendering: url(img/IMAGEN.jpeg);
+    height: 200px;
+    width: 100px;
+    float: center;
+    text-indent: 0em;
+    margin-top: -1%;
+    margin-right: 10px;
+    margin-left: 200px;
+}
+
 
 .contenedorTabla {
     display: flex-end;
@@ -69,19 +81,19 @@ body {
 }
 
 .descripcionClie{
-    font-family: 'Red Hat Display', sans-serif;
+    font-family: "Gotu", sans-serif;
     margin-left:  40px;
     color: rgb(10, 10, 10);
 }
 
 .descripcionProv{
-    font-family: 'Red Hat Display', sans-serif;
+    font-family: "Gotu", sans-serif;
     margin-left:  40px;
     color: rgb(10, 10, 10);
 }
 
 .descripcionEmpl{
-    font-family: 'Red Hat Display', sans-serif;
+    font-family: "Gotu", sans-serif;
     margin-left:  40px;
     color: rgb(10, 10, 10);
 }
@@ -100,19 +112,25 @@ body {
 }
 
 .login-container {
+    font-family: "Gotu", sans-serif;
     top: 50%;
     left: 50%;
     text-align: center; /* Centrar horizontalmente el contenido */
 }
 
 .login-form {
+    font-family: "Gotu", sans-serif;
     width: 300px; /* Ancho del formulario */
-    padding: 20px; /* Añadir espacio interno */
-    border: 3px solid rgb(43, 40, 40); /* Agregar borde */
+    padding: 20px 45px ; /* Añadir espacio interno */
+    border: 10px transparent; /* Agregar borde */
     text-align: left; /* Ajustar el texto del formulario a la izquierda */
     display: inline-block; /* Para que el formulario ocupe solo el ancho necesario */
-    color: rgb(10, 10, 10);
-    background-color:rgb(238, 235, 235);; /* Cambiar el color del padding a rojo */
+    color: rgb(0, 0, 0);
+    background-color:transparent;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
 }
 
 .table {
@@ -122,4 +140,82 @@ body {
 /* Estilos para las celdas de la tabla (opcional) */
 .table td {
     color: rgb(10, 10, 10) !important; /* Reemplaza "tu_color_aquí" con el color deseado */
+}
+
+
+.fondolog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-image: url('img/FONDO.png');
+}
+
+.centrarlog
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+}
+
+.cajalog
+{
+    position: relative;
+    width: 100px;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.cajalog1
+{
+    width: 420%;
+    padding: 20px ;
+    height: 200%;
+    background-color:transparent;
+    margin: 30px 0;
+    border: none;
+    outline:none;
+    border: 2px solid rgb(2, 2, 2);
+    border-radius: 10px;
+    font-size:16px ;
+    color: rgb(0, 0, 0);
+    padding: 20px 45px 20px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+
+}
+
+
+.btn-custom {
+    background-color: #0c0c0c; /* Cambia este color al que desees */
+    color: #fff; /* Color del texto */
+    border: none; /* Quita el borde si no lo deseas */
+    border-radius: 3px; /* Borde redondeado */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de ratón */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.btn-custom:hover {
+    background-color: #ebb4a3; /* Cambia este color al que desees al pasar el ratón */
+}
+
+
+.btn-custom1 {
+    background-color: #ffffff; /* Cambia este color al que desees */
+    color: #fff; /* Color del texto */
+    border: none; /* Quita el borde si no lo deseas */
+    border-radius: 3px; /* Borde redondeado */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 6px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de ratón */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.btn-custom1:hover {
+    background-color: #ebb4a3; /* Cambia este color al que desees al pasar el ratón */
 }
