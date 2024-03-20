@@ -2,6 +2,9 @@
 {% block content %}
 
 <div class="nombreTablas">
+    <div class="imagen-centrada">
+        <img src="/static/img/RV3.png" alt="Imagen">
+    </div>
     <p >EMPLEADOS</p>
 </div>
 
@@ -10,14 +13,14 @@
         <form method="GET">
             <div class="input-group">
                 <input type="text" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Buscar Empleado...">
-                <button class="btn btn-outline-info"
+                <button class="btn-customlupa" class="btn-customlupa:hover"
                  type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
             </div>
         </form>
     {% if perms.aplicacion.change_proveedores %}
-    <a class="btn btn-outline-primary" href="/empleados/EmpleadosNuevo{{ p.id}}">Nuevo Empleado</a>
+    <a class="btn-customlupa" class="btn-customlupa:hover" href="/empleados/EmpleadosNuevo{{ p.id}}">Nuevo Empleado</a>
     {% else %}
-    <a class="btn btn-outline-primary" >Nuevo Empleado</a>
+    <a class="btn-customlupa" class="btn-customlupa:hover" >Nuevo Empleado</a>
     {% endif %}
 </div>
 </div>
