@@ -203,7 +203,6 @@ body {
     background-color: #ebb4a3; /* Cambia este color al que desees al pasar el ratón */
 }
 
-
 .btn-custom1 {
     background-color: #ffffff; /* Cambia este color al que desees */
     color: #fff; /* Color del texto */
@@ -217,4 +216,32 @@ body {
 
 .btn-custom1:hover {
     background-color: #ebb4a3; /* Cambia este color al que desees al pasar el ratón */
+}
+
+
+
+.btn-customlupa {
+    background-color: #ffffff;; /* Cambia este color al que desees */
+    color: #000000; /* Color del texto */
+    border: 10px; /* Quita el borde si no lo deseas */
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 5px; /* Borde redondeado */
+    padding: 10px 15px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de ratón */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.btn-customlupa:hover {
+    background-color: #a1a0a0; /* Cambia este color al que desees al pasar el ratón */
+}
+
+.imagen-centrada {
+    text-align: center ;
+}
+
+.imagen-centrada img {
+    width: 15%; /* Puedes ajustar el tamaño de la imagen aquí */
+    display: block;
+    margin: 0 auto; /* Esto centra horizontalmente la imagen */
 }

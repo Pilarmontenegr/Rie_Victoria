@@ -2,6 +2,9 @@
 {% block content %}
 
 <div class="nombreTablas">
+    <div class="imagen-centrada">
+        <img src="/static/img/RV3.png" alt="Imagen">
+    </div>
     <p >COMPRAS</p>
 </div>
 
@@ -11,12 +14,12 @@
         <form method="GET">
             <div class="input-group">
                 <input type="date" class="form-control inputApagado " name="q" value="{{ query }}" placeholder="Fecha...">
-                <button class="btn btn-outline-info"
+                <button class="btn-customlupa" class="btn-customlupa:hover"
                  type="submit"><img src="/static/img/search.png"  alt="Lupa de búsqueda" width="15" height="15" ></button>
             </div>
         </form>
         &nbsp;
-    <a class="btn btn-outline-primary "  href="/compras/ComprasNuevo{{ p.id}}">Nueva compra</a></td>
+    <a class="btn-customlupa" class="btn-customlupa:hover"  href="/compras/ComprasNuevo{{ p.id}}">Nueva compra</a></td>
     </div>
 </div>
 

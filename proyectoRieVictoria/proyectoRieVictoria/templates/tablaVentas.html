@@ -2,21 +2,26 @@
 {% block content %}
 
 <div class="nombreTablas">
+    <div class="imagen-centrada">
+        <img src="/static/img/RV3.png" alt="Imagen">
+    </div>
     <p >VENTAS</p>
 </div>
 <div class="row">
     <div class="col d-flex justify-content-end  mb-3">
         <form method="GET">
             <div class="input-group">
+
                 <input type="date" class="form-control inputApagado" name="q" value="{{ query }}" placeholder="Fecha...">
-                <button class="btn btn-outline-info" type="submit"><img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
-            </div>
+                <button class="btn-customlupa" type="submit" class="btn-customlupa:hover"> <img src="/static/img/search.png" alt="Lupa de búsqueda" width="15" height="15"></button>
+
         </form>
         &nbsp;
-    <a class="btn btn-outline-primary " href="/ventas/VentasNuevo{{ p.id}}">Nueva venta</a></td>
-    </div>
+    <a class="btn-customlupa " href="/ventas/VentasNuevo{{ p.id}}">Nueva venta</a></td>
 </div>
-<table style="border-style: solid; border-color: black;" class="table table-striped">
+</div>
+</div>
+<table style="border-style: solid; border-color: black;" class="table table-striped" > 
             <!-- fila de una tabla -->
             <tr>
                 <!-- columna dentro de la fila -->
@@ -39,7 +44,7 @@
 
                     <td>
                         <div class="d-flex justify-content-end ">
-                            <a class="btn btn-outline-primary" href="/ventas/VentasPDF/{{ p.id }}">Descargar PDF</a>
+                            <a class="btn-customlupa" class="btn-customlupa:hover" href="/ventas/VentasPDF/{{ p.id }}">Descargar PDF</a>
                         </div>
                     </td>
                     
