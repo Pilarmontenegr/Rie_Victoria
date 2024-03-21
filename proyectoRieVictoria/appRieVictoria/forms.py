@@ -1,8 +1,10 @@
 from django import forms
 from .models import Proveedores, Empleados , Clientes, Articulos, Ventas , VentaProd , CompraProd, Compras
 from decimal import Decimal
+from django.contrib import messages
 
 from django.core.exceptions import ValidationError
+from django.forms import ModelForm, Field, ValidationError, BooleanField, CharField
 
 from django.shortcuts import get_object_or_404
 
@@ -236,6 +238,7 @@ class VentasForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.articulos_vendidos = set()
+            self.no_stock = []
 
         def clean(self):
             cleaned_data = super().clean()
@@ -259,10 +262,18 @@ class VentasForm(forms.ModelForm):
                         form.instance.totalVenta = totalVenta
 
                         articulo = Articulos.objects.get(id=id_articulo)
+
+
+                        
                         if cantidad > articulo.cantidad:
-                           
-                            print(ValidationError)
-                            raise ValidationError("No hay stock ")
+                            print(cantidad)
+                            print(articulo.cantidad)
+                            self.no_stock.append(articulo)
+                            print(self.no_stock)
+                            # print(ValidationError)
+                            # raise ValidationError(("Error 1"), code="error")
+                        if self.no_stock:
+                            raise ValidationError("No hay stock")
                         
                         else:  
                             articulo.cantidad -= cantidad
