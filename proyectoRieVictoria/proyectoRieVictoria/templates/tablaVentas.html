@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<div class= "letra">
 <div class="nombreTablas">
     <div class="imagen-centrada">
         <img src="/static/img/RV3.png" alt="Imagen">
@@ -17,7 +17,7 @@
 
         </form>
         &nbsp;
-    <a class="btn-customlupa " href="/ventas/VentasNuevo{{ p.id}}">Nueva venta</a></td>
+    <a class="btn-customlupa" href="/ventas/VentasNuevo{{ p.id}}">Nueva venta</a></td>
 </div>
 </div>
 </div>
@@ -50,7 +50,7 @@
                     
                     <td>
                         <div class="d-flex justify-content-end ">
-                            <a class="btn btn-outline-danger" href="/ventas/VentasBorrar/{{ p.id }}">Borrar</a>
+                            <a class="btn-customborr" class="btn-customborr:hover" href="/ventas/VentasBorrar/{{ p.id }}">Borrar</a>
                         </div>
                     </td>
 
@@ -60,8 +60,8 @@
         <div class="pagination justify-content-center">
     
             {% if page_obj.has_previous %}
-                <a class="btn btn-outline-primary mb-3" href="?page=1">Primera</a>
-                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.previous_page_number }}">
+                <a class="btn-customlupa" class="btn-customlupa:hover" href="?page=1">Primera</a>
+                <a class="btn-customlupa" class="btn-customlupa:hover" href="?page={{ page_obj.previous_page_number }}">
                     Anterior
                 </a>
             {% endif %}
@@ -71,12 +71,13 @@
             </span>
         
             {% if page_obj.has_next %}
-                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.next_page_number }}">
+                <a class="btn-customlupa" class="btn-customlupa:hover" href="?page={{ page_obj.next_page_number }}">
                     Siguiente
                 </a>
-                <a class="btn btn-outline-primary mb-3" href="?page={{ page_obj.paginator.num_pages }}">
+                <a class="btn-customlupa" class="btn-customlupa:hover" href="?page={{ page_obj.paginator.num_pages }}">
                     Última
                 </a>
             {% endif %}
         </div>
+    </div>
 {% endblock %}
