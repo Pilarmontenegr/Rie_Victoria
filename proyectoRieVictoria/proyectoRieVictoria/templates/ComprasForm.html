@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<div class= "letra">
+
 <div class="row">
     <h3 class="display-4 my-3">COMPRA{{ Compras.id }}</h3>
     <form method="post" enctype="multipart/form-data">
@@ -28,27 +28,22 @@
                     <td>{{ field }}</td>
                 {% endfor %}
             </tr>
-
+            
             {% endfor %}
             </tbody>
         </table>
 
         <table class="table my-3">
             <tfoot class="=bg-dark text-light">
-<<<<<<< HEAD
                 <th class="text-end">
-                    <span style="color: black;">Total: {{total | floatformat:2 }}</span>
-                </th>
-=======
-                <th class="text-end"> Total: {{total | floatformat:2 }}</th>
-
->>>>>>> c18348471a0c46f20464128662fc288b10f7442f
+            <span style="color: black;">Total: {{total | floatformat:2 }}</span>
+        </th>
             </tfoot>
         </table>
 
-        <button class="botonguardar" type="submit">Guardar</button>
-        <a class="botoncancelar" class= "botoncancelar:hover"  href="{% url 'Compras' %}">Cancelar</a>
+        <button class="btn btn-primary mb-3" type="submit">Guardar</button>
+        <a class="btn btn-outline-primary mb-3" href="{% url 'Compras' %}">Cancelar</a>
     </form>
 </div>
-</div>
+
 {% endblock %}
