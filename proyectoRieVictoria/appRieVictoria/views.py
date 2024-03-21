@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.db.models import Sum
 from django.views import View
 from datetime import datetime
+from django.contrib import messages
 
 from django.views.generic.list import ListView
 
@@ -534,7 +535,7 @@ class VentasNuevo(CreateView):
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
-
+    
 
 class VentasModif(UpdateView):
     model = Ventas
@@ -550,20 +551,54 @@ class VentasModif(UpdateView):
         print(total)
         context['total'] = total
 
+
+
         if self.request.POST:
             context['formset'] = VentasForm.CustomVentasFormset(self.request.POST, instance=self.object)
         else:
             context['formset'] = VentasForm.CustomVentasFormset(instance=self.object)
+
+
         return context
+
+        
+    # def form_valid(self, form):
+    #     context = self.get_context_data()
+    #     formset = context['formset']
+    #     if formset.is_valid() and form.is_valid():
+    #         formset.save()
+    #         return super().form_valid(form)
+    #     else:
+    #         return self.render_to_response(self.get_context_data(form=form))
+
 
     def form_valid(self, form):
         context = self.get_context_data()
         formset = context['formset']
         if formset.is_valid() and form.is_valid():
+            no_stock = []
+            for form in self.forms:
+                cantidad = form.cleaned_data.get('cantidad')
+                id_articulo = form.cleaned_data.get('idArticulos').id if form.cleaned_data.get('idArticulos') else None
+                
+                print(id_articulo)
+                if id_articulo is not None:
+                    stock = Articulos.objects.get(id=id_articulo)
+                    
+                    if cantidad > stock.cantidad:
+                        no_stock.append(stock.descripcion)
+        
+            if no_stock:
+                messages.error(self.request, f"No hay stock para el siguiente artículo: {', '.join(no_stock)}.")
+                return self.render_to_response(self.get_context_data(form=form, formset=formset))  # Aquí se pasa formset
+        
             formset.save()
             return super().form_valid(form)
         else:
-            return self.render_to_response(self.get_context_data(form=form))
+            return self.render_to_response(self.get_context_data(form=form, formset=formset))  # Aquí se pasa formset
+
+
+
         
 class VentasBorrar(DeleteView):
     model = Ventas

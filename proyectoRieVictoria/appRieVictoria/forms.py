@@ -259,12 +259,10 @@ class VentasForm(forms.ModelForm):
                         form.instance.totalVenta = totalVenta
 
                         articulo = Articulos.objects.get(id=id_articulo)
-
-                        
                         if cantidad > articulo.cantidad:
-                            print(cantidad, articulo.cantidad)
+                           
                             print(ValidationError)
-                            raise ValidationError(f"No hay stock ")
+                            raise ValidationError("No hay stock ")
                         
                         else:  
                             articulo.cantidad -= cantidad
@@ -298,15 +296,7 @@ class VentasForm(forms.ModelForm):
     #     def __init__(self, *args, **kwargs):
     #         super().__init__(*args, **kwargs)
     #         self.articulos_vendidos = set()
-    #     def clean_cantidad(self, articulo, cantidad):
-    #         if cantidad > articulo.cantidad:
-    #             print(ValidationError)
-    #             raise ValidationError("No hay suficiente stock disponible para este artículo.")
-    #         else:
-    #             # Restar del stock la cantidad vendida
-    #             articulo.cantidad -= cantidad
-    #             articulo.save()
-    #             self.articulos_vendidos.add((articulo.id, cantidad))
+        
     #     def clean(self):
     #         cleaned_data = super().clean()
             
@@ -330,7 +320,7 @@ class VentasForm(forms.ModelForm):
 
     #                     articulo = Articulos.objects.get(id=id_articulo)
 
-    #                     self.clean_cantidad(articulo, cantidad)
+                        
                                 
     #             elif form.instance.pk and cantidad is not None:
     #                 initial_cantidad = form.initial.get('cantidad')
