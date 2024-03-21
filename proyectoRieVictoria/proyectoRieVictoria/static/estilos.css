@@ -189,6 +189,7 @@ body {
 
 
 .btn-custom {
+    font-family: "Gotu", sans-serif;
     background-color: #0c0c0c; /* Cambia este color al que desees */
     color: #fff; /* Color del texto */
     border: none; /* Quita el borde si no lo deseas */
@@ -204,6 +205,7 @@ body {
 }
 
 .btn-custom1 {
+    font-family: "Gotu", sans-serif;
     background-color: #ffffff; /* Cambia este color al que desees */
     color: #fff; /* Color del texto */
     border: none; /* Quita el borde si no lo deseas */
@@ -221,7 +223,8 @@ body {
 
 
 .btn-customlupa {
-    background-color: #ffffff;; /* Cambia este color al que desees */
+    font-family: "Gotu", sans-serif;
+    background-color: #dacfdf; /* Cambia este color al que desees */
     color: #000000; /* Color del texto */
     border: 10px; /* Quita el borde si no lo deseas */
     border: 1px solid rgb(199, 199, 199);
@@ -233,7 +236,24 @@ body {
 }
 
 .btn-customlupa:hover {
-    background-color: #a1a0a0; /* Cambia este color al que desees al pasar el ratón */
+    background-color: #dbbdf0; /* Cambia este color al que desees al pasar el ratón */
+}
+
+.btn-customborr{
+    font-family: "Gotu", sans-serif;
+    background-color: #ffffff;; /* Cambia este color al que desees */
+    color: #c00404; /* Color del texto */
+    border: 10px; /* Quita el borde si no lo deseas */
+    border: 1px solid rgb(207, 4, 4);
+    border-radius: 5px; /* Borde redondeado */
+    padding: 10px 10px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de ratón */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.btn-customborr:hover {
+    background-color: #db4848; /* Cambia este color al que desees al pasar el ratón */
 }
 
 .imagen-centrada {
@@ -245,3 +265,42 @@ body {
     display: block;
     margin: 0 auto; /* Esto centra horizontalmente la imagen */
 }
+
+.letra
+{
+    font-family: "Gotu", sans-serif;
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+
+
+
+.botonguardar{
+    font-family: "Gotu", sans-serif;
+    background-color: #dacfdf; /* Cambia este color al que desees */
+    color: #131111; /* Color del texto */
+    border: none;
+    border-radius:3px; /* Borde redondeado */
+    padding: 8px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de ratón */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+
+
+.botoncancelar{
+    font-family: "Gotu", sans-serif;
+    background-color: #ffffff; /* Cambia este color al que desees */
+    color: #070707; /* Color del texto */
+    border: 0.1px solid rgb(0, 0, 0); 
+    border-radius: 3px; /* Borde redondeado */
+    padding: 8px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de ratón */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+.botoncancelar:hover {
+    background-color: #dacfdf; /* Cambia este color al que desees al pasar el ratón */
+}
+

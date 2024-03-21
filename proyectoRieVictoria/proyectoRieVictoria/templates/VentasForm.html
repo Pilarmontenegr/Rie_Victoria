@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
+<div class= "letra">
 <div class="row">
-    <h3 class="display-4 my-3">Venta{{ Ventas.id }}</h3>
+    <h3 class="display-4 my-3" class= "letra" >VENTA{{ Ventas.id }}</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         {{ formset.management_form }}
-        <h6 class="display-6 my-3">Articulos</h6>
+        <h6 class="display-6 my-3">ARTICULOS</h6>
         
         {% if messages %}
         {% for message in messages %}
@@ -69,9 +69,9 @@
             </tfoot>
         </table>
 
-        <button class="btn btn-primary mb-3" type="submit">Guardar</button>
-        <a class="btn btn-outline-primary mb-3" href="{% url 'Ventas' %}">Cancelar</a>
+        <button class="botonguardar" type="submit">Guardar</button>
+        <a class="botoncancelar" href="{% url 'Ventas' %}">Cancelar</a>
     </form>
 </div>
-
+</div>
 {% endblock %}
