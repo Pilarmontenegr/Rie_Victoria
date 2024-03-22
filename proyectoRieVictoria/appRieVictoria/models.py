@@ -100,5 +100,6 @@ class VentaProd(models.Model):
     precioVenta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     totalVenta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
+    
     def __str__(self) -> str:
         return str(self.idVenta)

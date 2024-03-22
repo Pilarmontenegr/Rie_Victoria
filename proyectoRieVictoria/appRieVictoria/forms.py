@@ -264,14 +264,13 @@ class VentasForm(forms.ModelForm):
                         articulo = Articulos.objects.get(id=id_articulo)
 
 
-                        
+                        #ACA SI LA CANTIDAD ES MAYOR AL STOCK
                         if cantidad > articulo.cantidad:
                             print(cantidad)
                             print(articulo.cantidad)
                             self.no_stock.append(articulo)
                             print(self.no_stock)
-                            # print(ValidationError)
-                            # raise ValidationError(("Error 1"), code="error")
+                           
                         if self.no_stock:
                             raise ValidationError("No hay stock")
                         

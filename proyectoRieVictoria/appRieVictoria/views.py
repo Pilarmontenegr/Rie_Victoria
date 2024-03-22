@@ -511,8 +511,6 @@ class VentasNuevo(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        
-
         if self.request.POST:
             context['formset'] = VentasForm.CustomVentasFormset(self.request.POST)
         else:
@@ -524,7 +522,6 @@ class VentasNuevo(CreateView):
         articles_dict = {article.id: article for article in articles}
         context['articles_dict'] = articles_dict
 
-        
 
         return context
 
@@ -555,27 +552,23 @@ class VentasModif(UpdateView):
         print(total)
         context['total'] = total
 
-        
-
-
-
         if self.request.POST:
-            
             context['formset'] = VentasForm.CustomVentasFormset(self.request.POST, instance=self.object)
-            
         else:
             context['formset'] = VentasForm.CustomVentasFormset(instance=self.object)
-
-
         return context
 
         
     def form_valid(self, form):
         context = self.get_context_data()
         formset = context['formset']
+
+        ### ACA EL NO_STOCK
         context['formset'] = formset
         context['no_stock'] = formset.no_stock
         print("Valor de no_stock en form_valid:", context['no_stock']) 
+
+
         if formset.is_valid() and form.is_valid():
             formset.save()
             return super().form_valid(form)
@@ -674,14 +667,9 @@ def VentasPDF(request, pk):
         c.setFont("Times-Roman", 20)  
         c.rect(250, h-90,35,35)
         c.drawString(260, h-75, f"{ventas.tipoFactura}")
+        
     
-    c.setFont("Helvetica-Bold", 12)  
-    c.drawString(50, h - 270, "Cód")
-    c.drawString(80, h - 270, "Descripción")
-    c.drawString(370, h - 270, "Precio")
-    c.drawString(430, h - 270, "Cantidad")
-    c.drawString(490, h - 270, "Importe")
-    c.line(50, h -280, 549, h -280)
+    
 
 
     
@@ -692,18 +680,71 @@ def VentasPDF(request, pk):
         c.setFont("Helvetica", 13) 
 
         c.drawString(50, y_posicion ,f"{ventaProd.idArticulos}")
-        c.drawString( 370, y_posicion,f"${ventaProd.precioVenta}")
-        c.drawString( 450, y_posicion,f"{ventaProd.cantidad}")
 
-        subtotal_producto = ventaProd.precioVenta * ventaProd.cantidad
-        c.drawString(490, y_posicion, f"${subtotal_producto}")
+        if str(ventas.tipoFactura) == 'A':
+            c.setFont("Helvetica-Bold", 12)  
+            c.drawString(50, h - 270, "Cód")
+            c.drawString(80, h - 270, "Descripción")
+            c.drawString(230, h - 270, "Precio")
+            c.drawString(300, h - 270, "IVA")
+            c.drawString(300, y_posicion, "21%")
+            c.drawString(330, h - 270, "Cantidad")
+            c.drawString(390, h - 270, "Subtotal")
+            c.drawString(460, h - 270, "Subtotal con IVA")
+            c.line(50, h -280, 549, h -280)
+
+
+            precio_dividido = float(ventaProd.precioVenta) / 1.21
+            c.drawString(230, y_posicion, f"${precio_dividido:.2f}") 
+            c.drawString( 350, y_posicion,f"{ventaProd.cantidad}")
+
+            subtotal_producto = precio_dividido * ventaProd.cantidad
+            subtotal_producto = round(subtotal_producto, 2)
+            c.drawString(395, y_posicion, f"${subtotal_producto}")
+            
+            subtotal_producto = ventaProd.precioVenta * ventaProd.cantidad
+            c.drawString(480, y_posicion, f"${subtotal_producto}")
+
+
+            c.line(50, h -760, 549, h -760)
+            
+            total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+            total_dividido = float(total) / 1.21
+            total_dividido = round(total_dividido, 2)
+            total_divididoB =  float(total) - total_dividido
+
+        
+            total_divididoB = round(total_divididoB, 2)
+           
+            c.setFont("Helvetica-Bold", 11)
+            c.drawString( 450, h-790,f"IVA ${total_divididoB}")
+            c.setFont("Helvetica-Bold", 15)
+            c.drawString( 450, h-810,f"Total ${total}")
+
+        else:
+            c.setFont("Helvetica-Bold", 12)  
+            c.drawString(50, h - 270, "Cód")
+            c.drawString(80, h - 270, "Descripción")
+            c.drawString(370, h - 270, "Precio")
+            c.drawString(430, h - 270, "Cantidad")
+            c.drawString(490, h - 270, "Importe")
+            c.line(50, h -280, 549, h -280)
+
+
+
+            c.drawString( 370, y_posicion,f"${ventaProd.precioVenta}")
+            c.drawString( 450, y_posicion,f"{ventaProd.cantidad}")
+            subtotal_producto = ventaProd.precioVenta * ventaProd.cantidad
+            c.drawString(490, y_posicion, f"${subtotal_producto}")
+
+            c.line(50, h -760, 549, h -760)
+            c.setFont("Helvetica-Bold", 15)
+            total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
+            c.drawString( 450, h-790,f"Total ${total}")
 
         y_posicion -= 25
     
-    c.line(50, h -760, 549, h -760)
-    c.setFont("Helvetica-Bold", 15)
-    total = ventasProd.aggregate(Sum('totalVenta'))['totalVenta__sum'] or 0
-    c.drawString( 450, h-790,f"Total ${total}")
+    
 
     c.drawText(textobj)
     c.showPage()
